@@ -16,7 +16,8 @@ export class MedicsComponent implements OnInit {
   constructor(private medicsServ: MedicsService) { }
 
   ngOnInit(){
-    this.getData();
+    this.metod();
+    // this.getData();
     // this.testData = this.medicsServ.getMedics();
   }
 
@@ -30,4 +31,13 @@ export class MedicsComponent implements OnInit {
     } catch (error) {}
   }
 
+  metod() {
+    this.medicsServ.getMedicos().subscribe(
+      res => {
+        this.data = res;
+        console.log(this.data);
+      },
+      err => console.log(err)
+    );
+  }
 }

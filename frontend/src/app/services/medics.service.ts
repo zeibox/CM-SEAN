@@ -29,22 +29,22 @@ export class MedicsService {
   }
 
   getOneMedico(id) {
-    return this.http.get(`${ environment.url }/medico/${ id }`)
+    return this.http.get(`${ environment.url }/medicos/${ id }`)
       .pipe(map(this.extractData));
   }
 
   putMedico(id, body) {
-    return this.http.put(`${ environment.url }/medico/${ id }`, body)
+    return this.http.put(`${ environment.url }/medicos/${ id }`, body)
       .pipe(map(this.extractData));
   }
 
   postMedico(body) {
-    return this.http.post(`${ environment.url }/medico`, body)
+    return this.http.post(`${ environment.url }/medicos`, body)
       .pipe(map(this.extractData));
   }
 
   delMedico(id) {
-    return this.http.delete(`${ environment.url }/medico/${ id }`)
+    return this.http.delete(`${ environment.url }/medicos/${ id }`)
       .pipe(map(this.extractData));
   }
 
