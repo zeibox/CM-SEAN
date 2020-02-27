@@ -1,0 +1,52 @@
+[{
+        "imagen": "https://lh4.googleusercontent.com/proxy/-V7-JyRQ3lpiI6yG_b6xKD5ZmYC5BVU0MOzu8ND-GwAna8WkLbTLCoAYP-_U2rCRBEBg-eP5Dlz4G43W_8G_y_l4qwRhoSb9MoOV6g2XFIBpWiGKAE1gzp0xkeWsYDFtfDHtRVNETn17Kpx8zfR1Ms5onHED2uZBHIgEaPCuKHxNHoIPag",
+        "nombre": "Juan",
+        "apellido": "Perez",
+        "especialidad": ["Cardiología"],
+        "obraSocial": ["Sanidad", "Osde", "Swiss Medical"],
+        "jerarquía": "3",
+        "celular": "11-5544-3322",
+        "documento": "27.338.112",
+        "email": "juan.perez@gmail.com",
+        "domicilio": {
+            "calle": "Jose Marmol",
+            "altura": "775",
+            "timbre": "3ro",
+            "ciudad": "CABA"
+        }
+    },
+    {
+        "imagen": "https://pbs.twimg.com/profile_images/378800000858667155/o484kbU1.jpeg",
+        "nombre": "Pedro",
+        "apellido": "Rosamonte",
+        "especialidad": ["Traumatología"],
+        "obraSocial": ["Sanidad"],
+        "jerarquía": "3",
+        "celular": "11-3434-2365",
+        "documento": "23.369.045",
+        "email": "pedro.rosa@gmail.com",
+        "domicilio": {
+            "calle": "Av. Cordoba",
+            "altura": "4300",
+            "timbre": "1ro b",
+            "ciudad": "CABA"
+        }
+    },
+    {
+        "imagen": "https://pbs.twimg.com/profile_images/628106473982267392/y-fUWRhm_400x400.jpg",
+        "nombre": "Gustavo",
+        "apellido": "Bondi",
+        "especialidad": ["Kinesiología"],
+        "obraSocial": ["Swiss Medical"],
+        "jerarquía": "3",
+        "celular": "11-3561-5379",
+        "documento": "24.321.874",
+        "email": "gustavo.bondi@gmail.com",
+        "domicilio": {
+            "calle": "Pedro Goyena",
+            "altura": "300",
+            "timbre": "5to C",
+            "ciudad": "CABA"
+        }
+    }
+]
