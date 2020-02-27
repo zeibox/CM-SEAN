@@ -1,0 +1,33 @@
+<mat-sidenav-container>
+    <mat-sidenav [(opened)]="opened" mode="side">
+        <div class="text-center menu">
+            <h1>Curae</h1>
+        </div>
+        <div class="container mx-0 px-0 py-2">
+            <div class="row justify-content-center mx-0">
+                <button type="button" [routerLink]="['panel/consultorios']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Consultorios</button>
+                <hr>
+                <button type="button" [routerLink]="['panel/medics']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Medicos</button>
+                <button type="button" [routerLink]="['panel/medics']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Pacientes</button>
+                <button type="button" [routerLink]="['panel/medics']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Areas</button>
+                <!-- <button type="button" [routerLink]="['/output']" class="btn btn-secondary col-12 m-2">OUTPUT</button>
+                <button type="button" [routerLink]="['/table']" class="btn btn-secondary col-12 m-2">TABLE</button>
+                <button type="button" [routerLink]="['/request']" class="btn btn-secondary col-12 m-2">REQUEST</button> -->
+                <!-- <button type="button" (click)="opened=!opened" class="btn btn-dark col-12 m-5">HIDE</button> -->
+            </div>
+        </div>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+
+        <div style="height: 49px; background: #6c757d">
+            <button type="button" class="btn fixed" (click)="opened=!opened">
+            <i class="fas fa-bars fa-2x"></i>
+        </button>
+        </div>
+
+        <router-outlet></router-outlet>
+
+    </mat-sidenav-content>
+
+</mat-sidenav-container>
