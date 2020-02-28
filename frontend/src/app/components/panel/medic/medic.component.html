@@ -5,22 +5,22 @@
         <span class="text-center" *ngIf="!this.idN"><h2>Agregar Medico</h2></span>
         <div class="row justify-content-center">
             <form [formGroup]="message" (ngSubmit)="this.idN?onSubmitId():onSubmit()" class="col-sm-8">
-                <div class="form-row" formGroupName="consultorios">
+                <div class="form-row" formGroupName="medicos">
                     <div class="form-group col-md-6 ">
-                        <label>ID</label>
-                        <input type="text " class="form-control rounded border border-secondary " formControlName="id" placeholder="Id">
+                        <label>Nombres</label>
+                        <input type="text " class="form-control rounded border border-secondary " formControlName="nombres" placeholder="Nombres">
                     </div>
                     <div class="form-group col-md-6 ">
-                        <label>Nombre</label>
-                        <input type="text " class="form-control rounded border border-secondary " formControlName="area" placeholder="Area">
+                        <label>Apellidos</label>
+                        <input type="text " class="form-control rounded border border-secondary " formControlName="apellido" placeholder="Apellido">
                     </div>
                     <div class="form-group col-md-6 ">
-                        <label>Piso</label>
-                        <input type="text " class="form-control rounded border border-secondary " formControlName="piso" placeholder="Piso">
+                        <label>Celular</label>
+                        <input type="text " class="form-control rounded border border-secondary " formControlName="celular" placeholder="Celular">
                     </div>
                     <div class="form-group col-md-6 ">
-                        <label>Numero</label>
-                        <input type="text " class="form-control rounded border border-secondary " formControlName="numero" placeholder="Numero">
+                        <label>Email</label>
+                        <input type="text " class="form-control rounded border border-secondary " formControlName="email" placeholder="Email">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success rounded enviarBtn" *ngIf="this.idN">Actualizar</button>
@@ -28,6 +28,7 @@
                 <button type="submit" class="btn btn-success rounded enviarBtn" *ngIf="!this.idN">Agregar</button>
             </form>
         </div>
+
         <div class="row justify-content-center">
             <div class="col-sm-8 pt-2 pb-5">
                 <button (click)="deleteCons()" class="btn btn-danger rounded enviarBtn" *ngIf="this.idN">Eliminar</button>
