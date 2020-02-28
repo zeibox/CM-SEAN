@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../routes/database"));
 class UsersController {
     async list(req, res) {
-        const dato = await database_1.default.query('SELECT * FROM users');
+        const dato = await database_1.default.query('SELECT * FROM v_users');
         res.json(dato);
     }
     async getOne(req, res) {
         const { id } = req.params;
-        const dato = await database_1.default.query('SELECT * FROM users WHERE id_user = ?', [id]);
+        const dato = await database_1.default.query('SELECT * FROM v_users WHERE id_user = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -29,7 +29,7 @@ class UsersController {
     }
     async delete(req, res) {
         const { id } = req.params;
-        await database_1.default.query('DELETE FROM users WHERE id_user = ?', [id]);
+        await database_1.default.query('DELETE FROM v_users WHERE id_user = ?', [id]);
         res.json({ message: "El Usuario fue eliminado" });
     }
 }

@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../routes/database"));
 class GenerosController {
     async list(req, res) {
-        const dato = await database_1.default.query('SELECT * FROM generos');
+        const dato = await database_1.default.query('SELECT * FROM v_generos');
         res.json(dato);
     }
     async getOne(req, res) {
         const { id } = req.params;
-        const dato = await database_1.default.query('SELECT * FROM generos WHERE id_genero = ?', [id]);
+        const dato = await database_1.default.query('SELECT * FROM v_generos WHERE id_genero = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -29,7 +29,7 @@ class GenerosController {
     }
     async delete(req, res) {
         const { id } = req.params;
-        await database_1.default.query('DELETE FROM generos WHERE id_genero = ?', [id]);
+        await database_1.default.query('DELETE FROM v_generos WHERE id_genero = ?', [id]);
         res.json({ message: "El Género fue eliminado" });
     }
 }

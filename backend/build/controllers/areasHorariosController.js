@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../routes/database"));
 class AreasHorariosController {
     async list(req, res) {
-        const dato = await database_1.default.query('SELECT * FROM areas_horarios');
+        const dato = await database_1.default.query('SELECT * FROM v_areas_horarios');
         res.json(dato);
     }
     async getOne(req, res) {
         const { id } = req.params;
-        const dato = await database_1.default.query('SELECT * FROM areas_horarios WHERE id_area = ?', [id]);
+        const dato = await database_1.default.query('SELECT * FROM v_areas_horarios WHERE id_area = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -29,7 +29,7 @@ class AreasHorariosController {
     }
     async delete(req, res) {
         const { id } = req.params;
-        await database_1.default.query('DELETE FROM areas_horarios WHERE id_area = ?', [id]);
+        await database_1.default.query('DELETE FROM v_areas_horarios WHERE id_area = ?', [id]);
         res.json({ message: "Horario eliminado" });
     }
 }

@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../routes/database"));
 class JerarquiasController {
     async list(req, res) {
-        const dato = await database_1.default.query('SELECT * FROM jerarquias');
+        const dato = await database_1.default.query('SELECT * FROM v_jerarquias');
         res.json(dato);
     }
     async getOne(req, res) {
         const { id } = req.params;
-        const dato = await database_1.default.query('SELECT * FROM jerarquias WHERE id_jerarquia = ?', [id]);
+        const dato = await database_1.default.query('SELECT * FROM v_jerarquias WHERE id_jerarquia = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -29,7 +29,7 @@ class JerarquiasController {
     }
     async delete(req, res) {
         const { id } = req.params;
-        await database_1.default.query('DELETE FROM jerarquias WHERE id_jerarquia = ?', [id]);
+        await database_1.default.query('DELETE FROM v_jerarquias WHERE id_jerarquia = ?', [id]);
         res.json({ message: "Jerarquía eliminada" });
     }
 }

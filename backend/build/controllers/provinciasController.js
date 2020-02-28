@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../routes/database"));
 class ProvinciasController {
     async list(req, res) {
-        const dato = await database_1.default.query('SELECT * FROM provincias');
+        const dato = await database_1.default.query('SELECT * FROM v_provincias');
         res.json(dato);
     }
     async getOne(req, res) {
         const { id } = req.params;
-        const dato = await database_1.default.query('SELECT * FROM provincias WHERE id_provincia = ?', [id]);
+        const dato = await database_1.default.query('SELECT * FROM v_provincias WHERE id_provincia = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -29,7 +29,7 @@ class ProvinciasController {
     }
     async delete(req, res) {
         const { id } = req.params;
-        await database_1.default.query('DELETE FROM provincias WHERE id_provincia = ?', [id]);
+        await database_1.default.query('DELETE FROM v_provincias WHERE id_provincia = ?', [id]);
         res.json({ message: "Provincia eliminada" });
     }
 }

@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../routes/database"));
 class MedicosDomiciliosController {
     async list(req, res) {
-        const dato = await database_1.default.query('SELECT * FROM medicos_domicilios');
+        const dato = await database_1.default.query('SELECT * FROM v_medicos_domicilios');
         res.json(dato);
     }
     async getOne(req, res) {
         const { id } = req.params;
-        const dato = await database_1.default.query('SELECT * FROM medicos_domicilios WHERE id_medico = ?', [id]);
+        const dato = await database_1.default.query('SELECT * FROM v_medicos_domicilios WHERE id_medico = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato);
         }
@@ -31,7 +31,7 @@ class MedicosDomiciliosController {
     async delete(req, res) {
         const { id } = req.params;
         const { dom } = req.params;
-        await database_1.default.query('DELETE FROM medicos_domicilios WHERE id_medico = ? and id_dom = ?', [id, dom]);
+        await database_1.default.query('DELETE FROM v_medicos_domicilios WHERE id_medico = ? and id_dom = ?', [id, dom]);
         res.json({ message: "El domicilio fue eliminado" });
     }
 }
