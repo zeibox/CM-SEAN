@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../routes/database"));
 class ObrasSocialesController {
     async list(req, res) {
-        const dato = await database_1.default.query('SELECT * FROM obras_sociales');
+        const dato = await database_1.default.query('SELECT * FROM v_obras_sociales');
         res.json(dato);
     }
     async getOne(req, res) {
         const { id } = req.params;
-        const dato = await database_1.default.query('SELECT * FROM obras_sociales WHERE id_obra_social = ?', [id]);
+        const dato = await database_1.default.query('SELECT * FROM v_obras_sociales WHERE id_obra_social = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -29,7 +29,7 @@ class ObrasSocialesController {
     }
     async delete(req, res) {
         const { id } = req.params;
-        await database_1.default.query('DELETE FROM obras_sociales WHERE id_obra_social = ?', [id]);
+        await database_1.default.query('DELETE FROM v_obras_sociales WHERE id_obra_social = ?', [id]);
         res.json({ message: "La Obras Social o Prepaga fue eliminada" });
     }
 }

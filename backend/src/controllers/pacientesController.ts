@@ -4,13 +4,13 @@ import bd from '../routes/database';
 class PacientesController {
 
     public async list(req: Request, res: Response): Promise<void> {
-        const dato = await bd.query('SELECT * FROM pacientes');
+        const dato = await bd.query('SELECT * FROM v_pacientes');
         res.json(dato);
     }
 
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const dato = await bd.query('SELECT * FROM pacientes WHERE id_paciente = ?', [id]);
+        const dato = await bd.query('SELECT * FROM v_pacientes WHERE id_paciente = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -31,7 +31,7 @@ class PacientesController {
 
     public async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        await bd.query('DELETE FROM pacientes WHERE id_paciente = ?', [id]);
+        await bd.query('DELETE FROM v_pacientes WHERE id_paciente = ?', [id]);
         res.json({ message: "El Paciente fue eliminado" });
     }
 
