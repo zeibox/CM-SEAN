@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RestService } from '../../../services/rest.service';
+import { ConsultorioService } from '../../../services/consultorio.service';
 
 @Component({
   selector: 'app-consultorio',
@@ -22,7 +22,7 @@ export class ConsultorioComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private restServ: RestService,
+    private consultorioServ: ConsultorioService,
     private router: Router
   ) {}
 
@@ -72,7 +72,7 @@ export class ConsultorioComponent implements OnInit {
 // CRUD METHODS------------------------------------------------------------
   async getOne(id) {
     try {
-      this.data = await this.restServ
+      this.data = await this.consultorioServ
       .getOneConsultorio(id)
       .toPromise();
       this.data =  this.data.consultorios[0];
@@ -93,7 +93,7 @@ export class ConsultorioComponent implements OnInit {
 
   async putData(body) {
     try {
-      this.data = await this.restServ
+      this.data = await this.consultorioServ
       .putConsultorio(this.idN, body)
       .toPromise();
 
@@ -111,7 +111,7 @@ export class ConsultorioComponent implements OnInit {
 
   async postData(body) {
     try {
-      this.data = await this.restServ
+      this.data = await this.consultorioServ
       .postConsultorio(body)
       .toPromise();
 
@@ -129,7 +129,7 @@ export class ConsultorioComponent implements OnInit {
 
   async delData() {
     try {
-      this.data = await this.restServ
+      this.data = await this.consultorioServ
       .delConsultorio(this.idN)
       .toPromise();
 
