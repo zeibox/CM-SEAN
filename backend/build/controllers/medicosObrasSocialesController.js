@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../routes/database"));
 class MedicosObrasSocialesController {
     async list(req, res) {
-        const dato = await database_1.default.query('SELECT * FROM medicos_obras_sociales');
+        const dato = await database_1.default.query('SELECT * FROM v_medicos_obras_sociales');
         res.json(dato);
     }
     async getOne(req, res) {
         const { id } = req.params;
-        const dato = await database_1.default.query('SELECT * FROM medicos_obras_sociales WHERE id_medico = ?', [id]);
+        const dato = await database_1.default.query('SELECT * FROM v_medicos_obras_sociales WHERE id_medico = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato);
         }
@@ -31,7 +31,7 @@ class MedicosObrasSocialesController {
     async delete(req, res) {
         const { id } = req.params;
         const { obra_social } = req.params;
-        await database_1.default.query('DELETE FROM medicos_obras_sociales WHERE id_medico = ? and id_obras_social = ?', [id, obra_social]);
+        await database_1.default.query('DELETE FROM v_medicos_obras_sociales WHERE id_medico = ? and id_obras_social = ?', [id, obra_social]);
         res.json({ message: "Obra Social o Prepaga eliminada" });
     }
 }

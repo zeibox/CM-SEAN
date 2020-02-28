@@ -4,13 +4,13 @@ import bd from '../routes/database';
 class ObrasSocialesController {
 
     public async list(req: Request, res: Response): Promise<void> {
-        const dato = await bd.query('SELECT * FROM obras_sociales');
+        const dato = await bd.query('SELECT * FROM v_obras_sociales');
         res.json(dato);
     }
 
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const dato = await bd.query('SELECT * FROM obras_sociales WHERE id_obra_social = ?', [id]);
+        const dato = await bd.query('SELECT * FROM v_obras_sociales WHERE id_obra_social = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -31,7 +31,7 @@ class ObrasSocialesController {
 
     public async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        await bd.query('DELETE FROM obras_sociales WHERE id_obra_social = ?', [id]);
+        await bd.query('DELETE FROM v_obras_sociales WHERE id_obra_social = ?', [id]);
         res.json({ message: "La Obras Social o Prepaga fue eliminada" });
     }
 

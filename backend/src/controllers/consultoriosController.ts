@@ -4,13 +4,13 @@ import bd from '../routes/database';
 class ConsultoriosController {
 
     public async list(req: Request, res: Response): Promise<void> {
-        const dato = await bd.query('SELECT * FROM consultorios');
+        const dato = await bd.query('SELECT * FROM v_consultorios');
         res.json(dato);
     }
 
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const dato = await bd.query('SELECT * FROM consultorios WHERE id_consultorio = ?', [id]);
+        const dato = await bd.query('SELECT * FROM v_consultorios WHERE id_consultorio = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -31,7 +31,7 @@ class ConsultoriosController {
 
     public async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        await bd.query('DELETE FROM consultorios WHERE id_consultorio = ?', [id]);
+        await bd.query('DELETE FROM v_consultorios WHERE id_consultorio = ?', [id]);
         res.json({ message: "El Consultorio fue eliminado" });
     }
 

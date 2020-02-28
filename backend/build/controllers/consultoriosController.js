@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../routes/database"));
 class ConsultoriosController {
     async list(req, res) {
-        const dato = await database_1.default.query('SELECT * FROM consultorios');
+        const dato = await database_1.default.query('SELECT * FROM v_consultorios');
         res.json(dato);
     }
     async getOne(req, res) {
         const { id } = req.params;
-        const dato = await database_1.default.query('SELECT * FROM consultorios WHERE id_consultorio = ?', [id]);
+        const dato = await database_1.default.query('SELECT * FROM v_consultorios WHERE id_consultorio = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -29,7 +29,7 @@ class ConsultoriosController {
     }
     async delete(req, res) {
         const { id } = req.params;
-        await database_1.default.query('DELETE FROM consultorios WHERE id_consultorio = ?', [id]);
+        await database_1.default.query('DELETE FROM v_consultorios WHERE id_consultorio = ?', [id]);
         res.json({ message: "El Consultorio fue eliminado" });
     }
 }

@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../routes/database"));
 class PaisesController {
     async list(req, res) {
-        const dato = await database_1.default.query('SELECT * FROM paises');
+        const dato = await database_1.default.query('SELECT * FROM v_paises');
         res.json(dato);
     }
     async getOne(req, res) {
         const { id } = req.params;
-        const dato = await database_1.default.query('SELECT * FROM paises WHERE id_pais = ?', [id]);
+        const dato = await database_1.default.query('SELECT * FROM v_paises WHERE id_pais = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -29,7 +29,7 @@ class PaisesController {
     }
     async delete(req, res) {
         const { id } = req.params;
-        await database_1.default.query('DELETE FROM paises WHERE id_pais = ?', [id]);
+        await database_1.default.query('DELETE FROM v_paises WHERE id_pais = ?', [id]);
         res.json({ message: "El País fue eliminado" });
     }
 }

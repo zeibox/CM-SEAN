@@ -4,13 +4,13 @@ import bd from '../routes/database';
 class MedicosDomiciliosController {
 
     public async list(req: Request, res: Response): Promise<void> {
-        const dato = await bd.query('SELECT * FROM medicos_domicilios');
+        const dato = await bd.query('SELECT * FROM v_medicos_domicilios');
         res.json(dato);
     }
 
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const dato = await bd.query('SELECT * FROM medicos_domicilios WHERE id_medico = ?', [id]);
+        const dato = await bd.query('SELECT * FROM v_medicos_domicilios WHERE id_medico = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato);
         }
@@ -33,7 +33,7 @@ class MedicosDomiciliosController {
     public async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
         const { dom } = req.params;
-        await bd.query('DELETE FROM medicos_domicilios WHERE id_medico = ? and id_dom = ?', [id, dom]);
+        await bd.query('DELETE FROM v_medicos_domicilios WHERE id_medico = ? and id_dom = ?', [id, dom]);
         res.json({ message: "El domicilio fue eliminado" });
     }
 

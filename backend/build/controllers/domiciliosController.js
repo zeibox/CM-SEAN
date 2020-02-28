@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../routes/database"));
 class DomiciliosController {
     async list(req, res) {
-        const dato = await database_1.default.query('SELECT * FROM domicilios');
+        const dato = await database_1.default.query('SELECT * FROM v_domicilios');
         res.json(dato);
     }
     async getOne(req, res) {
         const { id } = req.params;
-        const dato = await database_1.default.query('SELECT * FROM domicilios WHERE id_dom = ?', [id]);
+        const dato = await database_1.default.query('SELECT * FROM v_domicilios WHERE id_dom = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -29,7 +29,7 @@ class DomiciliosController {
     }
     async delete(req, res) {
         const { id } = req.params;
-        await database_1.default.query('DELETE FROM domicilios WHERE id_dom = ?', [id]);
+        await database_1.default.query('DELETE FROM v_domicilios WHERE id_dom = ?', [id]);
         res.json({ message: "El Domicilio fue eliminado" });
     }
 }

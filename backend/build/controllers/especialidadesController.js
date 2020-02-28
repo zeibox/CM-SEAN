@@ -6,12 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../routes/database"));
 class EspecialidadesController {
     async list(req, res) {
-        const dato = await database_1.default.query('SELECT * FROM especialidades');
+        const dato = await database_1.default.query('SELECT * FROM v_especialidades');
         res.json(dato);
     }
     async getOne(req, res) {
         const { id } = req.params;
-        const dato = await database_1.default.query('SELECT * FROM especialidades WHERE id_especialidad = ?', [id]);
+        const dato = await database_1.default.query('SELECT * FROM v_especialidades WHERE id_especialidad = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -29,7 +29,7 @@ class EspecialidadesController {
     }
     async delete(req, res) {
         const { id } = req.params;
-        await database_1.default.query('DELETE FROM especialidades WHERE id_especialidad = ?', [id]);
+        await database_1.default.query('DELETE FROM v_especialidades WHERE id_especialidad = ?', [id]);
         res.json({ message: "La Especialidad fue eliminada" });
     }
 }
