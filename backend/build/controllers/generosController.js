@@ -17,9 +17,14 @@ class GenerosController {
         }
         res.status(404).json({ text: "El Género no existe" });
     }
-    async create(req, res) {
-        const result = await database_1.default.query('INSERT INTO generos set ?', [req.body]);
-        res.json({ message: 'Género Registrado' });
+    async create(req, res, err) {
+        try {
+            const result = await database_1.default.query('INSERT INTO generos set ?', [req.body]);
+            res.json({ message: 'Género Registrado' });
+        }
+        catch (err) {
+            res.json({ error: err.sqlMessage });
+        }
     }
     async update(req, res) {
         const { id } = req.params;

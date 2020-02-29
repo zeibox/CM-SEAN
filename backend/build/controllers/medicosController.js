@@ -17,9 +17,14 @@ class MedicosController {
         }
         res.status(404).json({ text: "El Médico no existe" });
     }
-    async create(req, res) {
-        const result = await database_1.default.query('INSERT INTO medicos set ?', [req.body]);
-        res.json({ message: 'Médico Registrado' });
+    async create(req, res, err) {
+        try {
+            const result = await database_1.default.query('INSERT INTO medicos set ?', [req.body]);
+            res.json({ message: 'Médico Registrado' });
+        }
+        catch (err) {
+            res.json({ error: err.sqlMessage });
+        }
     }
     async update(req, res) {
         const { id } = req.params;
