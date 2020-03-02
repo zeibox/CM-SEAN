@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultorioService } from '../../../services/consultorio.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-consultorio',
@@ -17,6 +18,7 @@ export class ConsultorioComponent implements OnInit {
   delete: boolean;
   add: boolean;
   errors: string;
+  datePipe = new DatePipe('en-US');
 
 
   constructor(
@@ -34,6 +36,7 @@ export class ConsultorioComponent implements OnInit {
       this.message = this.fb.group({
         consultorios: this.fb.group({
           id: [{value: '', disabled: true}],
+          fecha: [{value: '', disabled: true}],
           area: ['', Validators.required],
           piso: ['', Validators.required],
           numero: ['', Validators.required]
@@ -45,7 +48,8 @@ export class ConsultorioComponent implements OnInit {
 
       this.message = this.fb.group({
         consultorios: this.fb.group({
-          id: [{value: '', disabled: true}],
+          id: '',
+          fecha: [{value: '', disabled: true}],
           area: '',
           piso: '',
           numero: '',
@@ -70,43 +74,41 @@ export class ConsultorioComponent implements OnInit {
 
 
 // CRUD METHODS------------------------------------------------------------
-  async getOne(id) {
-    try {
-      this.data = await this.consultorioServ
-      .getOneConsultorio(id)
-      .toPromise();
-      this.data =  this.data.consultorios[0];
 
-      this.message = this.fb.group({
-        consultorios: this.fb.group({
-          id: [{value: this.data._id, disabled: true}],
-          area: this.data.area,
+  getOne(id) {
+
+    this.consultorioServ.getOneConsultorio(id).subscribe(
+      res => {
+        this.data = res;
+        console.log(this.data);
+
+        this.message = this.fb.group({
+          consultorios: this.fb.group({
+          id: [{value: this.data.id_consultorio, disabled: true}],
+          fecha: [{value: this.datePipe.transform(this.data.creado_en), disabled: true}],
+          area: this.data.id_area,
           piso: this.data.piso,
           numero: this.data.numero,
         }),
       }, { updateOn: 'blur' });  // updateOn cambia la frecuencia en que se validan los inputs
-
-    } catch (err) {
-      this.errors = err.error.errors.message;
-    }
+    },
+      err => this.errors = err.error.text
+    );
   }
 
-  async putData(body) {
-    try {
-      this.data = await this.consultorioServ
-      .putConsultorio(this.idN, body)
-      .toPromise();
-
-      this.errors = null;
-      this.edit = true;
-      setTimeout(() => {
-        this.edit = false;
-        this.router.navigate(['panel/consultorios']);
-      }, 2000);
-
-    } catch (err) {
-      this.errors = err.error.errors.message;
-    }
+  putData(body) {
+    this.consultorioServ.putConsultorio(this.idN, body).subscribe(
+      res => {
+        // this.data = res;
+        this.errors = null;
+        this.edit = true;
+        setTimeout(() => {
+          this.edit = false;
+          this.router.navigate(['panel/consultorios']);
+        }, 2000);
+      },
+      err => this.errors = err
+    );
   }
 
   async postData(body) {

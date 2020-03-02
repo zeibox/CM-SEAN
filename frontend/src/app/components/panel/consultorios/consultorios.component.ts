@@ -14,21 +14,20 @@ export class ConsultoriosComponent implements OnInit {
   constructor(private consultorioServ: ConsultorioService) { }
 
   ngOnInit() {
-    this.getData();
+    this.getConsultorios();
   }
 
   getInputValue() {
   }
 
-  async getData() {
-    try {
-      this.data = await this.consultorioServ
-      .getConsultorios()
-      .toPromise();
-      this.data = this.data.consultorios;
-      console.log(this.data);
-
-    } catch (error) {}
+  getConsultorios() {
+    this.consultorioServ.getConsultorios().subscribe(
+      res => {
+        this.data = res;
+        console.log(this.data);
+      },
+      err => console.log(err)
+    );
   }
 
 

@@ -3,12 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 // import { environment } from '../../environments/environment.prod';
 import { environment } from '../../environments/environment';
-import { Medics } from '../interfaces/medics';
+import { Medicos } from '../interfaces/medicos';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MedicsService {
+export class MedicosService {
 
   private httpOptionsGeneral = {
     headers: new HttpHeaders({
@@ -49,6 +49,6 @@ export class MedicsService {
   }
 
   getMedics() {
-    return this.http.get <Medics[]> ('/assets/jsonFiles/medics.json');
+    return this.http.get <Medicos[]> ('/assets/jsonFiles/medics.json');
   }
 }

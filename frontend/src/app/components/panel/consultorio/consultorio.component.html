@@ -11,16 +11,20 @@
                         <input type="text " class="form-control rounded border border-secondary " formControlName="id" placeholder="Id">
                     </div>
                     <div class="form-group col-md-6 ">
+                        <label>Fecha</label>
+                        <input type="text " class="form-control rounded border border-secondary " formControlName="fecha" placeholder="Fecha">
+                    </div>
+                    <div class="form-group col-md-6 ">
                         <label>Nombre</label>
-                        <input type="text " class="form-control rounded border border-secondary " formControlName="area" placeholder="Area">
+                        <input type="text" class="form-control rounded border border-secondary " formControlName="area" placeholder="Area">
                     </div>
                     <div class="form-group col-md-6 ">
                         <label>Piso</label>
-                        <input type="text " class="form-control rounded border border-secondary " formControlName="piso" placeholder="Piso">
+                        <input type="number" class="form-control rounded border border-secondary " formControlName="piso" placeholder="Piso">
                     </div>
                     <div class="form-group col-md-6 ">
                         <label>Numero</label>
-                        <input type="text " class="form-control rounded border border-secondary " formControlName="numero" placeholder="Numero">
+                        <input type="number" class="form-control rounded border border-secondary " formControlName="numero" placeholder="Numero">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success rounded enviarBtn" *ngIf="this.idN">Actualizar</button>

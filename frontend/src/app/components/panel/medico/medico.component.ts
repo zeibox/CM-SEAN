@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MedicsService } from 'src/app/services/medics.service';
+import { MedicosService } from 'src/app/services/medicos.service';
 
 @Component({
   selector: 'app-medic',
-  templateUrl: './medic.component.html',
-  styleUrls: ['./medic.component.css']
+  templateUrl: './medico.component.html',
+  styleUrls: ['./medico.component.css']
 })
-export class MedicComponent implements OnInit {
+export class MedicoComponent implements OnInit {
 
   message: FormGroup;
   idN: any;
@@ -22,7 +22,7 @@ export class MedicComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private medicsServ: MedicsService,
+    private medicsServ: MedicosService,
     private router: Router
   ) {}
 
@@ -72,7 +72,7 @@ export class MedicComponent implements OnInit {
 
 // CRUD METHODS------------------------------------------------------------
   getOne(id) {
-    
+
     this.medicsServ.getOneMedico(id).subscribe(
       res => {
         this.data = res;
@@ -86,7 +86,7 @@ export class MedicComponent implements OnInit {
           email: this.data.email,
         }),
       }, { updateOn: 'blur' });  // updateOn cambia la frecuencia en que se validan los inputs
-      
+
       },
       err => this.errors = err.error.text
     );
