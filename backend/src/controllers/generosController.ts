@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import bd from '../routes/database';
-import { try } from 'bluebird';
 
 class GenerosController {
 

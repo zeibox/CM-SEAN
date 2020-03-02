@@ -17,7 +17,7 @@
                 <tr class="pointer" [routerLink]="['/panel/consultorio', item.id_consultorio]">
                     <!-- <tr (click)="getInputValue()"> -->
                     <th scope="row">{{ item.id_consultorio }}</th>
-                    <td>{{ item.id_area }}</td>
+                    <td>{{ item.nombre }}</td>
                     <td>{{ item.piso }}</td>
                     <td>{{ item.numero }}</td>
                     <td>{{ item.creado_en | date }}</td>

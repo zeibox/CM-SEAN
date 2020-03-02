@@ -1,0 +1,24 @@
+<div class="col-12 my-2">
+    <button class="btn btn-sm btn-info" (click)="addArea()"><i class="far fa-address-card"></i>  Agregar Area</button>
+    <input class="mr-sm-2 ml-3" type="text" placeholder="Buscar area" (keyup.enter)="buscarAreas(buscarTexto.value)" #buscarTexto>
+</div>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Area</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let area of areas">
+            <td>{{area.nombre}}</td>
+            <td> <a href="" class="btn btn-info btn-sm" [routerLink]="['/areas/edit', area.id_area]">Editar Area</a></td>
+            <td>
+                <button class="btn btn-danger">
+                    <i class="far fa-trash-alt" (click)="deleteArea(area.id_area)"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

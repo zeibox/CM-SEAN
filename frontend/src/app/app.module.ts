@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/panel/home/home.component';
 import { MedicoComponent } from './components/panel/medico/medico.component';
 import { MedicosComponent } from './components/panel/medicos/medicos.component';
+import { AreasComponent } from './components/panel/areas/areas.component';
+import { AreaComponent } from './components/panel/area/area.component';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { MedicosComponent } from './components/panel/medicos/medicos.component';
     FilterPipe,
     HomeComponent,
     MedicoComponent,
-    MedicosComponent
+    MedicosComponent,
+    AreasComponent,
+    AreaComponent
   ],
   imports: [
     BrowserModule,
