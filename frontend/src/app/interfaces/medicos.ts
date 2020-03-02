@@ -1,4 +1,4 @@
-export interface Medics {
+export interface Medicos {
     imagen: string;
     nombre: string;
     apellido: string;

@@ -12,8 +12,8 @@ import { ConsultorioComponent } from './components/panel/consultorio/consultorio
 import { FilterPipe } from './pipes/filter.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/panel/home/home.component';
-import { MedicComponent } from './components/panel/medic/medic.component';
-import { MedicsComponent } from './components/panel/medics/medics.component';
+import { MedicoComponent } from './components/panel/medico/medico.component';
+import { MedicosComponent } from './components/panel/medicos/medicos.component';
 
 
 @NgModule({
@@ -24,8 +24,8 @@ import { MedicsComponent } from './components/panel/medics/medics.component';
     ConsultorioComponent,
     FilterPipe,
     HomeComponent,
-    MedicComponent,
-    MedicsComponent
+    MedicoComponent,
+    MedicosComponent
   ],
   imports: [
     BrowserModule,

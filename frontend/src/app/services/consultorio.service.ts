@@ -23,27 +23,27 @@ export class ConsultorioService {
   constructor(private http: HttpClient) { }
 
   getConsultorios() {
-    return this.http.get(`${ environment.url }/consultorio`)
+    return this.http.get(`${ environment.url }/consultorios`)
       .pipe(map(this.extractData));
   }
 
   getOneConsultorio(id) {
-    return this.http.get(`${ environment.url }/consultorio/${ id }`)
+    return this.http.get(`${ environment.url }/consultorios/${ id }`)
       .pipe(map(this.extractData));
   }
 
   putConsultorio(id, body) {
-    return this.http.put(`${ environment.url }/consultorio/${ id }`, body)
+    return this.http.put(`${ environment.url }/consultorios/${ id }`, body)
       .pipe(map(this.extractData));
   }
 
   postConsultorio(body) {
-    return this.http.post(`${ environment.url }/consultorio`, body)
+    return this.http.post(`${ environment.url }/consultorios`, body)
       .pipe(map(this.extractData));
   }
 
   delConsultorio(id) {
-    return this.http.delete(`${ environment.url }/consultorio/${ id }`)
+    return this.http.delete(`${ environment.url }/consultorios/${ id }`)
       .pipe(map(this.extractData));
   }
 
