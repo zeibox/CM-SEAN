@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID, } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +16,11 @@ import { MedicoComponent } from './components/panel/medico/medico.component';
 import { MedicosComponent } from './components/panel/medicos/medicos.component';
 import { AreasComponent } from './components/panel/areas/areas.component';
 import { AreaComponent } from './components/panel/area/area.component';
+
+import { registerLocaleData } from '@angular/common';
+import localeEsAr from '@angular/common/locales/es-AR';
+
+registerLocaleData(localeEsAr, 'es-Ar');
 
 
 @NgModule({
@@ -40,7 +45,7 @@ import { AreaComponent } from './components/panel/area/area.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ { provide: LOCALE_ID, useValue: 'es-Ar' } ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

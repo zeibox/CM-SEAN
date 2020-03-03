@@ -1,22 +1,27 @@
-<div class="container-fluid" style="padding-top: 70px;">
-    <div class="row justify-content-center pb-4">
-        <a name="" id="" class="btn btn-primary" [routerLink]="['/panel/consultorio']" role="button">Agregar Consultorio</a>
+<div class="container mx-5">
+
+    <div class="row justify-content-center pt-3">
+        <div class="row justify-content-between col-md-6 my-2 px-0 py-2">
+            <button class="btn btn-sm fondoAzul col-sm-12 col-md-6 my-2" (click)="addArea()"><i class="far fa-address-card"></i>  Agregar Area</button>
+            <input class="col-sm-12 col-md-5 col-lg-4 my-2" type="text" placeholder="Buscar area" (keyup.enter)="buscarConsultorios(buscarTexto.value)" #buscarTexto>
+        </div>
     </div>
+
     <div class="row justify-content-center">
-        <table class="table col-12 col-md-7">
+        <table class="table col-12 col-md-6">
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Area</th>
-                    <th scope="col">Piso</th>
-                    <th scope="col">Numero</th>
-                    <th scope="col">Fecha</th>
+                    <td scope="col">ID</td>
+                    <td scope="col">Area</td>
+                    <td scope="col">Piso</td>
+                    <td scope="col">Numero</td>
+                    <td scope="col">Fecha</td>
                 </tr>
             </thead>
             <tbody *ngFor="let item of data; let i = index">
                 <tr class="pointer" [routerLink]="['/panel/consultorio', item.id_consultorio]">
                     <!-- <tr (click)="getInputValue()"> -->
-                    <th scope="row">{{ item.id_consultorio }}</th>
+                    <td scope="row">{{ item.id_consultorio }}</td>
                     <td>{{ item.nombre }}</td>
                     <td>{{ item.piso }}</td>
                     <td>{{ item.numero }}</td>

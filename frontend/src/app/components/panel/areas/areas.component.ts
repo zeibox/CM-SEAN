@@ -31,7 +31,7 @@ export class AreasComponent implements OnInit {
 
   buscarAreas(cadena: string) {
     // console.log('cadena: ', cadena);
-    if (cadena == "") {
+    if (cadena === '') {
       this.cargarListaDeAreas();
     } else {
       this.userServ.searchAreas(cadena).subscribe(

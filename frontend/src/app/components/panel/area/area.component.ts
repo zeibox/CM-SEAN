@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Area } from '../../../interfaces/areas';
@@ -8,11 +8,9 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-area',
   templateUrl: './area.component.html',
-  styleUrls: ['./area.component.css']
+  styleUrls: ['./area.component.css'],
 })
 export class AreaComponent implements OnInit {
-
-  @HostBinding('class') classes = 'row';
 
   area: Area = {
     id_area: 0,
@@ -21,13 +19,14 @@ export class AreaComponent implements OnInit {
     creado_en: new Date()
   };
 
-  idN: any;
+  idRute: any;
   edit: boolean;
   delete: boolean;
   add: boolean;
   errors: string;
   formGroup: FormGroup;
-  datePipe = new DatePipe('en-US');
+  // Locale importado manualmente, revisar app module (localeEsAr, LOCALE_ID, registerLocaleData y providers)
+  datePipe = new DatePipe('es-AR');
 
   constructor(
     private formBuilder: FormBuilder,
@@ -36,66 +35,46 @@ export class AreaComponent implements OnInit {
     private datosRec: ActivatedRoute) {}
 
   ngOnInit() {
+    this.idRute = this.datosRec.snapshot.params.id;
 
-    this.idN = this.datosRec.snapshot.params.id;
-
-    if (!this.idN) {
-
-      this.formGroup = this.formBuilder.group({
-        area: this.formBuilder.group({
-          fecha: [{value: '', disabled: true}],
-          areaNombre: ['', Validators.required]
-        }),
-      }, { updateOn: 'blur' });
-
+    if (!this.idRute) {
+      this.formGroupFormat(); // formateo del formGroup obligatorio
     } else {
-
-      this.getArea(this.idN);
-
-      this.formGroup = this.formBuilder.group({
-        area: this.formBuilder.group({
-          fecha: [{value: '', disabled: true}],
-          areaNombre: ['', Validators.required]
-        }),
-      }, { updateOn: 'blur' });
-
+      this.getArea(this.idRute);
+      this.formGroupFormat(); // formateo del formGroup obligatorio
     }
   }
 
   onSubmit() {
-    // agregar metodo que le pega a la api POST
-    this.setArea(this.formGroup.value.area);
-    console.log(this.formGroup.value.area);
+    this.postArea(this.formGroup.value.area);
   }
   onSubmitId() {
-    // agregar metodo que le pega a la api PUT
     this.putArea(this.formGroup.value.area);
-    console.log("xxx");
   }
 
-  setArea(body) {
-    console.log(body);
-
-    this.servArea.saveArea(body)
-      .subscribe(
+  postArea(body) {
+    this.area.nombre = body.nombre;
+    this.servArea.saveArea(this.area).subscribe(
         res => {
-          this.router.navigate(['/panel/areas']);
+          this.add = true;
+          setTimeout(() => {
+          this.add = false;
+          this.router.navigate(['panel/areas']);
+        }, 1500);
         },
         err => this.errors = err
       );
   }
 
-  putArea(body) {
-    delete this.area.creado_en;  // Para no cambiar la fecha - No enviamos este parámetro
-    this.servArea.updateArea(this.idN, body)
-    .subscribe(
+  putArea(body: Area) {
+    body.creado_en = new Date(); // Asigna newDate() a la fecha antes de mandar el objeto como parametro al back
+    this.servArea.updateArea(this.idRute, body).subscribe(
       res => {
-        this.errors = null;
         this.edit = true;
         setTimeout(() => {
           this.edit = false;
           this.router.navigate(['panel/areas']);
-        }, 2000);
+        }, 1500);
       },
       err => console.log(err)
     );
@@ -103,10 +82,13 @@ export class AreaComponent implements OnInit {
 
   deleteArea() {
     // console.log(id);
-    this.servArea.deleteArea(this.idN).subscribe(
+    this.servArea.deleteArea(this.idRute).subscribe(
       res => {
-        console.log(res);
-        this.router.navigate(['/panel/areas']);
+        this.delete = true;
+        setTimeout(() => {
+          this.delete = false;
+          this.router.navigate(['panel/areas']);
+        }, 1500);
       },
       err => console.log(err)
     );
@@ -119,13 +101,24 @@ export class AreaComponent implements OnInit {
 
         this.formGroup = this.formBuilder.group({
           area: this.formBuilder.group({
-            fecha: [{value: this.datePipe.transform(this.area.creado_en), disabled: true}],
-            areaNombre: this.area.nombre
+            id_area: this.area.id_area,
+            creado_en: [{value: this.datePipe.transform(this.area.creado_en, 'dd MMMM yyyy, hh:mm'), disabled: true}],
+            id_user: this.area.id_user,
+            nombre: this.area.nombre,
           }),
-        }, { updateOn: 'blur' });
-
+        }, { updateOn: 'change' });
+        // console.log(this.formGroup.value);
       },
       err => console.error(err)
     );
+  }
+
+  formGroupFormat() {
+    this.formGroup = this.formBuilder.group({
+      area: this.formBuilder.group({
+        creado_en: [{value: '', disabled: true}],
+        nombre: ['', Validators.required]
+      }),
+    }, { updateOn: 'change' });
   }
 }

@@ -97,6 +97,7 @@ export class ConsultorioComponent implements OnInit {
   }
 
   putData(body) {
+    console.log(body);
     this.consultorioServ.putConsultorio(this.idN, body).subscribe(
       res => {
         // this.data = res;
