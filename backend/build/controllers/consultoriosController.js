@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../routes/database"));
 class ConsultoriosController {
-    async list(req, res, err) {
+    async list(req, res) {
         try {
             const dato = await database_1.default.query('SELECT * FROM v_consultorios');
             res.json(dato);
@@ -14,7 +14,7 @@ class ConsultoriosController {
             res.json({ error: err.sqlMessage });
         }
     }
-    async getOne(req, res, err) {
+    async getOne(req, res) {
         try {
             const { id } = req.params;
             const dato = await database_1.default.query('SELECT * FROM v_consultorios WHERE id_consultorio = ?', [id]);
@@ -27,7 +27,7 @@ class ConsultoriosController {
             res.json({ error: err.sqlMessage });
         }
     }
-    async create(req, res, err) {
+    async create(req, res) {
         try {
             const result = await database_1.default.query('INSERT INTO consultorios set ?', [req.body]);
             res.json({ message: 'Consultorio Registrado' });
@@ -47,7 +47,7 @@ class ConsultoriosController {
             res.json({ error: err.sqlMessage });
         }
     }
-    async delete(req, res, err) {
+    async delete(req, res) {
         try {
             const { id } = req.params;
             await database_1.default.query('DELETE FROM v_consultorios WHERE id_consultorio = ?', [id]);
