@@ -15,13 +15,13 @@
                     <th scope="col">Especialidad</th>
                 </tr>
             </thead>
-            <tbody *ngFor="let item of testData | async; let i = index">
-                <tr class="pointer" [routerLink]="['/panel/medic', item._id]">
+            <tbody *ngFor="let item of data; let i = index">
+                <tr class="pointer" [routerLink]="['/panel/medic', item.id_medico]">
                     <!-- <tr (click)="getInputValue()"> -->
                     <th scope="row"><img src="{{ item.imagen }}" alt=""></th>
-                    <td>{{ item.nombre }}</td>
+                    <td>{{ item.nombres }}</td>
                     <td>{{ item.apellido }}</td>
-                    <td>{{ item.especialidad[0] }}</td>
+                    <!-- <td>{{ item.especialidad[0] }}</td> -->
                 </tr>
             </tbody>
         </table>

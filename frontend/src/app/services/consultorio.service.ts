@@ -3,12 +3,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 // import { environment } from '../../environments/environment.prod';
 import { environment } from '../../environments/environment';
-import { Medics } from '../interfaces/medics';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MedicsService {
+export class ConsultorioService {
 
   private httpOptionsGeneral = {
     headers: new HttpHeaders({
@@ -23,32 +22,29 @@ export class MedicsService {
 
   constructor(private http: HttpClient) { }
 
-  getMedicos() {
-    return this.http.get(`${ environment.url }/medicos`)
+  getConsultorios() {
+    return this.http.get(`${ environment.url }/consultorios`)
       .pipe(map(this.extractData));
   }
 
-  getOneMedico(id) {
-    return this.http.get(`${ environment.url }/medico/${ id }`)
+  getOneConsultorio(id) {
+    return this.http.get(`${ environment.url }/consultorios/${ id }`)
       .pipe(map(this.extractData));
   }
 
-  putMedico(id, body) {
-    return this.http.put(`${ environment.url }/medico/${ id }`, body)
+  putConsultorio(id, body) {
+    return this.http.put(`${ environment.url }/consultorios/${ id }`, body)
       .pipe(map(this.extractData));
   }
 
-  postMedico(body) {
-    return this.http.post(`${ environment.url }/medico`, body)
+  postConsultorio(body) {
+    return this.http.post(`${ environment.url }/consultorios`, body)
       .pipe(map(this.extractData));
   }
 
-  delMedico(id) {
-    return this.http.delete(`${ environment.url }/medico/${ id }`)
+  delConsultorio(id) {
+    return this.http.delete(`${ environment.url }/consultorios/${ id }`)
       .pipe(map(this.extractData));
   }
 
-  getMedics() {
-    return this.http.get <Medics[]> ('/assets/jsonFiles/medics.json');
-  }
 }

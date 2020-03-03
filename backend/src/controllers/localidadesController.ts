@@ -4,13 +4,13 @@ import bd from '../routes/database';
 class LocalidadesController {
 
     public async list(req: Request, res: Response): Promise<void> {
-        const dato = await bd.query('SELECT * FROM localidades');
+        const dato = await bd.query('SELECT * FROM v_localidades');
         res.json(dato);
     }
 
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const dato = await bd.query('SELECT * FROM localidades WHERE id_localidad = ?', [id]);
+        const dato = await bd.query('SELECT * FROM v_localidades WHERE id_localidad = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -31,7 +31,7 @@ class LocalidadesController {
 
     public async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        await bd.query('DELETE FROM localidades WHERE id_localidad = ?', [id]);
+        await bd.query('DELETE FROM v_localidades WHERE id_localidad = ?', [id]);
         res.json({ message: "La Loacalidad fue eliminada" });
     }
 

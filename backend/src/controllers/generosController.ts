@@ -4,13 +4,13 @@ import bd from '../routes/database';
 class GenerosController {
 
     public async list(req: Request, res: Response): Promise<void> {
-        const dato = await bd.query('SELECT * FROM generos');
+        const dato = await bd.query('SELECT * FROM v_generos');
         res.json(dato);
     }
 
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const dato = await bd.query('SELECT * FROM generos WHERE id_genero = ?', [id]);
+        const dato = await bd.query('SELECT * FROM v_generos WHERE id_genero = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -18,8 +18,12 @@ class GenerosController {
     }
 
     public async create(req: Request, res: Response): Promise<void> {
-        const result = await bd.query('INSERT INTO generos set ?', [req.body]);
-        res.json({ message: 'Género Registrado' });
+        try{
+            const result = await bd.query('INSERT INTO generos set ?', [req.body]);
+            res.json({ message: 'Género Registrado' });
+        }catch(err){
+            res.json({ error: err.sqlMessage });
+        }
     }
 
     public async update(req: Request, res: Response): Promise<void> {
@@ -31,7 +35,7 @@ class GenerosController {
 
     public async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        await bd.query('DELETE FROM generos WHERE id_genero = ?', [id]);
+        await bd.query('DELETE FROM v_generos WHERE id_genero = ?', [id]);
         res.json({ message: "El Género fue eliminado" });
     }
 

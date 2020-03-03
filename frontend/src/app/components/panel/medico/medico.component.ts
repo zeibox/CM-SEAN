@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MedicsService } from 'src/app/services/medics.service';
+import { MedicosService } from 'src/app/services/medicos.service';
 
 @Component({
   selector: 'app-medic',
-  templateUrl: './medic.component.html',
-  styleUrls: ['./medic.component.css']
+  templateUrl: './medico.component.html',
+  styleUrls: ['./medico.component.css']
 })
-export class MedicComponent implements OnInit {
+export class MedicoComponent implements OnInit {
 
   message: FormGroup;
   idN: any;
+
   data: any;
   edit: boolean;
   delete: boolean;
@@ -21,7 +22,7 @@ export class MedicComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    private restServ: MedicsService,
+    private medicsServ: MedicosService,
     private router: Router
   ) {}
 
@@ -32,10 +33,10 @@ export class MedicComponent implements OnInit {
     if (!this.idN) {
       this.message = this.fb.group({
         medicos: this.fb.group({
-          id: [{value: '', disabled: true}],
-          area: ['', Validators.required],
-          piso: ['', Validators.required],
-          numero: ['', Validators.required]
+          nombres: ['', Validators.required],
+          apellido: ['', Validators.required],
+          celular: ['', Validators.required],
+          email: ['', Validators.required]
         }),
       }, { updateOn: 'blur' });  // updateOn cambia la frecuencia en que se validan los inputs
     } else {
@@ -44,10 +45,10 @@ export class MedicComponent implements OnInit {
 
       this.message = this.fb.group({
         medicos: this.fb.group({
-          id: [{value: '', disabled: true}],
-          area: '',
-          piso: '',
-          numero: '',
+          nombres: '',
+          apellido: '',
+          celular: '',
+          email: '',
         }),
       }, { updateOn: 'blur' });  // updateOn cambia la frecuencia en que se validan los inputs
     }
@@ -56,6 +57,7 @@ export class MedicComponent implements OnInit {
 // SUBMIT METHODS----------------------------------------------------------
   onSubmit() {
     // agregar metodo que le pega a la api POST
+    console.log(this.message.value.medicos);
     this.postData(this.message.value.medicos);
   }
   onSubmitId() {
@@ -69,32 +71,33 @@ export class MedicComponent implements OnInit {
 
 
 // CRUD METHODS------------------------------------------------------------
-  async getOne(id) {
-    try {
-      this.data = await this.restServ
-      .getOneMedico(id)
-      .toPromise();
-      this.data =  this.data.medicos[0];
+  getOne(id) {
 
-      this.message = this.fb.group({
+    this.medicsServ.getOneMedico(id).subscribe(
+      res => {
+        this.data = res;
+        console.log(this.data);
+
+        this.message = this.fb.group({
         medicos: this.fb.group({
-          id: [{value: this.data._id, disabled: true}],
-          area: this.data.area,
-          piso: this.data.piso,
-          numero: this.data.numero,
+          nombres: this.data.nombres,
+          apellido: this.data.apellido,
+          celular: this.data.celular,
+          email: this.data.email,
         }),
       }, { updateOn: 'blur' });  // updateOn cambia la frecuencia en que se validan los inputs
 
-    } catch (err) {
-      this.errors = err.error.errors.message;
-    }
+      },
+      err => this.errors = err.error.text
+    );
   }
 
-  async putData(body) {
-    try {
-      this.data = await this.restServ
+  putData(body) {
+
+      this.medicsServ
       .putMedico(this.idN, body)
-      .toPromise();
+      .subscribe(
+        res => {
 
       this.errors = null;
       this.edit = true;
@@ -103,16 +106,17 @@ export class MedicComponent implements OnInit {
         this.router.navigate(['panel/medics']);
       }, 2000);
 
-    } catch (err) {
-      this.errors = err.error.errors.message;
-    }
+      },
+      err => this.errors = err.error.text
+    );
   }
 
-  async postData(body) {
-    try {
-      this.data = await this.restServ
+  postData(body) {
+
+      this.medicsServ
       .postMedico(body)
-      .toPromise();
+      .subscribe(
+        res => {
 
       this.errors = null;
       this.add = true;
@@ -121,16 +125,14 @@ export class MedicComponent implements OnInit {
         this.router.navigate(['panel/medics']);
       }, 2000);
 
-    } catch (err) {
-      this.errors = err.error.errors.message;
-    }
+      },
+      err => console.log(err)
+    );
   }
 
-  async delData() {
-    try {
-      this.data = await this.restServ
-      .delMedico(this.idN)
-      .toPromise();
+  delData() {
+
+      this.medicsServ.delMedico(this.idN).subscribe( res => {
 
       this.delete = true;
       setTimeout(() => {
@@ -138,9 +140,9 @@ export class MedicComponent implements OnInit {
         this.router.navigate(['panel/medics']);
       }, 2000);
 
-    } catch (err) {
-      this.errors = err.error.errors.message;
-    }
+      },
+      err => this.errors = err.error.text
+    );
   }
 
 // CRUD METHODS------------------------------------------------------------

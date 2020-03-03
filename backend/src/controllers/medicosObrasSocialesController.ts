@@ -4,13 +4,13 @@ import bd from '../routes/database';
 class MedicosObrasSocialesController {
 
     public async list(req: Request, res: Response): Promise<void> {
-        const dato = await bd.query('SELECT * FROM medicos_obras_sociales');
+        const dato = await bd.query('SELECT * FROM v_medicos_obras_sociales');
         res.json(dato);
     }
 
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const dato = await bd.query('SELECT * FROM medicos_obras_sociales WHERE id_medico = ?', [id]);
+        const dato = await bd.query('SELECT * FROM v_medicos_obras_sociales WHERE id_medico = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato);
         }
@@ -33,7 +33,7 @@ class MedicosObrasSocialesController {
     public async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
         const { obra_social } = req.params;
-        await bd.query('DELETE FROM medicos_obras_sociales WHERE id_medico = ? and id_obras_social = ?', [id, obra_social]);
+        await bd.query('DELETE FROM v_medicos_obras_sociales WHERE id_medico = ? and id_obras_social = ?', [id, obra_social]);
         res.json({ message: "Obra Social o Prepaga eliminada" });
     }
 
