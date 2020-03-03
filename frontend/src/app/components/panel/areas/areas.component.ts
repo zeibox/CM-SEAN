@@ -17,12 +17,7 @@ export class AreasComponent implements OnInit {
   constructor(private userServ: AreasService, private ruta: Router) {}
 
   ngOnInit() {
-    this.userServ.getAreas().subscribe(
-      res => {
-        this.areas = res;
-      },
-      err => console.log(err)
-    );
+    this.cargarListaDeAreas();
   }
 
   addArea() {
