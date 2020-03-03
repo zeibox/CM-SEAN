@@ -37,13 +37,10 @@ export class AreaComponent implements OnInit {
 
   ngOnInit() {
     this.idRute = this.datosRec.snapshot.params.id;
-
-    if (!this.idRute) {
-      this.formGroupFormat(); // formateo del formGroup obligatorio
-    } else {
+    if (this.idRute) {
       this.getArea(this.idRute);
-      this.formGroupFormat(); // formateo del formGroup obligatorio
     }
+    this.formGroupFormat(); // formateo del formGroup obligatorio
   }
 
   onSubmit() {
@@ -103,7 +100,7 @@ export class AreaComponent implements OnInit {
         this.formGroup = this.formBuilder.group({
           area: this.formBuilder.group({
             id_area: this.area.id_area,
-            creado_en: [{value: this.datePipe.transform(this.area.creado_en, 'dd MMMM yyyy, HH:mm', '+1800'), disabled: true}],
+            creado_en: [{value: this.datePipe.transform(this.area.creado_en, 'dd MMMM yy, HH:mm', '+1800'), disabled: true}],
             id_user: this.area.id_user,
             nombre: this.area.nombre,
           }),
