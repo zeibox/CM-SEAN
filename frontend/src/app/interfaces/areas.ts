@@ -1,5 +1,3 @@
-import { Title } from '@angular/platform-browser';
-
 export interface Area {
     id_area?: number;
     nombre?: string;

@@ -40,7 +40,7 @@ class ConsultoriosController {
         try {
             const { id } = req.params;
             const oldProd = req.body;
-            await database_1.default.query('UPDATE consultorios set ? WHERE id_consultorio = ?', [req.body, id]);
+            await database_1.default.query('UPDATE v_consultorios set ? WHERE id_consultorio = ?', [req.body, id]);
             res.json({ message: "EL Consultorio fue actualizado" });
         }
         catch (err) {

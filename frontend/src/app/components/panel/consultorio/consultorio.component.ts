@@ -3,6 +3,7 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultorioService } from '../../../services/consultorio.service';
 import { DatePipe } from '@angular/common';
+import { Consultorio } from '../../../interfaces/consultorios';
 
 @Component({
   selector: 'app-consultorio',
@@ -11,14 +12,23 @@ import { DatePipe } from '@angular/common';
 })
 export class ConsultorioComponent implements OnInit {
 
-  message: FormGroup;
-  idN: any;
+  formGroup: FormGroup;
+  idRute: any;
   data: any;
   edit: boolean;
   delete: boolean;
   add: boolean;
   errors: string;
-  datePipe = new DatePipe('en-US');
+  datePipe = new DatePipe('es-AR');
+
+  consultorio: Consultorio = {
+    id_consultorio: 0,
+    id_area: 0,
+    piso: '',
+    numero: '',
+    id_user: 1,
+    creado_en: new Date()
+  };
 
 
   constructor(
@@ -29,43 +39,21 @@ export class ConsultorioComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
-    this.idN = this.route.snapshot.params.id;
-
-    if (!this.idN) {
-      this.message = this.fb.group({
-        consultorios: this.fb.group({
-          id: [{value: '', disabled: true}],
-          fecha: [{value: '', disabled: true}],
-          area: ['', Validators.required],
-          piso: ['', Validators.required],
-          numero: ['', Validators.required]
-        }),
-      }, { updateOn: 'blur' });  // updateOn cambia la frecuencia en que se validan los inputs
-    } else {
-
-      this.getOne(this.idN);
-
-      this.message = this.fb.group({
-        consultorios: this.fb.group({
-          id: '',
-          fecha: [{value: '', disabled: true}],
-          area: '',
-          piso: '',
-          numero: '',
-        }),
-      }, { updateOn: 'blur' });  // updateOn cambia la frecuencia en que se validan los inputs
+    this.idRute = this.route.snapshot.params.id;
+    if (this.idRute) {
+      this.getOne(this.idRute);
     }
+    this.formGroupFormat();
   }
 
 // SUBMIT METHODS----------------------------------------------------------
   onSubmit() {
     // agregar metodo que le pega a la api POST
-    this.postData(this.message.value.consultorios);
+    this.postData(this.formGroup.value.consultorios);
   }
   onSubmitId() {
     // agregar metodo que le pega a la api PUT
-    this.putData(this.message.value.consultorios);
+    this.putData(this.formGroup.value.consultorios);
   }
   deleteCons() {
     this.delData();
@@ -82,25 +70,35 @@ export class ConsultorioComponent implements OnInit {
         this.data = res;
         console.log(this.data);
 
-        this.message = this.fb.group({
+        this.formGroup = this.fb.group({
           consultorios: this.fb.group({
-          id: [{value: this.data.id_consultorio, disabled: true}],
-          fecha: [{value: this.datePipe.transform(this.data.creado_en), disabled: true}],
-          area: this.data.id_area,
+          id_consultorio: [{value: this.data.id_consultorio, disabled: true}],
+          fecha: [{value: this.datePipe.transform(this.data.creado_en, 'dd MMMM yy, HH:mm', '+1800'), disabled: true}],
+          nombre: this.data.nombre,
           piso: this.data.piso,
           numero: this.data.numero,
         }),
-      }, { updateOn: 'blur' });  // updateOn cambia la frecuencia en que se validan los inputs
+      }, { updateOn: 'change' });  // updateOn cambia la frecuencia en que se validan los inputs
     },
       err => this.errors = err.error.text
     );
   }
 
-  putData(body) {
-    console.log(body);
-    this.consultorioServ.putConsultorio(this.idN, body).subscribe(
+  putData(body: Consultorio) {
+    // console.log(body);
+    // this.consultorio.nombre = body.nombre;
+    this.consultorio.id_consultorio = body.id_consultorio;
+    this.consultorio.numero = body.numero;
+    this.consultorio.piso = body.piso;
+    this.consultorio.id_area = body.id_area;
+    this.consultorio.creado_en = new Date();
+
+    console.log(this.consultorio);
+
+    this.consultorioServ.putConsultorio(this.idRute, this.consultorio).subscribe(
       res => {
         // this.data = res;
+        console.log(res);
         this.errors = null;
         this.edit = true;
         setTimeout(() => {
@@ -112,28 +110,24 @@ export class ConsultorioComponent implements OnInit {
     );
   }
 
-  async postData(body) {
-    try {
-      this.data = await this.consultorioServ
-      .postConsultorio(body)
-      .toPromise();
-
-      this.errors = null;
-      this.add = true;
-      setTimeout(() => {
-        this.add = false;
-        this.router.navigate(['panel/consultorios']);
-      }, 2000);
-
-    } catch (err) {
-      this.errors = err.error.errors.message;
-    }
+  postData(body) {
+    this.consultorioServ.postConsultorio(body).subscribe(
+        res => {
+          this.errors = null;
+          this.add = true;
+          setTimeout(() => {
+            this.add = false;
+            this.router.navigate(['panel/consultorios']);
+          }, 2000);
+        },
+        err => this.errors = err
+    );
   }
 
   async delData() {
     try {
       this.data = await this.consultorioServ
-      .delConsultorio(this.idN)
+      .delConsultorio(this.idRute)
       .toPromise();
 
       this.delete = true;
@@ -148,4 +142,17 @@ export class ConsultorioComponent implements OnInit {
   }
 
 // CRUD METHODS------------------------------------------------------------
+
+formGroupFormat(){
+  this.formGroup = this.fb.group({
+    consultorios: this.fb.group({
+      id_consultorio: [{value: '', disabled: true}],
+      fecha: [{value: '', disabled: true}],
+      nombre: ['', Validators.required],
+      piso: ['', Validators.required],
+      numero: ['', Validators.required]
+    }),
+  }, { updateOn: 'change' });  // updateOn cambia la frecuencia en que se validan los inputs
+}
+
 }
