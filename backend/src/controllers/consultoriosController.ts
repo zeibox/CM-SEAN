@@ -3,7 +3,7 @@ import bd from '../routes/database';
 
 class ConsultoriosController {
 
-    public async list(req: Request, res: Response, err: Error): Promise<void> {
+    public async list(req: Request, res: Response): Promise<void> {
         try{
             const dato = await bd.query('SELECT * FROM v_consultorios');
             res.json(dato);
@@ -12,7 +12,7 @@ class ConsultoriosController {
         }
     }
 
-    public async getOne(req: Request, res: Response, err: Error): Promise<any> {
+    public async getOne(req: Request, res: Response): Promise<any> {
         try {
             const { id } = req.params;
             const dato = await bd.query('SELECT * FROM v_consultorios WHERE id_consultorio = ?', [id]);
@@ -25,7 +25,7 @@ class ConsultoriosController {
         }
     }
 
-    public async create(req: Request, res: Response, err: Error): Promise<void> {
+    public async create(req: Request, res: Response): Promise<void> {
         try {
             const result = await bd.query('INSERT INTO consultorios set ?', [req.body]);
             res.json({ message: 'Consultorio Registrado' });  
@@ -45,7 +45,7 @@ class ConsultoriosController {
         }
     }
 
-    public async delete(req: Request, res: Response, err: Error): Promise<void> {
+    public async delete(req: Request, res: Response): Promise<void> {
         try {
             const { id } = req.params;
             await bd.query('DELETE FROM v_consultorios WHERE id_consultorio = ?', [id]);
