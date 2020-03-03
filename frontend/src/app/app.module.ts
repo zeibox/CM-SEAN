@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID, } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,8 +12,15 @@ import { ConsultorioComponent } from './components/panel/consultorio/consultorio
 import { FilterPipe } from './pipes/filter.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/panel/home/home.component';
-import { MedicComponent } from './components/panel/medic/medic.component';
-import { MedicsComponent } from './components/panel/medics/medics.component';
+import { MedicoComponent } from './components/panel/medico/medico.component';
+import { MedicosComponent } from './components/panel/medicos/medicos.component';
+import { AreasComponent } from './components/panel/areas/areas.component';
+import { AreaComponent } from './components/panel/area/area.component';
+
+import { registerLocaleData } from '@angular/common';
+import localeEsAr from '@angular/common/locales/es-AR';
+
+registerLocaleData(localeEsAr, 'es-Ar');
 
 
 @NgModule({
@@ -24,8 +31,10 @@ import { MedicsComponent } from './components/panel/medics/medics.component';
     ConsultorioComponent,
     FilterPipe,
     HomeComponent,
-    MedicComponent,
-    MedicsComponent
+    MedicoComponent,
+    MedicosComponent,
+    AreasComponent,
+    AreaComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +45,7 @@ import { MedicsComponent } from './components/panel/medics/medics.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ { provide: LOCALE_ID, useValue: 'es-Ar' } ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

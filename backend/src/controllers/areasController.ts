@@ -4,13 +4,13 @@ import bd from '../routes/database';
 class AreasController {
 
     public async list(req: Request, res: Response): Promise<void> {
-        const dato = await bd.query('SELECT * FROM areas');
+        const dato = await bd.query('SELECT * FROM v_areas');
         res.json(dato);
     }
 
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const dato = await bd.query('SELECT * FROM areas WHERE id_area = ?', [id]);
+        const dato = await bd.query('SELECT * FROM v_areas WHERE id_area = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -31,7 +31,7 @@ class AreasController {
 
     public async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        await bd.query('DELETE FROM areas WHERE id_area = ?', [id]);
+        await bd.query('DELETE FROM v_areas WHERE id_area = ?', [id]);
         res.json({ message: "Area eliminada" });
     }
 

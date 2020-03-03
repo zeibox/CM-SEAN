@@ -4,13 +4,13 @@ import bd from '../routes/database';
 class EspecialidadesController {
 
     public async list(req: Request, res: Response): Promise<void> {
-        const dato = await bd.query('SELECT * FROM especialidades');
+        const dato = await bd.query('SELECT * FROM v_especialidades');
         res.json(dato);
     }
 
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const dato = await bd.query('SELECT * FROM especialidades WHERE id_especialidad = ?', [id]);
+        const dato = await bd.query('SELECT * FROM v_especialidades WHERE id_especialidad = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -31,7 +31,7 @@ class EspecialidadesController {
 
     public async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        await bd.query('DELETE FROM especialidades WHERE id_especialidad = ?', [id]);
+        await bd.query('DELETE FROM v_especialidades WHERE id_especialidad = ?', [id]);
         res.json({ message: "La Especialidad fue eliminada" });
     }
 

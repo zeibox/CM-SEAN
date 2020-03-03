@@ -4,13 +4,13 @@ import bd from '../routes/database';
 class DocumentosTiposController {
 
     public async list(req: Request, res: Response): Promise<void> {
-        const dato = await bd.query('SELECT * FROM documentos_tipo');
+        const dato = await bd.query('SELECT * FROM v_documentos_tipo');
         res.json(dato);
     }
 
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const dato = await bd.query('SELECT * FROM documentos_tipo WHERE id_documento_tipo = ?', [id]);
+        const dato = await bd.query('SELECT * FROM v_documentos_tipo WHERE id_documento_tipo = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -31,7 +31,7 @@ class DocumentosTiposController {
 
     public async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        await bd.query('DELETE FROM documentos_tipo WHERE id_documento_tipo = ?', [id]);
+        await bd.query('DELETE FROM v_documentos_tipo WHERE id_documento_tipo = ?', [id]);
         res.json({ message: "El tipo de documento fue eliminado" });
     }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from 'src/app/services/rest.service';
+import { ConsultorioService } from 'src/app/services/consultorio.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-consultorios',
@@ -11,24 +12,37 @@ export class ConsultoriosComponent implements OnInit {
   data;
   value;
 
-  constructor(private restServ: RestService) { }
+  constructor(
+    private consultorioServ: ConsultorioService,
+    private router: Router) { }
 
   ngOnInit() {
-    this.getData();
+    this.getConsultorios();
   }
 
-  getInputValue() {
+  addArea() {
+    this.router.navigate(['/panel/consultorio']);
   }
 
-  async getData() {
-    try {
-      this.data = await this.restServ
-      .getConsultorios()
-      .toPromise();
-      this.data = this.data.consultorios;
-      console.log(this.data);
 
-    } catch (error) {}
+  getConsultorios() {
+    this.consultorioServ.getConsultorios().subscribe(
+      res => {
+        this.data = res;
+        console.log(this.data);
+      },
+      err => console.log(err)
+    );
+  }
+
+  buscarConsultorios(cadena: string) {
+    // console.log('cadena: ', cadena);
+    if (cadena === '') {
+      this.getConsultorios();
+      console.log("test");
+    } else {
+      // colocar metodo que le pegue al controlador search del backend
+    }
   }
 
 
