@@ -4,8 +4,13 @@ import bd from '../routes/database';
 class EspecialidadesController {
 
     public async list(req: Request, res: Response): Promise<void> {
-        const dato = await bd.query('SELECT * FROM v_especialidades');
-        res.json(dato);
+        try {
+         const dato = await bd.query('SELECT * FROM v_especialidades');
+        res.json(dato);   
+        } catch (error) {
+            res.json({ error: error.sqlMessage });
+        }
+        
     }
 
     public async getOne(req: Request, res: Response): Promise<any> {

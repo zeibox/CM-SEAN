@@ -1,0 +1,26 @@
+<div class="container mx-5">
+
+    <div class="row justify-content-center pt-3">
+        <div class="row justify-content-between col-md-6 my-2 px-0 py-2">
+            <button class="btn btn-sm fondoAzul col-sm-12 col-md-6 my-2" (click)="addEspecialidad()"><i class="far fa-address-card"></i>  Agregar Especialidad</button>
+            <input class="col-sm-12 col-md-5 col-lg-4 my-2" type="text" placeholder="Buscar especialidad" (keyup.enter)="buscarEspecialidades(buscarTexto.value)" #buscarTexto>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <table class="table col-12 col-md-6">
+            <thead>
+                <tr>
+                    <td scope="col">Especialidad</td>
+                </tr>
+            </thead>
+            <tbody *ngFor="let item of especialidades; let i = index">
+                <tr class="pointer" [routerLink]="['/panel/especialidades', item.id_especialidad]">
+                    <!-- <tr (click)="getInputValue()"> -->
+                    <td scope="row">{{ item.nombre }}</td>
+                    <td scope="row">{{ item.duracion_turno }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

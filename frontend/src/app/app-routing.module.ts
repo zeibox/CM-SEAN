@@ -7,6 +7,10 @@ import { MedicoComponent } from './components/panel/medico/medico.component';
 import { MedicosComponent } from './components/panel/medicos/medicos.component';
 import { AreasComponent } from './components/panel/areas/areas.component';
 import { AreaComponent } from './components/panel/area/area.component';
+import { JerarquiaComponent } from './components/panel/jerarquia/jerarquia.component';
+import { JerarquiasComponent } from './components/panel/jerarquias/jerarquias.component';
+import { EspecialidadesComponent } from './components/panel/especialidades/especialidades.component';
+import { EspecialidadComponent } from './components/panel/especialidad/especialidad.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'panel', pathMatch: 'full'},
@@ -19,7 +23,13 @@ const routes: Routes = [
   { path: 'panel/medic/:id', component: MedicoComponent },
   { path: 'panel/areas', component: AreasComponent },
   { path: 'panel/areas/:id', component: AreaComponent },
-  { path: 'panel/area', component: AreaComponent }
+  { path: 'panel/area', component: AreaComponent },
+  { path: 'panel/jerarquias', component: JerarquiasComponent },
+  { path: 'panel/jerarquias/:id', component: JerarquiaComponent },
+  { path: 'panel/jerarquia', component: JerarquiaComponent },
+  { path: 'panel/especialidades', component: EspecialidadesComponent },
+  { path: 'panel/especialidades/:id', component: EspecialidadComponent },
+  { path: 'panel/especialidad', component: EspecialidadComponent },
 ];
 
 
