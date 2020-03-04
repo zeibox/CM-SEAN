@@ -13,9 +13,15 @@
                         <label>Fecha</label>
                         <input type="text" class="form-control rounded border border-secondary " formControlName="fecha" placeholder="Ultima modificación">
                     </div>
-                    <div class="form-group col-md-12">
+                    <!-- <div class="form-group col-md-12">
                         <label>Nombre</label>
                         <input type="text" class="form-control rounded border border-secondary " formControlName="nombre" placeholder="Nombre">
+                    </div> -->
+                    <div class="form-group col-md-12">
+                        <label>Select</label>
+                        <select formControlName="nombre" class="form-control rounded border border-secondary">
+                        <option *ngFor="let item of areas">{{ item.nombre }}</option>
+                      </select>
                     </div>
                     <div class="form-group col-md-6 ">
                         <label>Piso</label>

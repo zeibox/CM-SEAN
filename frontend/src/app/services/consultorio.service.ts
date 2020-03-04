@@ -21,6 +21,10 @@ export class ConsultorioService {
     return this.http.get(`${ environment.url }/consultorios/${ id }`);
   }
 
+  getOneConsultorioByName(name) {
+    return this.http.get(`${ environment.url }/consultorios/${ name }`);
+  }
+
   postConsultorio(body) {
     return this.http.post(`${ environment.url }/consultorios`, body);
   }
