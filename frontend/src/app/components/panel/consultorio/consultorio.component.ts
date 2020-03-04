@@ -81,7 +81,7 @@ export class ConsultorioComponent implements OnInit {
     this.consultorioServ.getOneConsultorio(id).subscribe(
       res => {
         this.data = res;
-        console.log(this.data, "111");
+        console.log(this.data);
 
         this.formGroup = this.fb.group({
           consultorios: this.fb.group({
