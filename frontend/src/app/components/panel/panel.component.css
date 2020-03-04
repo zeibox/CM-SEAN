@@ -10,7 +10,30 @@ mat-sidenav-content {
 
 mat-sidenav {
     background-color: #6c757d;
-    width: 200px;
+    width: 220px;
+}
+
+.navbar {
+    background-color: #5f676e !important;
+}
+
+.navbar-brand {
+    color: white !important;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.pointer i:hover {
+    background-color: rgb(115, 150, 151) !important;
+    border-radius: 15%;
+}
+
+.fa-angle-double-right {
+    background-color: #5f676e !important;
+    border-radius: 15%;
+    color: white;
 }
 
 .mat-drawer-side {
@@ -41,6 +64,18 @@ button {
     color: white;
     margin: 0;
     border: none;
+}
+
+.menu2 {
+    background: #6c757d;
+    color: white;
+    margin: 0;
+    border: none;
+}
+
+.menu2 p {
+    margin: 0 !important;
+    height: 22px;
 }
 
 .mat-sidenav-content {

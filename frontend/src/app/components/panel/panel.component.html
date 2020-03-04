@@ -1,10 +1,22 @@
-<mat-sidenav-container>
-    <mat-sidenav [(opened)]="opened" mode="side">
-        <div class="text-center menu">
-            <h1>Curae</h1>
-        </div>
-        <div class="container mx-0 px-0 py-2">
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">CURAE</a>
+</nav>
+<mat-sidenav-container (window:resize)="onRes()">
+    <mat-sidenav id="sidenav" [(opened)]="opened" mode="{{this.mode}}">
+        <div class="container mx-0 px-0 pt-2">
             <div class="row justify-content-center mx-0">
+                <div class="text-left menu2 col-10 pl-3">
+                    <p>PANEL DE CONTROL</p>
+                </div>
+                <div class="text-right menu2 col-2 px-0 pointer">
+                    <i class="fas fa-angle-double-left fa-lg p-1 mr-3" (click)="opened=!opened"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mx-0 px-0 pb-2">
+            <div class="row justify-content-center mx-0">
+                <hr>
                 <button type="button" [routerLink]="['panel/consultorios']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Consultorios</button>
                 <button type="button" [routerLink]="['panel/areas']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Areas</button>
                 <hr>
@@ -20,11 +32,10 @@
     </mat-sidenav>
     <mat-sidenav-content>
 
-        <div style="height: 49px; background: #6c757d">
-            <button type="button" class="btn fixed" (click)="opened=!opened">
-            <i class="fas fa-bars fa-2x"></i>
+        <button type="button" class="btn fixed" (click)="opened=!opened" *ngIf="!opened">
+            <i class="fas fa-angle-double-right fa-lg p-2"></i>
         </button>
-        </div>
+
 
         <router-outlet></router-outlet>
 
