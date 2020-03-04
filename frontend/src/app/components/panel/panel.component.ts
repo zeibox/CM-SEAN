@@ -15,6 +15,7 @@ export class PanelComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.onRes();
   }
 
   onRes() {
