@@ -18,13 +18,13 @@ class AreasController {
         res.status(404).json({ text: "Area inexiste" });
     }
     async create(req, res) {
-        const result = await database_1.default.query('INSERT INTO areas set ?', [req.body]);
+        const result = await database_1.default.query('INSERT INTO v_areas set ?', [req.body]);
         res.json({ message: 'Area Registrada' });
     }
     async update(req, res) {
         const { id } = req.params;
         const oldProd = req.body;
-        await database_1.default.query('UPDATE areas set ? WHERE id_area = ?', [req.body, id]);
+        await database_1.default.query('UPDATE v_areas set ? WHERE id_area = ?', [req.body, id]);
         res.json({ message: "Area actualizada" });
     }
     async delete(req, res) {
