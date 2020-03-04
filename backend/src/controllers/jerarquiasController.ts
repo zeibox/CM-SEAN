@@ -18,14 +18,14 @@ class JerarquiasController {
     }
 
     public async create(req: Request, res: Response): Promise<void> {
-        const result = await bd.query('INSERT INTO jerarquias set ?', [req.body]);
+        const result = await bd.query('INSERT INTO v_jerarquias set ?', [req.body]);
         res.json({ message: 'Jerarquía Registrada' });
     }
 
     public async update(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
         const oldProd = req.body;
-        await bd.query('UPDATE jerarquias set ? WHERE id_jerarquia = ?', [req.body, id]);
+        await bd.query('UPDATE v_jerarquias set ? WHERE id_jerarquia = ?', [req.body, id]);
         res.json({ message: "Jerarquía actualizada" });
     }
 
