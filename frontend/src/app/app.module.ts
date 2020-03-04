@@ -19,6 +19,8 @@ import { AreaComponent } from './components/panel/area/area.component';
 
 import { registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
+import { EspecialidadesComponent } from './components/panel/especialidades/especialidades.component';
+import { EspecialidadComponent } from './components/panel/especialidad/especialidad.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -34,7 +36,9 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MedicoComponent,
     MedicosComponent,
     AreasComponent,
-    AreaComponent
+    AreaComponent,
+    EspecialidadesComponent,
+    EspecialidadComponent
   ],
   imports: [
     BrowserModule,
