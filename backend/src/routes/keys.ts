@@ -1,8 +1,10 @@
+require('dotenv').config();
+
 export default {
     database: {
-        host: '68.183.128.14',
-        user: 'zeiboxuser',
-        password: 'CdLpJsMp775&+ñ',
-        database: 'cm'
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_DABA
     }
 }
