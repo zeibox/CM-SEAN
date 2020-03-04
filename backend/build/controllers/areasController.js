@@ -17,6 +17,14 @@ class AreasController {
         }
         res.status(404).json({ text: "Area inexiste" });
     }
+    async getbyName(req, res) {
+        const { name } = req.params;
+        const dato = await database_1.default.query('SELECT * FROM v_areas WHERE nombre = ?', [name]);
+        if (dato.length > 0) {
+            return res.json(dato[0]);
+        }
+        res.status(404).json({ text: "Area inexiste" });
+    }
     async create(req, res) {
         const result = await database_1.default.query('INSERT INTO v_areas set ?', [req.body]);
         res.json({ message: 'Area Registrada' });

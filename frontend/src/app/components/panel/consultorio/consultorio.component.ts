@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultorioService } from '../../../services/consultorio.service';
 import { DatePipe } from '@angular/common';
 import { Consultorio } from '../../../interfaces/consultorios';
+import { AreasService } from '../../../services/areas.service';
 
 @Component({
   selector: 'app-consultorio',
@@ -20,6 +21,7 @@ export class ConsultorioComponent implements OnInit {
   add: boolean;
   errors: string;
   datePipe = new DatePipe('es-AR');
+  areas: any;
 
   consultorio: Consultorio = {
     id_consultorio: 0,
@@ -35,6 +37,7 @@ export class ConsultorioComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private consultorioServ: ConsultorioService,
+    private areasServ: AreasService,
     private router: Router
   ) {}
 
@@ -42,6 +45,7 @@ export class ConsultorioComponent implements OnInit {
     this.idRute = this.route.snapshot.params.id;
     if (this.idRute) {
       this.getOne(this.idRute);
+      this.getAreas();
     }
     this.formGroupFormat();
   }
@@ -63,12 +67,21 @@ export class ConsultorioComponent implements OnInit {
 
 // CRUD METHODS------------------------------------------------------------
 
-  getOne(id) {
+  getAreas() {
+    this.areasServ.getAreas().subscribe(
+      res => {
+        this.areas = res;
+        console.log(this.areas);
+      },
+      err => this.errors = err.error.text
+    );
+  }
 
+  getOne(id) {
     this.consultorioServ.getOneConsultorio(id).subscribe(
       res => {
         this.data = res;
-        console.log(this.data);
+        console.log(this.data, "111");
 
         this.formGroup = this.fb.group({
           consultorios: this.fb.group({
@@ -79,6 +92,7 @@ export class ConsultorioComponent implements OnInit {
           numero: this.data.numero,
         }),
       }, { updateOn: 'change' });  // updateOn cambia la frecuencia en que se validan los inputs
+        console.log(this.formGroup);
     },
       err => this.errors = err.error.text
     );
