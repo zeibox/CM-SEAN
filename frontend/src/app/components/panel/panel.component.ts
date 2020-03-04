@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class PanelComponent implements OnInit {
 
   opened = true;
+  mode: string;
+
   constructor() {
 
   }
@@ -15,4 +17,12 @@ export class PanelComponent implements OnInit {
   ngOnInit() {
   }
 
+  onRes() {
+    this.mode = document.getElementById('sidenav').getAttribute('mode');
+    if (window.innerWidth < 800) {
+      this.mode = 'over';
+    } else {
+      this.mode = 'side';
+    }
+  }
 }
