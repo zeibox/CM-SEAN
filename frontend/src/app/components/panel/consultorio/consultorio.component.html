@@ -20,7 +20,7 @@
                     <div class="form-group col-md-12">
                         <label>Select</label>
                         <select formControlName="nombre" class="form-control rounded border border-secondary">
-                        <option *ngFor="let item of areas">{{ item.nombre }}</option>
+                        <option *ngFor="let item of areas" [value]="">{{ item.nombre }}</option>
                       </select>
                     </div>
                     <div class="form-group col-md-6 ">
