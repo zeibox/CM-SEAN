@@ -9,6 +9,8 @@ import { AreasComponent } from './components/panel/areas/areas.component';
 import { AreaComponent } from './components/panel/area/area.component';
 import { JerarquiaComponent } from './components/panel/jerarquia/jerarquia.component';
 import { JerarquiasComponent } from './components/panel/jerarquias/jerarquias.component';
+import { ObrasSocialesComponent } from './components/panel/obras-sociales/obras-sociales.component';
+import { ObraSocialComponent } from './components/panel/obra-social/obra-social.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'panel', pathMatch: 'full'},
@@ -24,7 +26,10 @@ const routes: Routes = [
   { path: 'panel/area', component: AreaComponent },
   { path: 'panel/jerarquias', component: JerarquiasComponent },
   { path: 'panel/jerarquias/:id', component: JerarquiaComponent },
-  { path: 'panel/jerarquia', component: JerarquiaComponent }
+  { path: 'panel/jerarquia', component: JerarquiaComponent },
+  { path: 'panel/obrasSociales', component: ObrasSocialesComponent },
+  { path: 'panel/obrasSociales/:id', component: ObraSocialComponent },
+  { path: 'panel/obraSocial', component: ObraSocialComponent }
 ];
 
 

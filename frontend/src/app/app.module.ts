@@ -21,6 +21,8 @@ import { registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
 import { JerarquiasComponent } from './components/panel/jerarquias/jerarquias.component';
 import { JerarquiaComponent } from './components/panel/jerarquia/jerarquia.component';
+import { ObrasSocialesComponent } from './components/panel/obras-sociales/obras-sociales.component';
+import { ObraSocialComponent } from './components/panel/obra-social/obra-social.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -38,7 +40,9 @@ registerLocaleData(localeEsAr, 'es-Ar');
     AreasComponent,
     AreaComponent,
     JerarquiasComponent,
-    JerarquiaComponent
+    JerarquiaComponent,
+    ObrasSocialesComponent,
+    ObraSocialComponent
   ],
   imports: [
     BrowserModule,
