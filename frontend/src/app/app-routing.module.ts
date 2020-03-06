@@ -13,7 +13,10 @@ import { EspecialidadesComponent } from './components/panel/especialidades/espec
 import { EspecialidadComponent } from './components/panel/especialidad/especialidad.component';
 import { PaisesComponent } from './components/panel/paises/paises.component';
 import { PaisComponent } from './components/panel/pais/pais.component';
-
+import { ObrasSocialesComponent } from './components/panel/obras-sociales/obras-sociales.component';
+import { ObraSocialComponent } from './components/panel/obra-social/obra-social.component';
+import { GenerosComponent } from './components/panel/generos/generos.component';
+import { GeneroComponent } from './components/panel/genero/genero.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'panel', pathMatch: 'full'},
@@ -37,7 +40,13 @@ const routes: Routes = [
   { path: 'panel/especialidades/:id', component: EspecialidadComponent },
   { path: 'panel/paises/:id', component: PaisComponent },
   { path: 'panel/pais', component: PaisComponent },
-  
+  { path: 'panel/obrasSociales', component: ObrasSocialesComponent },
+  { path: 'panel/obrasSociales/:id', component: ObraSocialComponent },
+  { path: 'panel/obraSocial', component: ObraSocialComponent },
+  { path: 'panel/generos', component: GenerosComponent },
+  { path: 'panel/generos/:id', component: GeneroComponent },
+  { path: 'panel/genero', component: GeneroComponent }
+
 ];
 
 

@@ -15,6 +15,7 @@ class AreasRoutes {
     config(): void {
         this.router.get('/', areasController.list);
         this.router.get('/:id', areasController.getOne);
+        this.router.get('/byname/:name', areasController.getbyName);
         this.router.post('/', areasController.create);
         this.router.delete('/:id', areasController.delete);
         this.router.put('/:id', areasController.update);

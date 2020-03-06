@@ -1,35 +1,21 @@
 <div class="container-fluid" style="padding: 30px 0 0 0">
     <div class="container">
-        <a [routerLink]="['/panel/consultorios']"><i class="fas fa-arrow-alt-circle-left fa-3x fondoAzul"></i></a>
-        <h2 class="col-12 text-center">{{this.idRute?'Actualizar Consultorio':'Agregar Consultorio'}}</h2>
+        <a [routerLink]="['/panel/generos']"><i class="fas fa-arrow-alt-circle-left fa-3x fondoAzul"></i></a>
+        <h2 class="col-12 text-center">{{this.idRute?'Actualizar Género':'Agregar Género'}}</h2>
         <div class="row justify-content-center">
             <form [formGroup]="formGroup" (ngSubmit)="this.idRute?onSubmitId():onSubmit()" class="col-sm-8">
-                <div class="form-row pb-3" formGroupName="consultorios">
+                <div class="form-row pb-3" formGroupName="generos">
                     <div class="form-group col-md-6" *ngIf="this.idRute">
                         <label>ID</label>
-                        <input type="number" class="form-control rounded border border-secondary " formControlName="id_consultorio" placeholder="ID consultorio">
+                        <input type="number" class="form-control rounded border border-secondary " formControlName="id_genero" placeholder="ID género">
                     </div>
                     <div class="form-group col-md-6" *ngIf="this.idRute">
                         <label>Ultima modificación</label>
                         <input type="text" class="form-control rounded border border-secondary " formControlName="creado_en" placeholder="Ultima modificación">
                     </div>
-                    <!-- <div class="form-group col-md-12">
+                    <div class="form-group col-md-12">
                         <label>Nombre</label>
                         <input type="text" class="form-control rounded border border-secondary " formControlName="nombre" placeholder="Nombre">
-                    </div> -->
-                    <div class="form-group col-md-12">
-                        <label>Area</label>
-                        <select formControlName="nombre" class="form-control rounded border border-secondary" (change)="getSelected($event)">
-                        <option *ngFor="let item of areas">{{ item.nombre }}</option>
-                      </select>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label>Piso</label>
-                        <input type="text" class="form-control rounded border border-secondary " formControlName="piso" placeholder="Piso">
-                    </div>
-                    <div class="form-group col-md-6 ">
-                        <label>Numero</label>
-                        <input type="text" class="form-control rounded border border-secondary " formControlName="numero" placeholder="Número">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success rounded enviarBtn" *ngIf="this.idRute">Actualizar</button>

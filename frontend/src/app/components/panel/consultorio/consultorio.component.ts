@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ConsultorioService } from '../../../services/consultorio.service';
 import { DatePipe } from '@angular/common';
 import { Consultorio } from '../../../interfaces/consultorios';
 import { AreasService } from '../../../services/areas.service';
-
 @Component({
   selector: 'app-consultorio',
   templateUrl: './consultorio.component.html',
@@ -14,15 +13,16 @@ import { AreasService } from '../../../services/areas.service';
 export class ConsultorioComponent implements OnInit {
 
   formGroup: FormGroup;
+  datePipe = new DatePipe('es-AR');
+  areas: any;
   idRute: any;
   data: any;
   edit: boolean;
   delete: boolean;
   add: boolean;
   errors: string;
-  datePipe = new DatePipe('es-AR');
-  areas: any;
-
+  selectedOption: any;
+  areaSelected: any;
   consultorio: Consultorio = {
     id_consultorio: 0,
     id_area: 0,
@@ -31,7 +31,6 @@ export class ConsultorioComponent implements OnInit {
     id_user: 1,
     creado_en: new Date()
   };
-
 
   constructor(
     private fb: FormBuilder,
@@ -42,10 +41,10 @@ export class ConsultorioComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.getAreas();
     this.idRute = this.route.snapshot.params.id;
     if (this.idRute) {
       this.getOne(this.idRute);
-      this.getAreas();
     }
     this.formGroupFormat();
   }
@@ -59,9 +58,6 @@ export class ConsultorioComponent implements OnInit {
     // agregar metodo que le pega a la api PUT
     this.putData(this.formGroup.value.consultorios);
   }
-  deleteCons() {
-    this.delData();
-  }
 // SUBMIT METHODS----------------------------------------------------------
 
 
@@ -71,7 +67,8 @@ export class ConsultorioComponent implements OnInit {
     this.areasServ.getAreas().subscribe(
       res => {
         this.areas = res;
-        console.log(this.areas);
+        this.consultorio.id_area = this.areas[0].id_area;
+        // console.log(this.areas);
       },
       err => this.errors = err.error.text
     );
@@ -81,92 +78,103 @@ export class ConsultorioComponent implements OnInit {
     this.consultorioServ.getOneConsultorio(id).subscribe(
       res => {
         this.data = res;
-        console.log(this.data);
+        // console.log(this.data);
 
         this.formGroup = this.fb.group({
           consultorios: this.fb.group({
           id_consultorio: [{value: this.data.id_consultorio, disabled: true}],
-          fecha: [{value: this.datePipe.transform(this.data.creado_en, 'dd MMMM yy, HH:mm', '+1800'), disabled: true}],
+          creado_en: [{value: this.datePipe.transform(this.data.creado_en, 'dd MMMM yy, HH:mm', '-600'), disabled: true}],
           nombre: this.data.nombre,
           piso: this.data.piso,
           numero: this.data.numero,
         }),
       }, { updateOn: 'change' });  // updateOn cambia la frecuencia en que se validan los inputs
-        console.log(this.formGroup);
+        // console.log(this.formGroup.value.consultorios);
     },
       err => this.errors = err.error.text
     );
   }
 
-  putData(body: Consultorio) {
-    // console.log(body);
-    // this.consultorio.nombre = body.nombre;
-    this.consultorio.id_consultorio = body.id_consultorio;
+  getOneByName() {
+    this.areasServ.getAreaByName(this.selectedOption).subscribe(
+      res => {
+        this.consultorio.id_area = res[0].id_area;
+        // console.log(res[0].id_area);
+      },
+        err => this.errors = err.error.text
+    );
+  }
+
+  putData(body) {
+    // console.log('como viene del form: ', body);
+    this.consultorio.id_consultorio = this.data.id_consultorio;
     this.consultorio.numero = body.numero;
     this.consultorio.piso = body.piso;
-    this.consultorio.id_area = body.id_area;
     this.consultorio.creado_en = new Date();
-
-    console.log(this.consultorio);
+    // console.log('antes de mandarlo', this.consultorio);
 
     this.consultorioServ.putConsultorio(this.idRute, this.consultorio).subscribe(
       res => {
-        // this.data = res;
-        console.log(res);
-        this.errors = null;
         this.edit = true;
         setTimeout(() => {
           this.edit = false;
           this.router.navigate(['panel/consultorios']);
         }, 2000);
       },
-      err => this.errors = err
+      err => this.errors = err.error.text
     );
   }
 
   postData(body) {
-    this.consultorioServ.postConsultorio(body).subscribe(
+    // console.log('como viene del form: ', body);
+    this.consultorio.piso = body.piso;
+    this.consultorio.numero = body.numero;
+    // console.log('antes de mandarlo: ', this.consultorio);
+
+    this.consultorioServ.postConsultorio(this.consultorio).subscribe(
         res => {
-          this.errors = null;
+          // this.errors = null;
           this.add = true;
           setTimeout(() => {
             this.add = false;
             this.router.navigate(['panel/consultorios']);
           }, 2000);
         },
-        err => this.errors = err
+        err => this.errors = err.error.text
     );
   }
 
-  async delData() {
-    try {
-      this.data = await this.consultorioServ
-      .delConsultorio(this.idRute)
-      .toPromise();
-
-      this.delete = true;
-      setTimeout(() => {
-        this.delete = false;
-        this.router.navigate(['panel/consultorios']);
-      }, 2000);
-
-    } catch (err) {
-      this.errors = err.error.errors.message;
-    }
+  delData() {
+    // console.log(this.idRute);
+    this.consultorioServ.deleteConsultorio(this.idRute).subscribe(
+      res => {
+        this.delete = true;
+        setTimeout(() => {
+          this.delete = false;
+          this.router.navigate(['panel/consultorios']);
+        }, 1500);
+      },
+      err => this.errors = err.error.text
+    );
   }
 
 // CRUD METHODS------------------------------------------------------------
 
-formGroupFormat(){
-  this.formGroup = this.fb.group({
-    consultorios: this.fb.group({
-      id_consultorio: [{value: '', disabled: true}],
-      fecha: [{value: '', disabled: true}],
-      nombre: ['', Validators.required],
-      piso: ['', Validators.required],
-      numero: ['', Validators.required]
-    }),
-  }, { updateOn: 'change' });  // updateOn cambia la frecuencia en que se validan los inputs
-}
+  formGroupFormat(){
+    this.formGroup = this.fb.group({
+      consultorios: this.fb.group({
+        id_consultorio: [{value: '', disabled: true}],
+        id_area: [{value: '', disabled: true}],
+        creado_en: [{value: '', disabled: true}],
+        nombre: ['', Validators.required],
+        piso: ['', Validators.required],
+        numero: ['', Validators.required]
+      }),
+    }, { updateOn: 'change' });  // updateOn cambia la frecuencia en que se validan los inputs
+  }
 
+  getSelected(item) {
+    this.selectedOption = item.target.value;
+    this.getOneByName();
+  }
 }

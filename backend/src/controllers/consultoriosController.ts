@@ -48,7 +48,7 @@ class ConsultoriosController {
     public async delete(req: Request, res: Response): Promise<void> {
         try {
             const { id } = req.params;
-            await bd.query('DELETE FROM v_consultorios WHERE id_consultorio = ?', [id]);
+            await bd.query('DELETE FROM consultorios WHERE id_consultorio = ?', [id]);
             res.json({ message: "El Consultorio fue eliminado" });
         } catch (err) {
             res.json({ error: err.sqlMessage });

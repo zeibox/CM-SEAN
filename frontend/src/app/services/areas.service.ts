@@ -24,6 +24,10 @@ export class AreasService {
     return this.http.get(`${environment.url}/areas/${id}`);
   }
 
+  getAreaByName(name: string) {
+    return this.http.get(`${environment.url}/areas/byname/${name}`);
+  }
+
   deleteArea(id: string) {
     return this.http.delete(`${environment.url}/areas/${id}`);
   }

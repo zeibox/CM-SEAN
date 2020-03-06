@@ -22,9 +22,14 @@
                 <button type="button" [routerLink]="['panel/especialidades']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Especialidades</button>
 
                 <hr>
-                <button type="button" [routerLink]="['panel/medics']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Medicos</button>
-                <button type="button" [routerLink]="['panel/medics']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Pacientes</button>
+                <!-- <button type="button" [routerLink]="['panel/medics']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Medicos</button>
+                <button type="button" [routerLink]="['panel/medics']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Pacientes</button> -->
                 <button type="button" [routerLink]="['panel/jerarquias']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Jerarquias</button>
+                <button type="button" [routerLink]="['panel/obrasSociales']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Obras Sociales</button>
+                <button type="button" [routerLink]="['panel/generos']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Generos</button>
+                <button type="button" [routerLink]="['panel/paises']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Paises</button>
+
+
                 <!-- <button type="button" [routerLink]="['/output']" class="btn btn-secondary col-12 m-2">OUTPUT</button>
                 <button type="button" [routerLink]="['/table']" class="btn btn-secondary col-12 m-2">TABLE</button>
                 <button type="button" [routerLink]="['/request']" class="btn btn-secondary col-12 m-2">REQUEST</button> -->
@@ -34,14 +39,13 @@
 
     </mat-sidenav>
     <mat-sidenav-content>
+        <div class="container-fluid">
+            <button type="button" class="btn fixed p-0 m-2" *ngIf="!opened">
+                <i class="fas fa-angle-double-right fa-lg p-2" (click)="opened=!opened"></i>
+            </button>
 
-        <button type="button" class="btn fixed p-0 m-2" *ngIf="!opened">
-            <i class="fas fa-angle-double-right fa-lg p-2" (click)="opened=!opened"></i>
-        </button>
-
-
-        <router-outlet></router-outlet>
-
+            <router-outlet></router-outlet>
+        </div>
     </mat-sidenav-content>
 
 </mat-sidenav-container>

@@ -1,0 +1,15 @@
+.container-fluid {
+    height: 100%;
+}
+
+button {
+    width: 100%;
+}
+
+.fondoAzul {
+    color: rgb(115, 150, 151) !important;
+}
+
+.fondoAzul:hover {
+    color: rgb(92, 117, 117) !important;
+}

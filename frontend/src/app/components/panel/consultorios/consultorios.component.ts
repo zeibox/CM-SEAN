@@ -24,25 +24,19 @@ export class ConsultoriosComponent implements OnInit {
     this.router.navigate(['/panel/consultorio']);
   }
 
-
   getConsultorios() {
     this.consultorioServ.getConsultorios().subscribe(
       res => {
         this.data = res;
-        console.log(this.data);
       },
       err => console.log(err)
     );
   }
 
   buscarConsultorios(cadena: string) {
-    // console.log('cadena: ', cadena);
     if (cadena === '') {
       this.getConsultorios();
-      console.log("test");
-    } else {
-      // colocar metodo que le pegue al controlador search del backend
-    }
+    } else {}
   }
 
 
