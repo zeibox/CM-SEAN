@@ -101,7 +101,7 @@ export class AreaComponent implements OnInit {
         this.formGroup = this.formBuilder.group({
           area: this.formBuilder.group({
             id_area: this.area.id_area,
-            creado_en: [{value: this.datePipe.transform(this.area.creado_en, 'dd MMMM yy, HH:mm', '+1800'), disabled: true}],
+            creado_en: [{value: this.datePipe.transform(this.area.creado_en, 'dd MMMM yyyy, HH:mm', '-600'), disabled: true}],
             id_user: this.area.id_user,
             nombre: this.area.nombre,
           }),

@@ -85,7 +85,7 @@ export class ConsultorioComponent implements OnInit {
         this.formGroup = this.fb.group({
           consultorios: this.fb.group({
           id_consultorio: [{value: this.data.id_consultorio, disabled: true}],
-          creado_en: [{value: this.datePipe.transform(this.data.creado_en, 'dd MMMM yy, HH:mm', '+1800'), disabled: true}],
+          creado_en: [{value: this.datePipe.transform(this.data.creado_en, 'dd MMMM yy, HH:mm', '-600'), disabled: true}],
           nombre: this.data.nombre,
           piso: this.data.piso,
           numero: this.data.numero,
@@ -123,7 +123,7 @@ export class ConsultorioComponent implements OnInit {
           this.router.navigate(['panel/consultorios']);
         }, 2000);
       },
-      err => this.errors = err
+      err => this.errors = err.error.text
     );
   }
 
@@ -142,7 +142,7 @@ export class ConsultorioComponent implements OnInit {
             this.router.navigate(['panel/consultorios']);
           }, 2000);
         },
-        err => this.errors = err
+        err => this.errors = err.error.text
     );
   }
 
@@ -156,7 +156,7 @@ export class ConsultorioComponent implements OnInit {
           this.router.navigate(['panel/consultorios']);
         }, 1500);
       },
-      err => console.log(this.errors)
+      err => this.errors = err.error.text
     );
   }
 
