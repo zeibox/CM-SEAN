@@ -14,15 +14,12 @@ export class GeneroComponent implements OnInit {
 
   formGroup: FormGroup;
   datePipe = new DatePipe('es-AR');
-  areas: any;
   idRute: any;
   data: any;
   edit: boolean;
   delete: boolean;
   add: boolean;
   errors: string;
-  selectedOption: any;
-  areaSelected: any;
   genero: Genero = {
     id_genero: 0,
     nombre: '',
@@ -134,7 +131,7 @@ export class GeneroComponent implements OnInit {
     this.formGroup = this.fb.group({
       generos: this.fb.group({
         id_genero: [{value: '', disabled: true}],
-        id_area: [{value: '', disabled: true}],
+        id_user: [{value: '', disabled: true}],
         creado_en: [{value: '', disabled: true}],
         nombre: ['', Validators.required]
       }),
