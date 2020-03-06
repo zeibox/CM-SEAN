@@ -11,6 +11,9 @@ import { JerarquiaComponent } from './components/panel/jerarquia/jerarquia.compo
 import { JerarquiasComponent } from './components/panel/jerarquias/jerarquias.component';
 import { EspecialidadesComponent } from './components/panel/especialidades/especialidades.component';
 import { EspecialidadComponent } from './components/panel/especialidad/especialidad.component';
+import { PaisesComponent } from './components/panel/paises/paises.component';
+import { PaisComponent } from './components/panel/pais/pais.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'panel', pathMatch: 'full'},
@@ -30,6 +33,11 @@ const routes: Routes = [
   { path: 'panel/especialidades', component: EspecialidadesComponent },
   { path: 'panel/especialidades/:id', component: EspecialidadComponent },
   { path: 'panel/especialidad', component: EspecialidadComponent },
+  { path: 'panel/paises', component: PaisesComponent },
+  { path: 'panel/especialidades/:id', component: EspecialidadComponent },
+  { path: 'panel/paises/:id', component: PaisComponent },
+  { path: 'panel/pais', component: PaisComponent },
+  
 ];
 
 
