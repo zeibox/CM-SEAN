@@ -1,8 +1,8 @@
-<div class="container mx-5">
+<div class="container-fluid mx-5">
 
     <div class="row justify-content-center pt-3">
         <div class="row justify-content-between col-md-8 my-2 px-0 py-2">
-            <button class="btn btn-sm fondoAzul col-sm-12 col-md-6 my-2" (click)="addArea()"><i class="far fa-address-card"></i>  Agregar Area</button>
+            <button class="btn btn-sm fondoAzul col-sm-12 col-md-6 my-2" (click)="addArea()"><i class="far fa-address-card"></i>  Agregar Consultorio</button>
             <input class="col-sm-12 col-md-5 col-lg-4 my-2" type="text" placeholder="Buscar area" (keyup.enter)="buscarConsultorios(buscarTexto.value)" #buscarTexto>
         </div>
     </div>
@@ -11,11 +11,11 @@
         <table class="table col-12 col-md-8">
             <thead>
                 <tr>
-                    <td scope="col">ID</td>
+                    <td scope="col">ID Cons</td>
                     <td scope="col">Area</td>
                     <td scope="col">Piso</td>
-                    <td scope="col">N°</td>
-                    <td scope="col">Fecha</td>
+                    <td scope="col">N° Cons</td>
+                    <td scope="col">Ultima modificación</td>
                 </tr>
             </thead>
             <tbody *ngFor="let item of data; let i = index">
@@ -25,7 +25,7 @@
                     <td>{{ item.nombre }}</td>
                     <td>{{ item.piso }}</td>
                     <td>{{ item.numero }}</td>
-                    <td>{{ item.creado_en | date : 'dd MMMM yy, HH:mm' : '+1800' : 'es-AR' }}</td>
+                    <td>{{ item.creado_en | date : 'dd MMMM yy, HH:mm' : '-600' : 'es-AR' }}</td>
                 </tr>
             </tbody>
         </table>

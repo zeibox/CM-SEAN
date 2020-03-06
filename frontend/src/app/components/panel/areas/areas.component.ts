@@ -42,6 +42,7 @@ export class AreasComponent implements OnInit {
     this.userServ.getAreas().subscribe(
       res => {
         this.areas = res;
+        // console.log(this.areas);
       },
       err => console.log(err)
     );
@@ -51,10 +52,10 @@ export class AreasComponent implements OnInit {
     // console.log(id);
     this.userServ.deleteArea(id).subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
         this.cargarListaDeAreas();
       },
       err => console.log(err)
-    )
+    );
   }
 }

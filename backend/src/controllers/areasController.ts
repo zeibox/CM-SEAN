@@ -19,11 +19,8 @@ class AreasController {
 
     public async getbyName(req: Request, res: Response): Promise<any> {
         const { name } = req.params;
-        const dato = await bd.query('SELECT * FROM v_areas WHERE nombre = ?', [name]);
-        if (dato.length > 0) {
-            return res.json(dato[0]);
-        }
-        res.status(404).json({ text: "Area inexiste" });
+        const dateano = await bd.query('SELECT * FROM v_areas WHERE nombre = ?', [name]);
+            return res.json(dateano);
     }
 
     public async create(req: Request, res: Response): Promise<void> {

@@ -33,14 +33,13 @@
 
     </mat-sidenav>
     <mat-sidenav-content>
+        <div class="container-fluid">
+            <button type="button" class="btn fixed p-0 m-2" *ngIf="!opened">
+                <i class="fas fa-angle-double-right fa-lg p-2" (click)="opened=!opened"></i>
+            </button>
 
-        <button type="button" class="btn fixed p-0 m-2" *ngIf="!opened">
-            <i class="fas fa-angle-double-right fa-lg p-2" (click)="opened=!opened"></i>
-        </button>
-
-
-        <router-outlet></router-outlet>
-
+            <router-outlet></router-outlet>
+        </div>
     </mat-sidenav-content>
 
 </mat-sidenav-container>

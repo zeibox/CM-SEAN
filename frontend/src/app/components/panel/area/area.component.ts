@@ -52,6 +52,7 @@ export class AreaComponent implements OnInit {
 
   postArea(body) {
     this.area.nombre = body.nombre;
+    // console.log(this.area);
     this.servArea.saveArea(this.area).subscribe(
         res => {
           this.add = true;

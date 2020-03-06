@@ -21,16 +21,12 @@ export class ConsultorioService {
     return this.http.get(`${ environment.url }/consultorios/${ id }`);
   }
 
-  getOneConsultorioByName(name) {
-    return this.http.get(`${ environment.url }/consultorios/${ name }`);
-  }
-
-  postConsultorio(body) {
+  postConsultorio(body: Consultorio) {
     return this.http.post(`${ environment.url }/consultorios`, body);
   }
 
-  delConsultorio(id) {
-    return this.http.delete(`${ environment.url }/consultorios/${ id }`);
+  deleteConsultorio(id: string) {
+    return this.http.delete(`${environment.url}/consultorios/${id}`);
   }
 
   putConsultorio(id: string, body: Consultorio): Observable<Consultorio> {
