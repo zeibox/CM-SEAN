@@ -1,0 +1,44 @@
+<div class="container-fluid" style="padding: 30px 0 0 0">
+    <div class="container">
+        <a [routerLink]="['/panel/generos']"><i class="fas fa-arrow-alt-circle-left fa-3x fondoAzul"></i></a>
+        <h2 class="col-12 text-center">{{this.idRute?'Actualizar Género':'Agregar Género'}}</h2>
+        <div class="row justify-content-center">
+            <form [formGroup]="formGroup" (ngSubmit)="this.idRute?onSubmitId():onSubmit()" class="col-sm-8">
+                <div class="form-row pb-3" formGroupName="generos">
+                    <div class="form-group col-md-6" *ngIf="this.idRute">
+                        <label>ID</label>
+                        <input type="number" class="form-control rounded border border-secondary " formControlName="id_genero" placeholder="ID género">
+                    </div>
+                    <div class="form-group col-md-6" *ngIf="this.idRute">
+                        <label>Ultima modificación</label>
+                        <input type="text" class="form-control rounded border border-secondary " formControlName="creado_en" placeholder="Ultima modificación">
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label>Nombre</label>
+                        <input type="text" class="form-control rounded border border-secondary " formControlName="nombre" placeholder="Nombre">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success rounded enviarBtn" *ngIf="this.idRute">Actualizar</button>
+
+                <button type="submit" class="btn btn-success rounded enviarBtn" *ngIf="!this.idRute">Agregar</button>
+            </form>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-8 pt-2 pb-5">
+                <button (click)="delData()" class="btn btn-danger rounded enviarBtn" *ngIf="this.idRute">Eliminar</button>
+            </div>
+            <div class="alert alert-danger col-sm-8" role="alert" *ngIf="this.errors">
+                {{this.errors}}
+            </div>
+            <div class="alert alert-danger col-sm-8" role="alert" *ngIf="this.delete">
+                Eliminado con éxito!
+            </div>
+            <div class="alert alert-success col-sm-8" role="alert" *ngIf="this.edit">
+                Actualizado con éxito!
+            </div>
+            <div class="alert alert-success col-sm-8" role="alert" *ngIf="this.add">
+                Agregado con éxito!
+            </div>
+        </div>
+    </div>
+</div>

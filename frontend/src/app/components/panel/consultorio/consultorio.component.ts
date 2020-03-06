@@ -5,8 +5,6 @@ import { ConsultorioService } from '../../../services/consultorio.service';
 import { DatePipe } from '@angular/common';
 import { Consultorio } from '../../../interfaces/consultorios';
 import { AreasService } from '../../../services/areas.service';
-import consultoriosController from '../../../../../../backend/src/controllers/consultoriosController';
-
 @Component({
   selector: 'app-consultorio',
   templateUrl: './consultorio.component.html',
