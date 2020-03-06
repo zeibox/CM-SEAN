@@ -23,6 +23,8 @@ import { JerarquiasComponent } from './components/panel/jerarquias/jerarquias.co
 import { JerarquiaComponent } from './components/panel/jerarquia/jerarquia.component';
 import { EspecialidadesComponent } from './components/panel/especialidades/especialidades.component';
 import { EspecialidadComponent } from './components/panel/especialidad/especialidad.component';
+import { ObrasSocialesComponent } from './components/panel/obras-sociales/obras-sociales.component';
+import { ObraSocialComponent } from './components/panel/obra-social/obra-social.component';
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -42,7 +44,9 @@ registerLocaleData(localeEsAr, 'es-Ar');
     JerarquiasComponent,
     JerarquiaComponent,
     EspecialidadesComponent,
-    EspecialidadComponent
+    EspecialidadComponent,
+    ObrasSocialesComponent,
+    ObraSocialComponent
   ],
   imports: [
     BrowserModule,

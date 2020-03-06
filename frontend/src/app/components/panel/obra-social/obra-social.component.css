@@ -1,0 +1,17 @@
+.fondoAzul {
+    color: rgb(115, 150, 151) !important;
+}
+
+.fondoAzul:hover {
+    color: rgb(92, 117, 117) !important;
+}
+
+.btnAzul {
+    background-color: rgb(115, 150, 151) !important;
+    color: white;
+}
+
+.btnAzul:hover {
+    background-color: rgb(92, 117, 117) !important;
+    color: white;
+}
