@@ -5,6 +5,10 @@ import { ConsultorioService } from '../../../services/consultorio.service';
 import { DatePipe } from '@angular/common';
 import { Consultorio } from '../../../interfaces/consultorios';
 import { AreasService } from '../../../services/areas.service';
+import { Observable, from, of } from 'rxjs';
+import { tap, map, filter } from 'rxjs/operators';
+import { Area } from '../../../interfaces/areas';
+
 @Component({
   selector: 'app-consultorio',
   templateUrl: './consultorio.component.html',
@@ -23,6 +27,7 @@ export class ConsultorioComponent implements OnInit {
   errors: string;
   selectedOption: any;
   areaSelected: any;
+
   consultorio: Consultorio = {
     id_consultorio: 0,
     id_area: 0,
@@ -31,6 +36,8 @@ export class ConsultorioComponent implements OnInit {
     id_user: 1,
     creado_en: new Date()
   };
+
+  test: any;
 
   constructor(
     private fb: FormBuilder,
@@ -144,6 +151,17 @@ export class ConsultorioComponent implements OnInit {
     );
   }
 
+  filterTest() {
+    // console.log(this.selectedOption);
+
+    const prueba = of (this.areas);
+
+    prueba.pipe(
+    tap(res => console.log(res)),
+    filter(res => res.nombre === this.selectedOption ))
+    .subscribe(res => console.log(res.nombre));
+  }
+
   delData() {
     // console.log(this.idRute);
     this.consultorioServ.deleteConsultorio(this.idRute).subscribe(
@@ -176,5 +194,8 @@ export class ConsultorioComponent implements OnInit {
   getSelected(item) {
     this.selectedOption = item.target.value;
     this.getOneByName();
+    this.filterTest();
   }
+
+  
 }
