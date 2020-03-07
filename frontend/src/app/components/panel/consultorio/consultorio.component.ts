@@ -5,9 +5,8 @@ import { ConsultorioService } from '../../../services/consultorio.service';
 import { DatePipe } from '@angular/common';
 import { Consultorio } from '../../../interfaces/consultorios';
 import { AreasService } from '../../../services/areas.service';
-import { Observable, from, of } from 'rxjs';
-import { tap, map, filter } from 'rxjs/operators';
-import { Area } from '../../../interfaces/areas';
+import { of } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-consultorio',
@@ -85,7 +84,7 @@ export class ConsultorioComponent implements OnInit {
     this.consultorioServ.getOneConsultorio(id).subscribe(
       res => {
         this.data = res;
-        // console.log(this.data);
+        console.log('get on init', this.data);
 
         this.formGroup = this.fb.group({
           consultorios: this.fb.group({
@@ -113,12 +112,12 @@ export class ConsultorioComponent implements OnInit {
   }
 
   putData(body) {
-    // console.log('como viene del form: ', body);
+    console.log('como viene del form: ', body);
     this.consultorio.id_consultorio = this.data.id_consultorio;
     this.consultorio.numero = body.numero;
     this.consultorio.piso = body.piso;
     this.consultorio.creado_en = new Date();
-    // console.log('antes de mandarlo', this.consultorio);
+    console.log('antes de mandarlo', this.consultorio);
 
     this.consultorioServ.putConsultorio(this.idRute, this.consultorio).subscribe(
       res => {
@@ -151,17 +150,6 @@ export class ConsultorioComponent implements OnInit {
     );
   }
 
-  filterTest() {
-    // console.log(this.selectedOption);
-
-    const prueba = of (this.areas);
-
-    prueba.pipe(
-    tap(res => console.log(res)),
-    filter(res => res.nombre === this.selectedOption ))
-    .subscribe(res => console.log(res.nombre));
-  }
-
   delData() {
     // console.log(this.idRute);
     this.consultorioServ.deleteConsultorio(this.idRute).subscribe(
@@ -191,11 +179,19 @@ export class ConsultorioComponent implements OnInit {
     }, { updateOn: 'change' });  // updateOn cambia la frecuencia en que se validan los inputs
   }
 
-  getSelected(item) {
-    this.selectedOption = item.target.value;
-    this.getOneByName();
-    this.filterTest();
+  filterObs() {
+    const prueba = of (...this.areas); // of hace obvservable al parametro y spread (...) lo desestructura
+    prueba.pipe(
+    filter(res => res.nombre === this.selectedOption )) // filtra buscando equivalencias
+    .subscribe(res => {
+      console.log('Area seleccionada: ', res);
+      this.consultorio.id_area = res.id_area; // asigna id_area al obj que se va a enviar
+    });
   }
 
-  
+  getSelected(item) {
+    this.selectedOption = item.target.value; // captura la opcion seleccionada
+    // this.getOneByName();
+    this.filterObs();
+  }
 }
