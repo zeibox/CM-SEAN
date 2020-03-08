@@ -17,6 +17,12 @@ import { ObrasSocialesComponent } from './components/panel/obras-sociales/obras-
 import { ObraSocialComponent } from './components/panel/obra-social/obra-social.component';
 import { GenerosComponent } from './components/panel/generos/generos.component';
 import { GeneroComponent } from './components/panel/genero/genero.component';
+import { PacientesComponent } from './components/panel/pacientes/pacientes.component';
+import { PacienteComponent } from './components/panel/paciente/paciente.component';
+import { UsuariosComponent } from './components/panel/usuarios/usuarios.component';
+import { UsuarioComponent } from './components/panel/usuario/usuario.component';
+import { TurnosComponent } from './components/panel/turnos/turnos.component';
+import { TurnoComponent } from './components/panel/turno/turno.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'panel', pathMatch: 'full'},
@@ -24,9 +30,9 @@ const routes: Routes = [
   { path: 'panel/consultorios', component: ConsultoriosComponent },
   { path: 'panel/consultorio', component: ConsultorioComponent },
   { path: 'panel/consultorio/:id', component: ConsultorioComponent },
-  { path: 'panel/medics', component: MedicosComponent },
-  { path: 'panel/medic', component: MedicoComponent },
-  { path: 'panel/medic/:id', component: MedicoComponent },
+  { path: 'panel/medicos', component: MedicosComponent },
+  { path: 'panel/medico', component: MedicoComponent },
+  { path: 'panel/medico/:id', component: MedicoComponent },
   { path: 'panel/areas', component: AreasComponent },
   { path: 'panel/areas/:id', component: AreaComponent },
   { path: 'panel/area', component: AreaComponent },
@@ -40,12 +46,20 @@ const routes: Routes = [
   { path: 'panel/especialidades/:id', component: EspecialidadComponent },
   { path: 'panel/paises/:id', component: PaisComponent },
   { path: 'panel/pais', component: PaisComponent },
-  { path: 'panel/obrasSociales', component: ObrasSocialesComponent },
-  { path: 'panel/obrasSociales/:id', component: ObraSocialComponent },
+  { path: 'panel/obrassociales', component: ObrasSocialesComponent },
+  { path: 'panel/obrassociales/:id', component: ObraSocialComponent },
   { path: 'panel/obraSocial', component: ObraSocialComponent },
   { path: 'panel/generos', component: GenerosComponent },
   { path: 'panel/generos/:id', component: GeneroComponent },
-  { path: 'panel/genero', component: GeneroComponent }
+  { path: 'panel/pacientes', component: PacientesComponent },
+  { path: 'panel/paciente', component: PacienteComponent },
+  { path: 'panel/paciente:id', component: PacienteComponent },
+  { path: 'panel/usuarios', component: UsuariosComponent },
+  { path: 'panel/usuario', component: UsuarioComponent },
+  { path: 'panel/usuario:id', component: UsuarioComponent },
+  { path: 'panel/turnos', component: TurnosComponent },
+  { path: 'panel/turno', component: TurnoComponent },
+  { path: 'panel/turno:id', component: TurnoComponent }
 
 ];
 

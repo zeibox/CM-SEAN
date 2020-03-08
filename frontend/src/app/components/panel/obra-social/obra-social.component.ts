@@ -60,7 +60,7 @@ export class ObraSocialComponent implements OnInit {
             this.add = true;
             setTimeout(() => {
             this.add = false;
-            this.router.navigate(['panel/obrasSociales']);
+            this.router.navigate(['panel/obrassociales']);
           }, 1500);
           },
           err => this.errors = err
@@ -74,7 +74,7 @@ export class ObraSocialComponent implements OnInit {
           this.edit = true;
           setTimeout(() => {
             this.edit = false;
-            this.router.navigate(['panel/obrasSociales']);
+            this.router.navigate(['panel/obrassociales']);
           }, 1500);
         },
         err => console.log(err)
@@ -88,7 +88,7 @@ export class ObraSocialComponent implements OnInit {
           this.delete = true;
           setTimeout(() => {
             this.delete = false;
-            this.router.navigate(['panel/obrasSociales']);
+            this.router.navigate(['panel/obrassociales']);
           }, 1500);
         },
         err => console.log(err)

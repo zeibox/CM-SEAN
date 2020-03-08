@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody *ngFor="let item of obrasSociales; let i = index">
-                <tr class="pointer" [routerLink]="['/panel/obrasSociales', item.id_obra_social]">
+                <tr class="pointer" [routerLink]="['/panel/obrassociales', item.id_obra_social]">
                     <td scope="row">{{ item.nombre }}</td>
                 </tr>
             </tbody>
