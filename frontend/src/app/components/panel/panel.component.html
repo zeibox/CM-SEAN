@@ -2,7 +2,7 @@
     <a class="navbar-brand" href="#">CURAE</a>
 </nav>
 <mat-sidenav-container (window:resize)="onRes()">
-    <mat-sidenav id="sidenav" [(opened)]="opened" mode="{{this.mode}}">
+    <mat-sidenav id="sidenav" [(opened)]="opened" mode="{{this.mode}}" [autoFocus]="false">
         <div class="container mx-0 px-0 pt-2">
             <div class="row justify-content-center mx-0">
                 <div class="text-left menu2 col-10 pl-3">
@@ -15,30 +15,22 @@
         </div>
 
         <div class="container mx-0 px-0 pb-2">
-            <div class="row justify-content-center mx-0">
-                <hr>
-                <button type="button" [routerLink]="['panel/consultorios']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Consultorios</button>
-                <button type="button" [routerLink]="['panel/areas']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Areas</button>
-                <button type="button" [routerLink]="['panel/especialidades']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Especialidades</button>
-
-                <hr>
-                <!-- <button type="button" [routerLink]="['panel/medics']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Medicos</button>
-                <button type="button" [routerLink]="['panel/medics']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Pacientes</button> -->
-                <button type="button" [routerLink]="['panel/jerarquias']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Jerarquias</button>
-                <button type="button" [routerLink]="['panel/obrasSociales']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Obras Sociales</button>
-                <button type="button" [routerLink]="['panel/generos']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Generos</button>
-                <button type="button" [routerLink]="['panel/paises']" class="btn btn-secondary col-12 text-left"><i class="fas fa-circle fa-xs px-3"></i>Paises</button>
-
-
-                <!-- <button type="button" [routerLink]="['/output']" class="btn btn-secondary col-12 m-2">OUTPUT</button>
-                <button type="button" [routerLink]="['/table']" class="btn btn-secondary col-12 m-2">TABLE</button>
-                <button type="button" [routerLink]="['/request']" class="btn btn-secondary col-12 m-2">REQUEST</button> -->
-                <!-- <button type="button" (click)="opened=!opened" class="btn btn-dark col-12 m-5">HIDE</button> -->
+            <hr>
+            <div class="row justify-content-center mx-0" *ngFor="let item of panel; let i = index;">
+                <button type="button" [routerLink]="['panel/', item.nombre.toLowerCase() | spaces]" class="btn btn-secondary col-12 text-left" *ngIf="item.grupo===1" (click)="if500()"><i class="fas fa-circle fa-xs px-3"></i>{{ item.nombre }}</button>
+            </div>
+            <hr>
+            <div class="row justify-content-center mx-0" *ngFor="let item of panel; let i = index;">
+                <button type="button" [routerLink]="['panel/', item.nombre.toLowerCase() | spaces]" class="btn btn-secondary col-12 text-left" *ngIf="item.grupo===2" (click)="if500()"><i class="fas fa-circle fa-xs px-3"></i>{{ item.nombre }}</button>
+            </div>
+            <hr>
+            <div class="row justify-content-center mx-0" *ngFor="let item of panel; let i = index;">
+                <button type="button" [routerLink]="['panel/', item.nombre.toLowerCase() | spaces]" class="btn btn-secondary col-12 text-left" *ngIf="item.grupo===3" (click)="if500()"><i class="fas fa-circle fa-xs px-3"></i>{{ item.nombre }}</button>
             </div>
         </div>
 
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content id="content">
         <div class="container-fluid">
             <button type="button" class="btn fixed p-0 m-2" *ngIf="!opened">
                 <i class="fas fa-angle-double-right fa-lg p-2" (click)="opened=!opened"></i>

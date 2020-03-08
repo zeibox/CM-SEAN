@@ -4,13 +4,17 @@ import bd from '../routes/database';
 class MantenimientosController {
 
     public async list(req: Request, res: Response): Promise<void> {
-        const dato = await bd.query('SELECT * FROM v_mantenimientos');
-        res.json(dato);
+        try {
+            const dato = await bd.query('SELECT * FROM v_control_panel');
+            res.json(dato);
+        } catch (err) {
+            res.json({ error: err.sqlMessage });
+        }
     }
 
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const dato = await bd.query('SELECT * FROM v_mantenimientos WHERE id = ?', [id]);
+        const dato = await bd.query('SELECT * FROM v_control_panel WHERE id = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -18,20 +22,20 @@ class MantenimientosController {
     }
 
     public async create(req: Request, res: Response): Promise<void> {
-        const result = await bd.query('INSERT INTO mantenimientos set ?', [req.body]);
+        const result = await bd.query('INSERT INTO control_panel set ?', [req.body]);
         res.json({ message: 'Mantenimiento Registrado' });
     }
 
     public async update(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
         const oldProd = req.body;
-        await bd.query('UPDATE mantenimientos set ? WHERE id = ?', [req.body, id]);
+        await bd.query('UPDATE control_panel set ? WHERE id = ?', [req.body, id]);
         res.json({ message: "EL Mantenimiento fue actualizado" });
     }
 
     public async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        await bd.query('DELETE FROM v_mantenimientos WHERE id = ?', [id]);
+        await bd.query('DELETE FROM control_panel WHERE id = ?', [id]);
         res.json({ message: "El Mantenimiento fue eliminado" });
     }
 

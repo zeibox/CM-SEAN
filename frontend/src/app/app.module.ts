@@ -29,6 +29,13 @@ import { ObrasSocialesComponent } from './components/panel/obras-sociales/obras-
 import { ObraSocialComponent } from './components/panel/obra-social/obra-social.component';
 import { GenerosComponent } from './components/panel/generos/generos.component';
 import { GeneroComponent } from './components/panel/genero/genero.component';
+import { SpacesPipe } from './pipes/spaces.pipe';
+import { PacientesComponent } from './components/panel/pacientes/pacientes.component';
+import { PacienteComponent } from './components/panel/paciente/paciente.component';
+import { TurnoComponent } from './components/panel/turno/turno.component';
+import { TurnosComponent } from './components/panel/turnos/turnos.component';
+import { UsuariosComponent } from './components/panel/usuarios/usuarios.component';
+import { UsuarioComponent } from './components/panel/usuario/usuario.component';
 
 
 registerLocaleData(localeEsAr, 'es-Ar');
@@ -55,8 +62,14 @@ registerLocaleData(localeEsAr, 'es-Ar');
     ObrasSocialesComponent,
     ObraSocialComponent,
     GenerosComponent,
-    GeneroComponent
-
+    GeneroComponent,
+    SpacesPipe,
+    PacienteComponent,
+    PacientesComponent,
+    TurnoComponent,
+    TurnosComponent,
+    UsuariosComponent,
+    UsuarioComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 <div class="container-fluid" style="padding: 30px 0 0 0">
     <div class="container">
-        <a [routerLink]="['/panel/obrasSociales']"><i class="fas fa-arrow-alt-circle-left fa-3x p-3 fondoAzul"></i></a>
+        <a [routerLink]="['/panel/obrassociales']"><i class="fas fa-arrow-alt-circle-left fa-3x p-3 fondoAzul"></i></a>
         <h2 class="col-12 text-center">{{this.idRute?'Actualizar Obra Social':'Agregar Obra Social'}}</h2>
         <div class="row justify-content-center">
             <form [formGroup]="formGroup" (ngSubmit)="this.idRute?onSubmitId():onSubmit()" class="col-sm-8">
