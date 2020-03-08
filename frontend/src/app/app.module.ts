@@ -29,6 +29,8 @@ import { ObrasSocialesComponent } from './components/panel/obras-sociales/obras-
 import { ObraSocialComponent } from './components/panel/obra-social/obra-social.component';
 import { GenerosComponent } from './components/panel/generos/generos.component';
 import { GeneroComponent } from './components/panel/genero/genero.component';
+import { ProvinciaComponent } from './components/panel/provincia/provincia.component';
+import { ProvinciasComponent } from './components/panel/provincias/provincias.component';
 
 
 registerLocaleData(localeEsAr, 'es-Ar');
@@ -55,7 +57,9 @@ registerLocaleData(localeEsAr, 'es-Ar');
     ObrasSocialesComponent,
     ObraSocialComponent,
     GenerosComponent,
-    GeneroComponent
+    GeneroComponent,
+    ProvinciaComponent,
+    ProvinciasComponent
 
   ],
   imports: [

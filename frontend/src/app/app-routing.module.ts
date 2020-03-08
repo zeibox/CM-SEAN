@@ -17,6 +17,8 @@ import { ObrasSocialesComponent } from './components/panel/obras-sociales/obras-
 import { ObraSocialComponent } from './components/panel/obra-social/obra-social.component';
 import { GenerosComponent } from './components/panel/generos/generos.component';
 import { GeneroComponent } from './components/panel/genero/genero.component';
+import { ProvinciasComponent } from './components/panel/provincias/provincias.component';
+import { ProvinciaComponent } from './components/panel/provincia/provincia.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'panel', pathMatch: 'full'},
@@ -45,8 +47,10 @@ const routes: Routes = [
   { path: 'panel/obraSocial', component: ObraSocialComponent },
   { path: 'panel/generos', component: GenerosComponent },
   { path: 'panel/generos/:id', component: GeneroComponent },
-  { path: 'panel/genero', component: GeneroComponent }
-
+  { path: 'panel/genero', component: GeneroComponent },
+  { path: 'panel/provincias', component: ProvinciasComponent },
+  { path: 'panel/provincias/:id', component: ProvinciaComponent },
+  { path: 'panel/provincia', component: ProvinciaComponent }
 ];
 
 

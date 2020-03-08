@@ -16,6 +16,7 @@ class PaisesRoutes {
         this.router.get('/', paisesController.list);
         this.router.get('/:id', paisesController.getOne);
         this.router.post('/', paisesController.create);
+        this.router.get('/byname/:name', paisesController.getbyName);
         this.router.delete('/:id', paisesController.delete);
         this.router.put('/:id', paisesController.update);
     }
