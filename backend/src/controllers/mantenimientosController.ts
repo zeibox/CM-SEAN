@@ -5,7 +5,7 @@ class MantenimientosController {
 
     public async list(req: Request, res: Response): Promise<void> {
         try {
-            const dato = await bd.query('SELECT * FROM v_control_panel');
+            const dato = await bd.query('SELECT * FROM v_control_panel order by grupo, nombre');
             res.json(dato);
         } catch (err) {
             res.json({ error: err.sqlMessage });

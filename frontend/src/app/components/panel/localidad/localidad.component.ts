@@ -4,9 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LocalidadesService } from '../../../services/localidades.service';
 import { DatePipe } from '@angular/common';
 import { Localidad } from '../../../interfaces/localidades';
-import { AreasService } from '../../../services/areas.service';
 import { of } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { filter} from 'rxjs/operators';
 import { PaisesService } from '../../../services/paises.service';
 
 @Component({
@@ -26,11 +25,7 @@ export class LocalidadComponent implements OnInit {
   errors: string;
 
   selectedOption: any;
-  selectedOption2: any;
   selectedProv: any;
-
-
-  areaSelected: any;
 
   localidad: Localidad = {
     id_localidad: 0,
@@ -42,8 +37,6 @@ export class LocalidadComponent implements OnInit {
   provincias: any;
   provinciasFiltradas = [];
   paises: any;
-
-  test: any;
 
   constructor(
     private fb: FormBuilder,
@@ -75,7 +68,6 @@ export class LocalidadComponent implements OnInit {
     this.putData(this.formGroup.value.localidades);
   }
 // SUBMIT METHODS----------------------------------------------------------
-
 
 // CRUD METHODS------------------------------------------------------------
 
@@ -123,7 +115,7 @@ export class LocalidadComponent implements OnInit {
   putData(body) {
     // console.log('como viene del form: ', body);
     // console.log('data', this.data);
-    this.localidad.id_localidad = this.data.id_localidad;
+    this.localidad.id_localidad = this.data.id_localidad; // id_localidad del get on init
     this.localidad.nombre = body.nombre;
     this.localidad.cod_postal = body.cod_postal;
     this.localidad.creado_en = new Date();
@@ -147,6 +139,7 @@ export class LocalidadComponent implements OnInit {
     this.localidad.cod_postal = body.cod_postal;
     // console.log('selected prov', this.selectedProv);
     this.localidad.id_provincia = this.selectedProv?this.selectedProv.id_provincia:this.localidad.id_provincia;
+    // si hay una provincia seleccionada id_prov = selectedProv.id_prov, sino 
     // console.log('antes de mandarlo: ', this.localidad);
 
     this.localidadesServ.saveLocalidad(this.localidad).subscribe(
@@ -198,7 +191,7 @@ export class LocalidadComponent implements OnInit {
         creado_en: [{value: '', disabled: true}],
         nombre: ['', Validators.required],
         cod_postal: ['', Validators.required],
-        provincias: [{value: '', disabled: true}],
+        provincias: ['', Validators.required],
         paises: [{value: '', disabled: true}]
       }),
     }, { updateOn: 'change' });  // updateOn cambia la frecuencia en que se validan los inputs

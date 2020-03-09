@@ -7,7 +7,7 @@ const database_1 = __importDefault(require("../routes/database"));
 class MantenimientosController {
     async list(req, res) {
         try {
-            const dato = await database_1.default.query('SELECT * FROM v_control_panel');
+            const dato = await database_1.default.query('SELECT * FROM v_control_panel order by grupo, nombre');
             res.json(dato);
         }
         catch (err) {
