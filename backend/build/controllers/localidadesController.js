@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../routes/database"));
 class LocalidadesController {
     async list(req, res) {
-        const dato = await database_1.default.query('SELECT * FROM v_locaProvPais');
+        const dato = await database_1.default.query('SELECT * FROM v_locaProvPais order by provincia, nombre');
         res.json(dato);
     }
     async getOne(req, res) {

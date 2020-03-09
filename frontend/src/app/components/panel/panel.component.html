@@ -17,15 +17,15 @@
         <div class="container mx-0 px-0 pb-2">
             <hr>
             <div class="row justify-content-center mx-0 px-0" *ngFor="let item of panel; let i = index;">
-                <button type="button" [routerLink]="['panel/', item.nombre.toLowerCase() | spaces]" class="btn btn-secondary col-12 text-left" *ngIf="item.grupo===1" (click)="if500()"><i class="fas fa-circle fa-xs px-3"></i>{{ item.nombre }}</button>
+                <button type="button" [routerLink]="['panel/', item.ruta ]" class="btn btn-secondary col-12 text-left" *ngIf="item.grupo===1" (click)="if500()"><i class="fas fa-circle fa-xs px-3"></i>{{ item.nombre }}</button>
             </div>
             <hr>
             <div class="row justify-content-center mx-0 px-0" *ngFor="let item of panel; let i = index;">
-                <button type="button" [routerLink]="['panel/', item.nombre.toLowerCase() | spaces]" class="btn btn-secondary col-12 text-left" *ngIf="item.grupo===2" (click)="if500()"><i class="fas fa-circle fa-xs px-3"></i>{{ item.nombre }}</button>
+                <button type="button" [routerLink]="['panel/', item.ruta ]" class="btn btn-secondary col-12 text-left" *ngIf="item.grupo===2" (click)="if500()"><i class="fas fa-circle fa-xs px-3"></i>{{ item.nombre }}</button>
             </div>
             <hr>
             <div class="row justify-content-center mx-0 px-0" *ngFor="let item of panel; let i = index;">
-                <button type="button" [routerLink]="['panel/', item.nombre.toLowerCase() | spaces]" class="btn btn-secondary col-12 text-left" *ngIf="item.grupo===3" (click)="if500()"><i class="fas fa-circle fa-xs px-3"></i>{{ item.nombre }}</button>
+                <button type="button" [routerLink]="['panel/', item.ruta ]" class="btn btn-secondary col-12 text-left" *ngIf="item.grupo===3" (click)="if500()"><i class="fas fa-circle fa-xs px-3"></i>{{ item.nombre }}</button>
             </div>
         </div>
 

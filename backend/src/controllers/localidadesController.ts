@@ -4,7 +4,7 @@ import bd from '../routes/database';
 class LocalidadesController {
 
     public async list(req: Request, res: Response): Promise<void> {
-        const dato = await bd.query('SELECT * FROM v_locaProvPais');
+        const dato = await bd.query('SELECT * FROM v_locaProvPais order by provincia, nombre');
         res.json(dato);
     }
 
