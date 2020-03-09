@@ -1,0 +1,36 @@
+<div class="container-fluid">
+    <div class="container col-10">
+        <div class="row justify-content-center pt-3">
+            <div class="row justify-content-between col-md-8 my-2 px-0 py-2">
+                <button class="btn btn-sm fondoAzul col-sm-12 col-md-6 my-2" (click)="addArea()"><i class="far fa-address-card"></i>  Agregar Localidad</button>
+                <input class="col-sm-12 col-md-5 col-lg-4 my-2" type="text" placeholder="Buscar Localidad" (keyup.enter)="buscarLocalidades(buscarTexto.value)" #buscarTexto>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <table class="table col-12 col-md-8">
+                <thead>
+                    <tr>
+                        <td scope="col">Localidad</td>
+                        <td scope="col">C. Postal</td>
+                        <td scope="col">Provincia</td>
+                        <td scope="col">Pais</td>
+                        <td scope="col">Usuario</td>
+                        <td scope="col">Ultima modificación</td>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of data; let i = index">
+                    <tr class="pointer" [routerLink]="['/panel/localidad', item.id_localidad]">
+                        <!-- <tr (click)="getInputValue()"> -->
+                        <td scope="row">{{ item.nombre }}</td>
+                        <td scope="row">{{ item.cod_postal?item.cod_postal:'-' }}</td>
+                        <td scope="row">{{ item.provincia }}</td>
+                        <td scope="row">{{ item.pais }}</td>
+                        <td scope="row">{{ item.id_user }}</td>
+                        <td scope="row">{{ item.creado_en | date : 'dd MMMM yyyy, HH:mm' : '-600' : 'es-AR' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

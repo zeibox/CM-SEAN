@@ -11,7 +11,6 @@
             <table class="table col-12 col-md-8">
                 <thead>
                     <tr>
-                        <td scope="col">ID Cons</td>
                         <td scope="col">Area</td>
                         <td scope="col">Piso</td>
                         <td scope="col">N° Cons</td>
@@ -21,11 +20,10 @@
                 <tbody *ngFor="let item of data; let i = index">
                     <tr class="pointer" [routerLink]="['/panel/consultorio', item.id_consultorio]">
                         <!-- <tr (click)="getInputValue()"> -->
-                        <td scope="row">{{ item.id_consultorio }}</td>
-                        <td>{{ item.nombre }}</td>
-                        <td>{{ item.piso }}</td>
-                        <td>{{ item.numero }}</td>
-                        <td>{{ item.creado_en | date : 'dd MMMM yy, HH:mm' : '-600' : 'es-AR' }}</td>
+                        <td scope="row">{{ item.nombre }}</td>
+                        <td scope="row">{{ item.piso }}</td>
+                        <td scope="row">{{ item.numero }}</td>
+                        <td scope="row">{{ item.creado_en | date : 'dd MMMM yyyy, HH:mm' : '-600' : 'es-AR' }}</td>
                     </tr>
                 </tbody>
             </table>

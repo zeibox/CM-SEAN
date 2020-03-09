@@ -23,6 +23,8 @@ import { UsuariosComponent } from './components/panel/usuarios/usuarios.componen
 import { UsuarioComponent } from './components/panel/usuario/usuario.component';
 import { TurnosComponent } from './components/panel/turnos/turnos.component';
 import { TurnoComponent } from './components/panel/turno/turno.component';
+import { LocalidadComponent } from './components/panel/localidad/localidad.component';
+import { LocalidadesComponent } from './components/panel/localidades/localidades.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'panel', pathMatch: 'full'},
@@ -53,14 +55,16 @@ const routes: Routes = [
   { path: 'panel/generos/:id', component: GeneroComponent },
   { path: 'panel/pacientes', component: PacientesComponent },
   { path: 'panel/paciente', component: PacienteComponent },
-  { path: 'panel/paciente:id', component: PacienteComponent },
+  { path: 'panel/paciente/:id', component: PacienteComponent },
   { path: 'panel/usuarios', component: UsuariosComponent },
   { path: 'panel/usuario', component: UsuarioComponent },
-  { path: 'panel/usuario:id', component: UsuarioComponent },
+  { path: 'panel/usuario/:id', component: UsuarioComponent },
   { path: 'panel/turnos', component: TurnosComponent },
   { path: 'panel/turno', component: TurnoComponent },
-  { path: 'panel/turno:id', component: TurnoComponent }
-
+  { path: 'panel/turno/:id', component: TurnoComponent },
+  { path: 'panel/localidades', component: LocalidadesComponent },
+  { path: 'panel/localidad', component: LocalidadComponent },
+  { path: 'panel/localidad/:id', component: LocalidadComponent },
 ];
 
 

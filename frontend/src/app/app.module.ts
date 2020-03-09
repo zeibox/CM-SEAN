@@ -36,6 +36,8 @@ import { TurnoComponent } from './components/panel/turno/turno.component';
 import { TurnosComponent } from './components/panel/turnos/turnos.component';
 import { UsuariosComponent } from './components/panel/usuarios/usuarios.component';
 import { UsuarioComponent } from './components/panel/usuario/usuario.component';
+import { LocalidadesComponent } from './components/panel/localidades/localidades.component';
+import { LocalidadComponent } from './components/panel/localidad/localidad.component';
 
 
 registerLocaleData(localeEsAr, 'es-Ar');
@@ -69,7 +71,9 @@ registerLocaleData(localeEsAr, 'es-Ar');
     TurnoComponent,
     TurnosComponent,
     UsuariosComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    LocalidadesComponent,
+    LocalidadComponent
   ],
   imports: [
     BrowserModule,
