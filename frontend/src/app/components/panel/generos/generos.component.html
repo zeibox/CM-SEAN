@@ -12,7 +12,6 @@
             <table class="table col-12 col-md-6">
                 <thead>
                     <tr>
-                        <td scope="col">ID</td>
                         <td scope="col">Género</td>
                         <td scope="col">Ultima Modificación</td>
                     </tr>
@@ -20,7 +19,6 @@
                 <tbody *ngFor="let item of areas; let i = index">
                     <tr class="pointer" [routerLink]="['/panel/generos', item.id_genero]">
                         <!-- <tr (click)="getInputValue()"> -->
-                        <td scope="row">{{ item.id_genero }}</td>
                         <td scope="row">{{ item.nombre }}</td>
                         <td scope="row">{{ item.creado_en | date : 'dd MMMM yy, HH:mm' : '-600' : 'es-AR' }}</td>
                     </tr>

@@ -4,13 +4,13 @@ import bd from '../routes/database';
 class LocalidadesController {
 
     public async list(req: Request, res: Response): Promise<void> {
-        const dato = await bd.query('SELECT * FROM v_localidades');
+        const dato = await bd.query('SELECT * FROM v_locaProvPais');
         res.json(dato);
     }
 
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const dato = await bd.query('SELECT * FROM v_localidades WHERE id_localidad = ?', [id]);
+        const dato = await bd.query('SELECT * FROM v_locaProvPais WHERE id_localidad = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -18,8 +18,13 @@ class LocalidadesController {
     }
 
     public async create(req: Request, res: Response): Promise<void> {
-        const result = await bd.query('INSERT INTO localidades set ?', [req.body]);
-        res.json({ message: 'Loacalidad Registrada' });
+        try {
+           const result = await bd.query('INSERT INTO v_localidades set ?', [req.body]);
+            res.json({ message: 'Loacalidad Registrada' }); 
+        } catch (error) {
+            res.json({ error: error.sqlMessage });
+        }
+        
     }
 
     public async update(req: Request, res: Response): Promise<void> {
