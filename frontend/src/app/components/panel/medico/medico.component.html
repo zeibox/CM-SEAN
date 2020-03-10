@@ -1,11 +1,11 @@
 <div class="container-fluid" style="padding: 30px 0 0 0">
     <div class="container">
-        <a [routerLink]="['/panel/medics']"><i class="fas fa-arrow-alt-circle-left fa-3x" style="color:	lightcoral"></i></a>
+        <a [routerLink]="['/panel/medicos']"><i class="fas fa-arrow-alt-circle-left fa-3x" style="color:	lightcoral"></i></a>
         <span class="text-center" *ngIf="this.idN"><h2>Actualizar Medico</h2></span>
         <span class="text-center" *ngIf="!this.idN"><h2>Agregar Medico</h2></span>
         <div class="row justify-content-center">
-            <form [formGroup]="message" (ngSubmit)="this.idN?onSubmitId():onSubmit()" class="col-sm-8">
-                <div class="form-row" formGroupName="medicos">
+            <form [formGroup]="formGroup" (ngSubmit)="this.idN?onSubmitId():onSubmit()" class="col-sm-8">
+                <div class="form-row" formGroupName="medico">
                     <div class="form-group col-md-6 ">
                         <label>Nombres</label>
                         <input type="text " class="form-control rounded border border-secondary " formControlName="nombres" placeholder="Nombres">

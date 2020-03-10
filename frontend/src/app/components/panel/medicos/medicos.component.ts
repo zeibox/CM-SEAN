@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MedicosService } from '../../../services/medicos.service';
-import { Observable } from 'rxjs';
-import { Medicos } from '../../../interfaces/medicos';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-medicos',
@@ -10,20 +9,23 @@ import { Medicos } from '../../../interfaces/medicos';
 })
 export class MedicosComponent implements OnInit {
 
-  data;
-  testData: Observable<Medicos[]>;
+  medicos;
 
-  constructor(private medicsServ: MedicosService) { }
+  constructor(private medicsServ: MedicosService, private router: Router) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getMedicos();
+  }
+
+  addMedico() {
+    this.router.navigate(['/panel/medico']);
   }
 
   getMedicos() {
     this.medicsServ.getMedicos().subscribe(
       res => {
-        this.data = res;
-        console.log(this.data);
+        this.medicos = res;
+        console.log(this.medicos);
       },
       err => console.log(err)
     );
