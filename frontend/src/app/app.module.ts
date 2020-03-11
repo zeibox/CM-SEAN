@@ -38,6 +38,7 @@ import { UsuariosComponent } from './components/panel/usuarios/usuarios.componen
 import { UsuarioComponent } from './components/panel/usuario/usuario.component';
 import { LocalidadesComponent } from './components/panel/localidades/localidades.component';
 import { LocalidadComponent } from './components/panel/localidad/localidad.component';
+import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
 
 registerLocaleData(localeEsAr, 'es-Ar');
@@ -73,7 +74,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     UsuariosComponent,
     UsuarioComponent,
     LocalidadesComponent,
-    LocalidadComponent
+    LocalidadComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

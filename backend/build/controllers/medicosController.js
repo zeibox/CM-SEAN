@@ -11,7 +11,7 @@ class MedicosController {
     }
     async getOne(req, res) {
         const { id } = req.params;
-        const dato = await database_1.default.query('SELECT * FROM v_medicos WHERE id_medico = ?', [id]);
+        const dato = await database_1.default.query('SELECT * FROM v_medicos_c WHERE id_medico = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }

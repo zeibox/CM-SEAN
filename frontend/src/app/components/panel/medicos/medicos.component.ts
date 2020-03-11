@@ -25,7 +25,7 @@ export class MedicosComponent implements OnInit {
     this.medicsServ.getMedicos().subscribe(
       res => {
         this.medicos = res;
-        console.log(this.medicos);
+        // console.log(this.medicos);
       },
       err => console.log(err)
     );

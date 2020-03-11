@@ -12,12 +12,14 @@
             <table class="table col-12 col-md-10 col-xl-8">
                 <thead>
                     <tr>
+                        <td scope="col">Imagen</td>
                         <td scope="col">Medico</td>
                         <td scope="col">Ultima Modificación</td>
                     </tr>
                 </thead>
                 <tbody *ngFor="let item of medicos; let i = index">
                     <tr class="pointer" [routerLink]="['/panel/medico', item.id_medico]">
+                        <th scope="row"><img src="{{ item.imagen }}" alt=""></th>
                         <td scope="row">{{ item.nombres }} {{ item.apellido }}</td>
                         <td scope="row">{{ item.creado_en | date : 'dd/MM/yy, HH:mm' : '-600' : 'es-AR' }}</td>
                     </tr>

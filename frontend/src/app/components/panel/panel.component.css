@@ -13,14 +13,6 @@ mat-sidenav {
     width: 220px;
 }
 
-.navbar {
-    background-color: #5f676e !important;
-}
-
-.navbar-brand {
-    color: white !important;
-}
-
 .pointer {
     cursor: pointer;
 }

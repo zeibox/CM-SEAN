@@ -19,3 +19,7 @@ thead tr td {
     background-color: rgb(115, 150, 151) !important;
     color: white;
 }
+
+.row img {
+    height: 30px;
+}
