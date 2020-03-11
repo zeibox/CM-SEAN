@@ -19,7 +19,7 @@ class MedicosController {
 
     public async create(req: Request, res: Response): Promise<void> {
         try{
-            const result = await bd.query('INSERT INTO medicos set ?', [req.body]);
+            const result = await bd.query('INSERT INTO v_medicos set ?', [req.body]);
             res.json({ message: 'Médico Registrado' });
         }catch(err){
             res.json({ error: err.sqlMessage });

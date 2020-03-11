@@ -12,23 +12,23 @@ export class DocumentosService {
   constructor(private http: HttpClient) { }
 
   getDocumentos() {
-    return this.http.get(`${ environment.url }/consultorios`);
+    return this.http.get(`${ environment.url }/documentosTipos`);
   }
 
   getDocumento(id) {
-    return this.http.get(`${ environment.url }/consultorios/${ id }`);
+    return this.http.get(`${ environment.url }/documentosTipos/${ id }`);
   }
 
   postDocumento(body: Documento) {
-    return this.http.post(`${ environment.url }/consultorios`, body);
+    return this.http.post(`${ environment.url }/documentosTipos`, body);
   }
 
   deleteDocumento(id: string) {
-    return this.http.delete(`${environment.url}/consultorios/${id}`);
+    return this.http.delete(`${environment.url}/documentosTipos/${id}`);
   }
 
   putDocumento(id: string, body: Documento): Observable<Documento> {
-    return this.http.put(`${ environment.url }/consultorios/${ id }`, body);
+    return this.http.put(`${ environment.url }/documentosTipos/${ id }`, body);
   }
 
 

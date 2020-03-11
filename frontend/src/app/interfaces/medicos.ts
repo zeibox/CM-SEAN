@@ -14,4 +14,5 @@ export interface Medico {
     id_documento_tipo?: number;
     id_genero?: number;
     id_medico?: number;
+    id_user?: number;
 }

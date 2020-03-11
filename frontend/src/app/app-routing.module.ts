@@ -52,6 +52,7 @@ const routes: Routes = [
   { path: 'panel/obrassociales/:id', component: ObraSocialComponent },
   { path: 'panel/obraSocial', component: ObraSocialComponent },
   { path: 'panel/generos', component: GenerosComponent },
+  { path: 'panel/genero', component: GeneroComponent },
   { path: 'panel/generos/:id', component: GeneroComponent },
   { path: 'panel/pacientes', component: PacientesComponent },
   { path: 'panel/paciente', component: PacienteComponent },

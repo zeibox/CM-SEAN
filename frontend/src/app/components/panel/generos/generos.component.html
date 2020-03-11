@@ -17,7 +17,7 @@
                     </tr>
                 </thead>
                 <tbody *ngFor="let item of areas; let i = index">
-                    <tr class="pointer" [routerLink]="['/panel/generos', item.id_genero]">
+                    <tr class="pointer" [routerLink]="['/panel/genero', item.id_genero]">
                         <!-- <tr (click)="getInputValue()"> -->
                         <td scope="row">{{ item.nombre }}</td>
                         <td scope="row">{{ item.creado_en | date : 'dd MMMM yy, HH:mm' : '-600' : 'es-AR' }}</td>
