@@ -3,7 +3,7 @@
         <div class="row justify-content-center pt-3">
             <div class="row justify-content-between col-md-8 my-2 px-0 py-2">
                 <button class="btn btn-sm fondoAzul col-sm-12 col-md-6 my-2" (click)="addArea()"><i class="far fa-address-card"></i>  Agregar Localidad</button>
-                <input class="col-sm-12 col-md-5 col-lg-4 my-2" type="text" placeholder="Buscar Localidad" (keyup.enter)="buscarLocalidades(buscarTexto.value)" #buscarTexto>
+                <input class="col-sm-12 col-md-5 col-lg-4 my-2" type="text" placeholder="Buscar Localidad" (keyup.enter)="getInputValue()" #inputData>
             </div>
         </div>
 
@@ -19,7 +19,7 @@
                         <td scope="col">Ultima modificación</td>
                     </tr>
                 </thead>
-                <tbody *ngFor="let item of data; let i = index">
+                <tbody *ngFor="let item of data | filter: search: 'nombre'">
                     <tr class="pointer" [routerLink]="['/panel/localidad', item.id_localidad]">
                         <!-- <tr (click)="getInputValue()"> -->
                         <td scope="row">{{ item.nombre }}</td>

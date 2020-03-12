@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalidadesService } from 'src/app/services/localidades.service';
 
@@ -9,8 +9,10 @@ import { LocalidadesService } from 'src/app/services/localidades.service';
 })
 export class LocalidadesComponent implements OnInit {
 
+  @ViewChild('inputData') inputData: ElementRef;
   data: any;
   value: any;
+  search = '';
 
   constructor(
     private localidadesServ: LocalidadesService,
@@ -18,6 +20,11 @@ export class LocalidadesComponent implements OnInit {
 
   ngOnInit() {
     this.getLocalidades();
+  }
+
+  getInputValue() {
+    this.search = this.inputData.nativeElement.value;
+    // console.log(this.search);
   }
 
   addArea() {
