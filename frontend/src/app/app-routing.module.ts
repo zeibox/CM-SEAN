@@ -17,6 +17,7 @@ import { ObrasSocialesComponent } from './components/panel/obras-sociales/obras-
 import { ObraSocialComponent } from './components/panel/obra-social/obra-social.component';
 import { GenerosComponent } from './components/panel/generos/generos.component';
 import { GeneroComponent } from './components/panel/genero/genero.component';
+
 import { PacientesComponent } from './components/panel/pacientes/pacientes.component';
 import { PacienteComponent } from './components/panel/paciente/paciente.component';
 import { UsuariosComponent } from './components/panel/usuarios/usuarios.component';
@@ -25,6 +26,9 @@ import { TurnosComponent } from './components/panel/turnos/turnos.component';
 import { TurnoComponent } from './components/panel/turno/turno.component';
 import { LocalidadComponent } from './components/panel/localidad/localidad.component';
 import { LocalidadesComponent } from './components/panel/localidades/localidades.component';
+import { ProvinciasComponent } from './components/panel/provincias/provincias.component';
+import { ProvinciaComponent } from './components/panel/provincia/provincia.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'panel', pathMatch: 'full'},
@@ -66,6 +70,9 @@ const routes: Routes = [
   { path: 'panel/localidades', component: LocalidadesComponent },
   { path: 'panel/localidad', component: LocalidadComponent },
   { path: 'panel/localidad/:id', component: LocalidadComponent },
+  { path: 'panel/provincias', component: ProvinciasComponent },
+  { path: 'panel/provincias/:id', component: ProvinciaComponent },
+  { path: 'panel/provincia', component: ProvinciaComponent }
 ];
 
 

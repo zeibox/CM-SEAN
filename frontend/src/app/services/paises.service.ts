@@ -35,5 +35,9 @@ export class PaisesService {
     return this.http.put(`${environment.url}/paises/${id}`, updatedPais);
   }
 
+  getPaisByName(name: string) {
+    return this.http.get(`${environment.url}/paises/byname/${name}`);
+  }
+
 }
 

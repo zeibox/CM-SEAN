@@ -16,7 +16,6 @@ import { MedicoComponent } from './components/panel/medico/medico.component';
 import { MedicosComponent } from './components/panel/medicos/medicos.component';
 import { AreasComponent } from './components/panel/areas/areas.component';
 import { AreaComponent } from './components/panel/area/area.component';
-
 import { registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
 import { JerarquiasComponent } from './components/panel/jerarquias/jerarquias.component';
@@ -39,6 +38,9 @@ import { UsuarioComponent } from './components/panel/usuario/usuario.component';
 import { LocalidadesComponent } from './components/panel/localidades/localidades.component';
 import { LocalidadComponent } from './components/panel/localidad/localidad.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
+import { ProvinciaComponent } from './components/panel/provincia/provincia.component';
+import { ProvinciasComponent } from './components/panel/provincias/provincias.component';
+
 
 
 registerLocaleData(localeEsAr, 'es-Ar');
@@ -75,7 +77,9 @@ registerLocaleData(localeEsAr, 'es-Ar');
     UsuarioComponent,
     LocalidadesComponent,
     LocalidadComponent,
-    NavbarComponent
+    NavbarComponent,
+    ProvinciaComponent,
+    ProvinciasComponent
   ],
   imports: [
     BrowserModule,

@@ -17,6 +17,11 @@ class PaisesController {
         }
         res.status(404).json({ text: "El País no existe" });
     }
+    async getbyName(req, res) {
+        const { name } = req.params;
+        const dateano = await database_1.default.query('SELECT * FROM v_paises WHERE nombre = ?', [name]);
+        return res.json(dateano);
+    }
     async create(req, res) {
         const result = await database_1.default.query('INSERT INTO paises set ?', [req.body]);
         res.json({ message: 'País Registrado' });

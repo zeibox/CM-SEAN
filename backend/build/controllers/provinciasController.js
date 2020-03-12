@@ -23,13 +23,14 @@ class ProvinciasController {
     }
     async update(req, res) {
         const { id } = req.params;
+        console.log(req.body);
         const oldProd = req.body;
         await database_1.default.query('UPDATE provincias set ? WHERE id_provincia = ?', [req.body, id]);
         res.json({ message: "Provincia actualizada" });
     }
     async delete(req, res) {
         const { id } = req.params;
-        await database_1.default.query('DELETE FROM v_provincias WHERE id_provincia = ?', [id]);
+        await database_1.default.query('DELETE FROM provincias WHERE id_provincia = ?', [id]);
         res.json({ message: "Provincia eliminada" });
     }
 }

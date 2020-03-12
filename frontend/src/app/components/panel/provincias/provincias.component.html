@@ -1,0 +1,30 @@
+<div class="container-fluid">
+    <div class="container col-10">
+        <div class="row justify-content-center pt-3">
+            <div class="row justify-content-between col-md-8 my-2 px-0 py-2">
+                <button class="btn btn-sm fondoAzul col-sm-12 col-md-6 my-2" (click)="addProvincia()"><i class="far fa-address-card"></i>  Agregar Provincia</button>
+                <input class="col-sm-12 col-md-5 col-lg-4 my-2" type="text" placeholder="Buscar Provincia" (keyup.enter)="searchProvincias(buscarTexto.value)" #buscarTexto>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <table class="table col-12 col-md-8">
+                <thead>
+                    <tr>
+                        <td scope="col">ID Cons</td>
+                        <td scope="col">Provincia</td>
+                        <td scope="col">Pais</td>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of data; let i = index">
+                    <tr class="pointer" [routerLink]="['/panel/provincias', item.id_provincia]">
+                        <!-- <tr (click)="getInputValue()"> -->
+                        <td scope="row">{{ item.id_provincia }}</td>
+                        <td>{{ item.nombre }}</td>
+                        <td>{{ item.pais }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
