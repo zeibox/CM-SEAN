@@ -5,6 +5,8 @@ import { ProvinciasService } from '../../../services/provincias.service';
 import { DatePipe } from '@angular/common';
 import { Provincia } from '../../../interfaces/provincias';
 import { PaisesService } from '../../../services/paises.service';
+import { of } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-provincia',
@@ -12,8 +14,6 @@ import { PaisesService } from '../../../services/paises.service';
   styleUrls: ['./provincia.component.css']
 })
 export class ProvinciaComponent implements OnInit {
-
-
   formGroup: FormGroup;
   datePipe = new DatePipe('es-AR');
   paises: any;
@@ -26,11 +26,10 @@ export class ProvinciaComponent implements OnInit {
   selectedOption: any;
   provinciaSelected: any;
 
-
   provincia: Provincia = {
     id_provincia: 0,
-    id_pais: 0,
-    nombre: ''
+    nombre: '',
+    id_pais: 0
   };
 
   constructor(
@@ -67,8 +66,7 @@ export class ProvinciaComponent implements OnInit {
     this.paisesServ.getPaises().subscribe(
       res => {
         this.paises = res;
-        this.provincia.id_pais = this.paises[0].id_paises;
-        // console.log(this.paises);
+        this.provincia.id_pais = this.paises[0].id_pais;
       },
       err => this.errors = err.error.text
     );
@@ -78,34 +76,22 @@ export class ProvinciaComponent implements OnInit {
     this.provinciasServ.getOneProvincia(id).subscribe(
       res => {
         this.data = res;
-        // console.log(this.data);
-
         this.formGroup = this.fb.group({
           provincias: this.fb.group({
-          id_provincia: [{value: this.data.id_provincia, disabled: true}],
-          nombre: this.data.nombre
-        }),
-      }, { updateOn: 'change' });  // updateOn cambia la frecuencia en que se validan los inputs
-        // console.log(this.formGroup.value.provincias);
-    },
-      err => this.errors = err.error.text
-    );
-  }
-
-  getOneByName() {
-    this.paisesServ.getPaisByName(this.selectedOption).subscribe(
-      res => {
-        this.paises.id_pais = res[0].id_pais;
-        console.log(res[0].id_pais);
+            id_provincia: [{value: this.data.id_provincia, disabled: true}],
+            nombre: this.data.nombre,
+            pais: this.data.pais,
+            id_pais: this.data.id_pais
+          }),
+        }, { updateOn: 'change' });  // updateOn cambia la frecuencia en que se validan los inputs
       },
-        err => this.errors = err.error.text
+      err => this.errors = err.error.text
     );
   }
 
   putData(body) {
     this.provincia.id_provincia = this.data.id_provincia;
     this.provincia.nombre = body.nombre;
-
     this.provinciasServ.putProvincia(this.idRute, this.provincia).subscribe(
       res => {
         this.edit = true;
@@ -119,13 +105,9 @@ export class ProvinciaComponent implements OnInit {
   }
 
   postData(body) {
-    // console.log('como viene del form: ', body);
     this.provincia.nombre = body.nombre;
-    // console.log('antes de mandarlo: ', this.consultorio);
-
     this.provinciasServ.postProvincia(this.provincia).subscribe(
         res => {
-          // this.errors = null;
           this.add = true;
           setTimeout(() => {
             this.add = false;
@@ -137,7 +119,6 @@ export class ProvinciaComponent implements OnInit {
   }
 
   delData() {
-    // console.log(this.idRute);
     this.provinciasServ.deleteProvincia(this.idRute).subscribe(
       res => {
         this.delete = true;
@@ -156,15 +137,25 @@ export class ProvinciaComponent implements OnInit {
     this.formGroup = this.fb.group({
       provincias: this.fb.group({
         id_provincia: [{value: '', disabled: true}],
-        id_pais: [{value: '', disabled: true}],
         nombre: ['', Validators.required],
+        pais: ['', Validators.required],
+        id_pais: [{value: '', disabled: true}]
       }),
     }, { updateOn: 'change' });  // updateOn cambia la frecuencia en que se validan los inputs
   }
 
+  filterObsProvincia() {
+    const paises = of (...this.paises); // of hace observable al parametro y spread (...) lo desestructura
+    paises.pipe(
+    filter(res => res.nombre === this.selectedOption )) // filtra buscando equivalencias
+    .subscribe(res => {
+      this.provincia.id_pais = res.id_pais; // asigna id_area al obj que se va a enviar
+    });
+  }
+
   getSelected(item) {
     this.selectedOption = item.target.value;
-    this.getOneByName();
+    this.filterObsProvincia();
   }
 
 }

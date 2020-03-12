@@ -13,6 +13,7 @@
                     <tr>
                         <td scope="col">ID Cons</td>
                         <td scope="col">Provincia</td>
+                        <td scope="col">Pais</td>
                     </tr>
                 </thead>
                 <tbody *ngFor="let item of data; let i = index">
@@ -20,6 +21,7 @@
                         <!-- <tr (click)="getInputValue()"> -->
                         <td scope="row">{{ item.id_provincia }}</td>
                         <td>{{ item.nombre }}</td>
+                        <td>{{ item.pais }}</td>
                     </tr>
                 </tbody>
             </table>
