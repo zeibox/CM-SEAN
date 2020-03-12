@@ -28,7 +28,7 @@ export class LocalidadesComponent implements OnInit {
     this.localidadesServ.getLocalidades().subscribe(
       res => {
         this.data = res;
-        // console.log(this.data);
+        //console.log(this.data);
       },
       err => console.log('error: ', err)
     );

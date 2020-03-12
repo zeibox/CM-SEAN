@@ -8,13 +8,16 @@ import { AreasService } from '../../../services/areas.service';
 import { of } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 import { PaisesService } from '../../../services/paises.service';
+import { DomiciliosService } from '../../../services/domicilios.service';
+import { Domicilio } from '../../../interfaces/domicilios';
+
 
 @Component({
-  selector: 'app-localidad',
-  templateUrl: './localidad.component.html',
-  styleUrls: ['./localidad.component.css']
+  selector: 'app-domicilio',
+  templateUrl: './domicilio.component.html',
+  styleUrls: ['./domicilio.component.css']
 })
-export class LocalidadComponent implements OnInit {
+export class DomicilioComponent implements OnInit {
 
   formGroup: FormGroup;
   datePipe = new DatePipe('es-AR');
@@ -27,14 +30,14 @@ export class LocalidadComponent implements OnInit {
 
   selectedOption: any;
   selectedOption2: any;
-  selectedProv: any;
+  selectedLoc: any;
 
 
   areaSelected: any;
 
-  localidad: Localidad = {
-    id_localidad: 0,
-    id_provincia: 1,
+  domicilio: Domicilio = {
+    id_dom: 0,
+    id_localidad: 1,
     id_user: 1,
     creado_en: new Date()
   };
@@ -42,6 +45,10 @@ export class LocalidadComponent implements OnInit {
   provincias: any;
   provinciasFiltradas = [];
   paises: any;
+  //---
+  localidades: any;
+  localiddesFiltradas = [];
+
 
   test: any;
 
@@ -50,12 +57,15 @@ export class LocalidadComponent implements OnInit {
     private route: ActivatedRoute,
     private localidadesServ: LocalidadesService,
     private paisesService: PaisesService,
-    private router: Router
+    private router: Router,
+    //asdfg
+    private domiciliosServ: DomiciliosService,
   ) {}
 
   ngOnInit() {
-    this.getPaises();
+    //this.getPaises();
     this.getProvincias();
+    this.getLocalidades();
     this.idRute = this.route.snapshot.params.id;
     if (this.idRute) {
       this.getOne(this.idRute);
@@ -83,8 +93,17 @@ export class LocalidadComponent implements OnInit {
     this.localidadesServ.getProvincias().subscribe(
       res => {
         this.provincias = res;
-        //console.log(res);
         this.filterObsProv();  // ejecuta obs al devolver res de provincias
+      },
+      err => this.errors = err.error.text
+    );
+  }
+  //asdfg//
+  getLocalidades() {
+    this.localidadesServ.getLocalidades().subscribe(
+      res => {
+        this.localidades = res;
+        this.filterObsLoc();  // ejecuta obs al devolver res de provincias
       },
       err => this.errors = err.error.text
     );
@@ -94,23 +113,32 @@ export class LocalidadComponent implements OnInit {
     this.paisesService.getPaises().subscribe(
       res => {
         this.paises = res;
-        //console.log(res);
+        // console.log(res);
       }
     );
   }
 
   getOne(id) {
-    this.localidadesServ.getLocalidad(id).subscribe(
+    this.domiciliosServ.getDomicilio(id).subscribe(
       res => {
         this.data = res;
         // console.log('get on init', this.data);
 
         this.formGroup = this.fb.group({
-          localidades: this.fb.group({
-          id_localidad: [{value: this.data.id_localidad, disabled: true}],
+          domicilios: this.fb.group({
+          id_dom: [{value: this.data.id_dom, disabled: true}],
           creado_en: [{value: this.datePipe.transform(this.data.creado_en, 'dd MMMM yyyy, HH:mm', '-600'), disabled: true}],
-          nombre: this.data.nombre,
+          calle: this.data.calle,
+          numero: this.data.numero,
+          piso: this.data.piso,
+          dpto: this.data.dpto,
+          id_localidad: this.data.id_localidad,
           cod_postal: this.data.cod_postal,
+          telefono: this.data.telefono,
+          imagen: this.data.imagen,
+          latitud: this.data.latitud,
+          longitud: this.data.longitud,
+          localidades: [{value: this.data.localidad, disabled: true}],
           provincias: [{value: this.data.provincia, disabled: true}],
           paises: [{value: this.data.pais, disabled: true}],
         }),
@@ -123,19 +151,27 @@ export class LocalidadComponent implements OnInit {
 
   putData(body) {
     // console.log('como viene del form: ', body);
-     console.log('data', this.data);
-    this.localidad.id_localidad = this.data.id_localidad;
-    this.localidad.nombre = body.nombre;
-    this.localidad.cod_postal = body.cod_postal;
-    this.localidad.creado_en = new Date();
-     console.log('antes de mandarlo', this.localidad);
+    // console.log('data', this.data);
+    this.domicilio.id_dom = this.data.id_dom;
+    this.domicilio.calle = body.calle;
+    this.domicilio.numero = body.numero;
+    this.domicilio.piso = body.piso;
+    this.domicilio.dpto = body.dpto;
+    this.domicilio.cod_postal = body.cod_postal;
+    this.domicilio.telefono = body.telefono;
+    this.domicilio.imagen = body.imagen;
+    this.domicilio.latitud = body.latitud;
+    this.domicilio.longitud = body.longitud;
 
-    this.localidadesServ.updateLocalidad(this.idRute, this.localidad).subscribe(
+    this.domicilio.creado_en = new Date();
+    // console.log('antes de mandarlo', this.localidad);
+
+    this.domiciliosServ.updateDomicilio(this.idRute, this.domicilio).subscribe(
       res => {
         this.edit = true;
         setTimeout(() => {
           this.edit = false;
-          this.router.navigate(['panel/localidades']);
+          this.router.navigate(['panel/domicilios']);
         }, 1500);
       },
       err => this.errors = err.error.text
@@ -143,20 +179,27 @@ export class LocalidadComponent implements OnInit {
   }
 
   postData(body) {
-     console.log('como viene del form: ', body);
-    this.localidad.nombre = body.nombre;
-    this.localidad.cod_postal = body.cod_postal;
-    // console.log('selected prov', this.selectedProv);
-    this.localidad.id_provincia = this.selectedProv?this.selectedProv.id_provincia:this.localidad.id_provincia;
+    // console.log('como viene del form: ', body);
+    this.domicilio.calle = body.calle;
+    this.domicilio.numero = body.numero;
+    this.domicilio.piso = body.piso;
+    this.domicilio.dpto = body.dpto;
+    this.domicilio.cod_postal = body.cod_postal;
+    this.domicilio.telefono = body.telefono;
+    this.domicilio.imagen = body.imagen;
+    this.domicilio.latitud = body.latitud;
+    this.domicilio.longitud = body.longitud;
+    // console.log('selected prov', this.selectedLoc);
+    this.domicilio.id_localidad = this.selectedLoc?this.selectedLoc.id_localidad:this.domicilio.id_localidad;
     // console.log('antes de mandarlo: ', this.localidad);
 
-    this.localidadesServ.saveLocalidad(this.localidad).subscribe(
+    this.domiciliosServ.saveDomicilio(this.domicilio).subscribe(
         res => {
           // this.errors = null;
           this.add = true;
           setTimeout(() => {
             this.add = false;
-            this.router.navigate(['panel/localidades']);
+            this.router.navigate(['panel/domicilios']);
           }, 1500);
         },
         err => this.errors = err.error.text
@@ -165,12 +208,12 @@ export class LocalidadComponent implements OnInit {
 
   delData() {
     // console.log(this.idRute);
-    this.localidadesServ.deleteLocalidad(this.idRute).subscribe(
+    this.domiciliosServ.deleteDomicilio(this.idRute).subscribe(
       res => {
         this.delete = true;
         setTimeout(() => {
           this.delete = false;
-          this.router.navigate(['panel/localidades']);
+          this.router.navigate(['panel/domicilios']);
         }, 1500);
       },
       err => this.errors = err.error.text
@@ -182,10 +225,17 @@ export class LocalidadComponent implements OnInit {
   formGroupFormat() {
     this.formGroup = this.fb.group({
       localidades: this.fb.group({
-        id_localidad: [{value: '', disabled: true}],
+        id_dom: [{value: '', disabled: true}],
         creado_en: [{value: '', disabled: true}],
-        nombre: ['', Validators.required],
-        cod_postal: ['', Validators.required],
+        calle: ['', Validators.required],
+        numero: ['', Validators.required],
+        piso: '',
+        dpto: '',
+        latitud: '',
+        longitud: '',
+        imagen: '',
+        cod_postal: '',
+        localidades: '',
         provincias: '',
         paises: ''
       }),
@@ -197,10 +247,17 @@ export class LocalidadComponent implements OnInit {
       localidades: this.fb.group({
         id_localidad: [{value: '', disabled: true}],
         creado_en: [{value: '', disabled: true}],
-        nombre: ['', Validators.required],
-        cod_postal: ['', Validators.required],
+        calle: ['', Validators.required],
+        numero: ['', Validators.required],
+        piso: [{value: '', disabled: true}],
+        dpto: [{value: '', disabled: true}],
+        latitud: [{value: '', disabled: true}],
+        longitud: [{value: '', disabled: true}],
+        imagen: [{value: '', disabled: true}],
+        cod_postal: [{value: '', disabled: true}],
+        localidades: [{value: '', disabled: true}],
         provincias: [{value: '', disabled: true}],
-        paises: [{value: '', disabled: true}]
+        paises: [{value: '', disabled: true}],
       }),
     }, { updateOn: 'change' });  // updateOn cambia la frecuencia en que se validan los inputs
   }
@@ -225,8 +282,8 @@ export class LocalidadComponent implements OnInit {
     prueba.pipe(
     filter(res => res.nombre === item )) // filtra buscando equivalencias
     .subscribe(res => {
-      this.selectedProv = res;
-      // console.log(this.selectedProv);
+      this.selectedLoc = res;
+      // console.log(this.selectedLoc);
     });
   }
 
@@ -236,7 +293,32 @@ export class LocalidadComponent implements OnInit {
   }
 
   getProvinciaSelected(item) { // captura la opcion seleccionada
-    // console.log(this.selectedProv);
+    // console.log(this.selectedLoc);
     this.filterObsProvSelected(item.target.value);
   }
 }
+
+// filterObsLoc(provincia?){
+//   this.localidadesFiltradas = [];
+//   const prueba = of (...this.localidades); // of hace obvservable al parametro y spread (...) lo desestructura
+//   prueba.pipe(
+//   filter(res => res.provincia === (provincia?provincia:'Buenos Aires'))) // filtra buscando equivalencias
+//   .subscribe(res => {
+//     this.localidadesFiltradas.push(res);
+//   });
+//   // console.log(this.provinciasFiltradas);
+//   if (this.localidadesFiltradas[0]) {
+//     this.domicilio.id_localidad = this.localidadesFiltradas[0].id_localidad;
+//   }
+//   // console.log(this.localidad);
+// }
+
+// filterObsLocSelected(item) {
+//   const prueba = of (...this.localidades); // of hace obvservable al parametro y spread (...) lo desestructura
+//   prueba.pipe(
+//   filter(res => res.nombre === item )) // filtra buscando equivalencias
+//   .subscribe(res => {
+//     this.selectedLoc = res;
+//     // console.log(this.selectedLoc);
+//   });
+// }

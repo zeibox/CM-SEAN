@@ -25,6 +25,9 @@ import { TurnosComponent } from './components/panel/turnos/turnos.component';
 import { TurnoComponent } from './components/panel/turno/turno.component';
 import { LocalidadComponent } from './components/panel/localidad/localidad.component';
 import { LocalidadesComponent } from './components/panel/localidades/localidades.component';
+import { DomicilioComponent } from './components/panel/domicilio/domicilio.component';
+import { DomiciliosComponent } from './components/panel/domicilios/domicilios.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'panel', pathMatch: 'full'},
@@ -65,6 +68,9 @@ const routes: Routes = [
   { path: 'panel/localidades', component: LocalidadesComponent },
   { path: 'panel/localidad', component: LocalidadComponent },
   { path: 'panel/localidad/:id', component: LocalidadComponent },
+  { path: 'panel/domicilios', component: DomiciliosComponent },
+  { path: 'panel/domicilio', component: DomicilioComponent },
+  { path: 'panel/domicilio/:id', component: DomicilioComponent },
 ];
 
 
