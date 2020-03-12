@@ -10,10 +10,10 @@ export class FilterPipe implements PipeTransform {
       return arreglo;
     }
 
-    texto = texto.toLowerCase();
+    texto = texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); // ignora case y tildes
 
     return arreglo.filter( item => {
-      return item[columna].toLowerCase()
+      return item[columna].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') // ignora case y tildes
       .includes( texto );
     });
   }
