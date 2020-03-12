@@ -43,7 +43,22 @@ export class ProvinciaComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getPaises();
+    this.settingProvincias();
+  }
+
+  getPaises() {
+    this.paisesServ.getPaises().subscribe(
+      res => {
+        this.paises = res;
+        this.provincia.id_pais = this.paises[0].id_pais;
+      },
+      err => this.errors = err.error.text
+    );
+  }
+
+  async settingProvincias() {
+    await this.getPaises();
+
     this.idRute = this.route.snapshot.params.id;
     if (this.idRute) {
       this.getOne(this.idRute);
@@ -64,15 +79,7 @@ export class ProvinciaComponent implements OnInit {
 
   // CRUD METHODS------------------------------------------------------------
 
-  getPaises() {
-    this.paisesServ.getPaises().subscribe(
-      res => {
-        this.paises = res;
-        this.provincia.id_pais = this.paises[0].id_pais;
-      },
-      err => this.errors = err.error.text
-    );
-  }
+
 
   getOne(id) {
     this.provinciasServ.getOneProvincia(id).subscribe(
