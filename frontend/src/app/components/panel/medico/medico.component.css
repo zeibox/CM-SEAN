@@ -30,3 +30,12 @@ hr {
 .btn {
     width: 150px;
 }
+
+.iconTitle {
+    float: right;
+    margin-right: 10px;
+}
+
+.pointer {
+    cursor: pointer;
+}

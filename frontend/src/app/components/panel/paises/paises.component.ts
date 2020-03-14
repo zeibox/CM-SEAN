@@ -8,8 +8,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./paises.component.css']
 })
 export class PaisesComponent implements OnInit {
-  
-  @HostBinding('class') classes = 'row';
 
   paises: any = [];
 

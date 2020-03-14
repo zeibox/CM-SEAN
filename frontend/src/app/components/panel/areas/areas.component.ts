@@ -9,9 +9,6 @@ import { Router } from '@angular/router';
 })
 export class AreasComponent implements OnInit {
 
-
-  @HostBinding('class') classes = 'row';
-
   areas: any = [];
 
   constructor(private userServ: AreasService, private ruta: Router) {}
