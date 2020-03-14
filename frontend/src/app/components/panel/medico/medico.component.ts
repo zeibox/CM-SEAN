@@ -30,6 +30,7 @@ export class MedicoComponent implements OnInit {
   generos: any;
   selectedGenero: any;
   datosBasicos = true;
+  especialidades = true;
 
 
   medico: Medico = {
@@ -233,8 +234,8 @@ export class MedicoComponent implements OnInit {
   }
 
   hideForm(item) {
-    // console.log(item);
     if (item.target.title === 'datosBasicos') { this.datosBasicos = !this.datosBasicos; }
+    if (item.target.title === 'especialidades') { this.especialidades = !this.especialidades; }
   }
 
 }
