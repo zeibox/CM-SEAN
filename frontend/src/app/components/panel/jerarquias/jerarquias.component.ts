@@ -9,8 +9,6 @@ import { Router } from '@angular/router';
 })
 export class JerarquiasComponent implements OnInit {
 
-  @HostBinding('class') classes = 'row';
-
   jerarquias: any = [];
 
   constructor(private jerarquiaServ: JerarquiasService, private ruta: Router) { }

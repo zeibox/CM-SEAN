@@ -29,6 +29,7 @@ export class MedicoComponent implements OnInit {
   selectedJerarquia: any;
   generos: any;
   selectedGenero: any;
+  datosBasicos = true;
 
 
   medico: Medico = {
@@ -81,43 +82,6 @@ export class MedicoComponent implements OnInit {
 // SUBMIT METHODS----------------------------------------------------------
 
 // CRUD METHODS------------------------------------------------------------
-
-  // getDocumentos() {
-  //   this.documentosService.getDocumentos().subscribe( res => { this.documentos = res; },
-  //     err => {this.errors = err.error.text; },
-  //     () => {
-  //       console.log('finish doc');
-  //       if (!this.data) {
-  //         this.getOne(this.idRute);
-  //       } else { this.formGroup.value.medicos.tipoDoc = this.data.documento; }
-  //     });
-  // }
-
-  // getJerarquias() {
-  //   this.jerarquiasService.getJerarquias().subscribe( res => {
-  //      this.jerarquias = res; },
-  //      err => {this.errors = err.error.text; },
-  //      () => {
-  //       console.log('finish jer');
-  //       if (!this.data) {
-  //         this.getOne(this.idRute);
-  //       } else { this.formGroup.value.medicos.jerarquia = this.data.jerarquia; }
-  //      });
-  // }
-  // getGeneros() {
-  //   this.generosService.getGeneros().subscribe(
-  //     res => {
-  //       this.generos = res;
-  //     },
-  //     err => {this.errors = err.error.text; },
-  //     () => {
-  //       console.log('finish gen');
-  //       if (!this.data) {
-  //         this.getOne(this.idRute);
-  //       } else { this.formGroup.value.medicos.genero = this.data.genero; }
-  //     });
-  // }
-
   forkJoin() {
     forkJoin(this.generosService.getGeneros(), this.jerarquiasService.getJerarquias(), this.documentosService.getDocumentos()).subscribe(
       res => {
@@ -136,10 +100,6 @@ export class MedicoComponent implements OnInit {
     this.medicoServ.getOneMedico(id).subscribe(
       res => {
         this.data = res;
-        // console.log(this.data);
-        // console.log('generos', this.generos);
-        // console.log('documentos', this.documentos);
-        // console.log('jerarquias', this.jerarquias);
         this.formGroup = this.fb.group({
           medicos: this.fb.group({
             nombres: this.data.nombres,
@@ -166,14 +126,7 @@ export class MedicoComponent implements OnInit {
   putData(body) {
     console.log('Datos del form: ', body);
     this.medico.id_medico = this.data.id_medico; // data es el objeto obtenido del get on init
-    this.medico.nombres = body.nombres;
-    this.medico.apellido = body.apellido;
-    this.medico.celular = body.celular;
-    this.medico.cuit = body.cuit;
-    this.medico.email = body.email;
-    this.medico.matricula = body.matricula;
-    this.medico.numero = body.numero_doc;
-    this.medico.vto_acuerdo = body.vto_acuerdo;
+    this.medicoData(body);
     // ID: si hay campos seleccionados en combo-box utiliza esos valores, si no utliza el valor de DATA
     this.medico.id_documento_tipo = this.selectedDocumento?this.selectedDocumento.id_documento_tipo:this.data.id_documento_tipo;
     this.medico.id_genero = this.selectedGenero?this.selectedGenero.id_genero:this.data.id_genero;
@@ -193,14 +146,7 @@ export class MedicoComponent implements OnInit {
 
   postData(body) {
     console.log('Datos del form: ', body);
-    this.medico.nombres = body.nombres;
-    this.medico.apellido = body.apellido;
-    this.medico.celular = body.celular;
-    this.medico.cuit = body.cuit;
-    this.medico.email = body.email;
-    this.medico.matricula = body.matricula;
-    this.medico.numero = body.numero_doc;
-    this.medico.vto_acuerdo = body.vto_acuerdo;
+    this.medicoData(body);
     // ID: si hay campos seleccionados en combo-box utiliza esos valores, si no utliza el valor del primer objeto.
     this.medico.id_documento_tipo = this.selectedDocumento?this.selectedDocumento.id_documento_tipo:this.documentos[0].id_documento_tipo;
     this.medico.id_genero = this.selectedGenero?this.selectedGenero.id_genero:this.generos[0].id_genero;
@@ -252,6 +198,17 @@ export class MedicoComponent implements OnInit {
     });
   }
 
+  medicoData(body) {
+    this.medico.nombres = body.nombres;
+    this.medico.apellido = body.apellido;
+    this.medico.celular = body.celular;
+    this.medico.cuit = body.cuit;
+    this.medico.email = body.email;
+    this.medico.matricula = body.matricula;
+    this.medico.numero = body.numero_doc;
+    this.medico.vto_acuerdo = body.vto_acuerdo;
+  }
+
   formGroupFormat() {
     this.formGroup = this.fb.group({
       medicos: this.fb.group({
@@ -273,6 +230,11 @@ export class MedicoComponent implements OnInit {
   getSelected(item) {
     // console.log(item);
     this.filterObsSelected(item);
+  }
+
+  hideForm(item) {
+    // console.log(item);
+    if (item.target.title === 'datosBasicos') { this.datosBasicos = !this.datosBasicos; }
   }
 
 }

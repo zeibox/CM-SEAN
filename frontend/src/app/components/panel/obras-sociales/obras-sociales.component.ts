@@ -9,8 +9,6 @@ import { Router } from '@angular/router';
 })
 export class ObrasSocialesComponent implements OnInit {
 
-  @HostBinding('class') classes = 'row';
-
   obrasSociales: any = [];
 
   constructor(private obrasSocialesServ: ObrasSocialesService, private ruta: Router) {}

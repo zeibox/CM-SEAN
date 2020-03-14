@@ -5,12 +5,18 @@ mat-sidenav-container {
 mat-sidenav,
 mat-sidenav-content {
     padding: 0px;
-    margin: 0;
+    margin: 0px;
+}
+
+mat-sidenav-content {
+    padding-top: 64px;
 }
 
 mat-sidenav {
     background-color: #6c757d;
-    width: 220px;
+    width: 240px;
+    position: fixed;
+    top: 64px;
 }
 
 .pointer {
@@ -70,10 +76,6 @@ button {
     height: 22px;
 }
 
-.mat-sidenav-content {
-    overflow-x: hidden;
-}
-
 .fixed-btn {
     z-index: 10000 !important;
 }
@@ -93,7 +95,7 @@ mat-sidenav-content div button:focus {
 }
 
 .container-fluid {
-    height: 100%;
-    padding: 0;
-    margin: 0;
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
