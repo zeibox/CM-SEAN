@@ -6,20 +6,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../routes/database"));
 class LocalidadesController {
     async list(req, res) {
-        const dato = await database_1.default.query('SELECT * FROM v_localidades');
+        const dato = await database_1.default.query('SELECT * FROM v_locaProvPais order by provincia, nombre');
         res.json(dato);
     }
     async getOne(req, res) {
         const { id } = req.params;
-        const dato = await database_1.default.query('SELECT * FROM v_localidades WHERE id_localidad = ?', [id]);
+        const dato = await database_1.default.query('SELECT * FROM v_locaProvPais WHERE id_localidad = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
         res.status(404).json({ text: "La Loacalidad no existe" });
     }
     async create(req, res) {
-        const result = await database_1.default.query('INSERT INTO localidades set ?', [req.body]);
-        res.json({ message: 'Loacalidad Registrada' });
+        try {
+            const result = await database_1.default.query('INSERT INTO v_localidades set ?', [req.body]);
+            res.json({ message: 'Loacalidad Registrada' });
+        }
+        catch (error) {
+            res.json({ error: error.sqlMessage });
+        }
     }
     async update(req, res) {
         const { id } = req.params;

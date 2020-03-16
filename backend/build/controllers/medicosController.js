@@ -11,15 +11,15 @@ class MedicosController {
     }
     async getOne(req, res) {
         const { id } = req.params;
-        const dato = await database_1.default.query('SELECT * FROM v_medicos WHERE id_medico = ?', [id]);
+        const dato = await database_1.default.query('SELECT * FROM v_medicos_c WHERE id_medico = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
         res.status(404).json({ text: "El Médico no existe" });
     }
-    async create(req, res, err) {
+    async create(req, res) {
         try {
-            const result = await database_1.default.query('INSERT INTO medicos set ?', [req.body]);
+            const result = await database_1.default.query('INSERT INTO v_medicos set ?', [req.body]);
             res.json({ message: 'Médico Registrado' });
         }
         catch (err) {

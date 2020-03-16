@@ -1,29 +1,30 @@
-<div class="container-fluid" style="padding-top: 70px;">
-    <div class="row justify-content-center pb-3">
-        <h1>Medicos</h1>
-    </div>
-    <div class="row justify-content-center pb-4">
-        <a name="" id="" class="btn btn-primary" [routerLink]="['/panel/medic']" role="button">Agregar Medico</a>
-    </div>
-    <div class="row justify-content-center">
-        <table class="table col-12 col-md-7">
-            <thead>
-                <tr>
-                    <th scope="col">Foto</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellido</th>
-                    <th scope="col">Especialidad</th>
-                </tr>
-            </thead>
-            <tbody *ngFor="let item of data; let i = index">
-                <tr class="pointer" [routerLink]="['/panel/medic', item.id_medico]">
-                    <!-- <tr (click)="getInputValue()"> -->
-                    <th scope="row"><img src="{{ item.imagen }}" alt=""></th>
-                    <td>{{ item.nombres }}</td>
-                    <td>{{ item.apellido }}</td>
-                    <!-- <td>{{ item.especialidad[0] }}</td> -->
-                </tr>
-            </tbody>
-        </table>
+<div class="container-fluid">
+
+    <div class="container col-10">
+        <div class="row justify-content-center pt-3">
+            <div class="row justify-content-between col-12 col-md-8 col-xl-8 my-2 px-0 py-2">
+                <button class="btn btn-sm fondoAzul col-sm-12 col-md-6 my-2" (click)="addMedico()"><i class="far fa-address-card"></i>  Agregar Medico</button>
+                <input class="col-sm-12 col-md-5 col-lg-4 my-2" type="text" placeholder="Buscar medico" #buscarTexto>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <table class="table col-12 col-md-8 col-xl-8">
+                <thead>
+                    <tr>
+                        <td scope="col">Imagen</td>
+                        <td scope="col">Medico</td>
+                        <td scope="col">Ultima Modificación</td>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let item of medicos; let i = index">
+                    <tr class="pointer" [routerLink]="['/panel/medico', item.id_medico]">
+                        <th scope="row"><img src="{{ item.imagen }}" alt=""></th>
+                        <td scope="row">{{ item.nombres }} {{ item.apellido }}</td>
+                        <td scope="row">{{ item.creado_en | date : 'dd/MM/yy, HH:mm' : '-600' : 'es-AR' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

@@ -10,16 +10,16 @@ class MedicosController {
 
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const dato = await bd.query('SELECT * FROM v_medicos WHERE id_medico = ?', [id]);
+        const dato = await bd.query('SELECT * FROM v_medicos_c WHERE id_medico = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
         res.status(404).json({ text: "El Médico no existe" });
     }
 
-    public async create(req: Request, res: Response, err: Error): Promise<void> {
+    public async create(req: Request, res: Response): Promise<void> {
         try{
-            const result = await bd.query('INSERT INTO medicos set ?', [req.body]);
+            const result = await bd.query('INSERT INTO v_medicos set ?', [req.body]);
             res.json({ message: 'Médico Registrado' });
         }catch(err){
             res.json({ error: err.sqlMessage });

@@ -18,13 +18,13 @@ class JerarquiasController {
         res.status(404).json({ text: "Jerarquía inexiste" });
     }
     async create(req, res) {
-        const result = await database_1.default.query('INSERT INTO jerarquias set ?', [req.body]);
+        const result = await database_1.default.query('INSERT INTO v_jerarquias set ?', [req.body]);
         res.json({ message: 'Jerarquía Registrada' });
     }
     async update(req, res) {
         const { id } = req.params;
         const oldProd = req.body;
-        await database_1.default.query('UPDATE jerarquias set ? WHERE id_jerarquia = ?', [req.body, id]);
+        await database_1.default.query('UPDATE v_jerarquias set ? WHERE id_jerarquia = ?', [req.body, id]);
         res.json({ message: "Jerarquía actualizada" });
     }
     async delete(req, res) {

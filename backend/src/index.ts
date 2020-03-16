@@ -67,7 +67,7 @@ class Server {
         this.app.use('/generos', generosRoutes);
         this.app.use('/jerarquias', jerarquiasRoutes);
         this.app.use('/localidades', localidadesRoutes);
-        this.app.use('/mantenimientos', mantenimientosRoutes);
+        this.app.use('/panels', mantenimientosRoutes);
         this.app.use('/medicos', medicosRoutes);
         this.app.use('/medicosDomicilios', medicosDomiciliosRoutes);
         this.app.use('/medicosEspecialidades', medicosEspecialidadesRoutes);

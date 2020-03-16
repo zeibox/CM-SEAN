@@ -1,48 +1,91 @@
 <div class="container-fluid" style="padding: 30px 0 0 0">
     <div class="container">
-        <a [routerLink]="['/panel/medics']"><i class="fas fa-arrow-alt-circle-left fa-3x" style="color:	lightcoral"></i></a>
-        <span class="text-center" *ngIf="this.idN"><h2>Actualizar Medico</h2></span>
-        <span class="text-center" *ngIf="!this.idN"><h2>Agregar Medico</h2></span>
+        <a [routerLink]="['/panel/medicos']"><i class="fas fa-arrow-alt-circle-left fa-3x fondoAzul" ></i></a>
+        <span class="text-center" *ngIf="this.idRute"><h2>Actualizar Medico</h2></span>
+        <span class="text-center" *ngIf="!this.idRute"><h2>Agregar Medico</h2></span>
         <div class="row justify-content-center">
-            <form [formGroup]="message" (ngSubmit)="this.idN?onSubmitId():onSubmit()" class="col-sm-8">
-                <div class="form-row" formGroupName="medicos">
-                    <div class="form-group col-md-6 ">
+            <form [formGroup]="formGroup" (ngSubmit)="this.idRute?onSubmitId():onSubmit()" class="col-12">
+                <h4 class="text-center subTitle py-1 mt-5 mb-3">Datos Basicos
+                    <span class="iconTitle pointer" *ngIf="datosBasicos" (click)="hideForm($event)"><i class="fas fa-caret-down fa-lg" title="datosBasicos" ></i></span>
+                    <span class="iconTitle pointer" *ngIf="!datosBasicos" (click)="hideForm($event)"><i class="fas fa-caret-up fa-lg" title="datosBasicos" ></i></span>
+                </h4>
+                <div class="form-row" formGroupName="medicos" *ngIf="datosBasicos">
+                    <div class="form-group col-sm-12 col-md-3">
                         <label>Nombres</label>
                         <input type="text " class="form-control rounded border border-secondary " formControlName="nombres" placeholder="Nombres">
                     </div>
-                    <div class="form-group col-md-6 ">
+                    <div class="form-group col-md-3">
                         <label>Apellidos</label>
                         <input type="text " class="form-control rounded border border-secondary " formControlName="apellido" placeholder="Apellido">
                     </div>
-                    <div class="form-group col-md-6 ">
-                        <label>Celular</label>
-                        <input type="text " class="form-control rounded border border-secondary " formControlName="celular" placeholder="Celular">
-                    </div>
-                    <div class="form-group col-md-6 ">
+                    <div class="form-group col-md-6">
                         <label>Email</label>
                         <input type="text " class="form-control rounded border border-secondary " formControlName="email" placeholder="Email">
                     </div>
+                    <div class="form-group col-md-2">
+                        <label>Tipo Doc</label>
+                        <select formControlName="tipo_doc" title='tipoDoc' class="form-control rounded border border-secondary" (change)="getSelected($event)">
+                          <option *ngFor="let item of documentos">{{ item.nombre }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Nº Documento</label>
+                        <input type="text " class="form-control rounded border border-secondary " formControlName="numero_doc" placeholder="Nº Documento">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Celular</label>
+                        <input type="text " class="form-control rounded border border-secondary " formControlName="celular" placeholder="Celular">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Nº Cuit</label>
+                        <input type="text " class="form-control rounded border border-secondary " formControlName="cuit" placeholder="Nº Cuit">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>Matricula</label>
+                        <input type="text " class="form-control rounded border border-secondary " formControlName="matricula" placeholder="Matricula">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Género</label>
+                        <select formControlName="genero" title='genero' class="form-control rounded border border-secondary" (change)="getSelected($event)">
+                          <option *ngFor="let item of generos">{{ item.nombre }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Jerarquía</label>
+                        <select formControlName="jerarquia" title='jerarquia' class="form-control rounded border border-secondary" (change)="getSelected($event)">
+                          <option *ngFor="let item of jerarquias">{{ item.nombre }}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Vcto de Acuerdo</label>
+                        <input type="date" class="form-control rounded border border-secondary " formControlName="vto_acuerdo" placeholder="Fecha vencimiento">
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-success rounded enviarBtn" *ngIf="this.idN">Actualizar</button>
+                <hr>
+                <h4 class="text-center subTitle py-1 my-3">Especialidades
+                    <span class="iconTitle pointer" *ngIf="especialidades" (click)="hideForm($event)"><i class="fas fa-caret-down fa-lg" title="especialidades" ></i></span>
+                    <span class="iconTitle pointer" *ngIf="!especialidades" (click)="hideForm($event)"><i class="fas fa-caret-up fa-lg" title="especialidades" ></i></span>
+                </h4>
 
-                <button type="submit" class="btn btn-success rounded enviarBtn" *ngIf="!this.idN">Agregar</button>
+                <div class="row justify-content-between px-3">
+                    <button type="submit" class="btn btn-success rounded btnAzul mt-3" *ngIf="this.idRute">Actualizar</button>
+                    <button type="submit" class="btn btn-success rounded btnAzul mt-3" *ngIf="!this.idRute">Agregar</button>
+                    <button (click)="delData()" class="btn btn-danger rounded mt-3" *ngIf="this.idRute">Eliminar</button>
+                </div>
             </form>
         </div>
 
-        <div class="row justify-content-center">
-            <div class="col-sm-8 pt-2 pb-5">
-                <button (click)="deleteCons()" class="btn btn-danger rounded enviarBtn" *ngIf="this.idN">Eliminar</button>
-            </div>
-            <div class="alert alert-danger col-sm-8" role="alert" *ngIf="this.errors">
+        <div class="row justify-content-center pt-4">
+            <div class="alert alert-danger col-sm-10" role="alert" *ngIf="this.errors">
                 {{this.errors}}
             </div>
-            <div class="alert alert-danger col-sm-8" role="alert" *ngIf="this.delete">
+            <div class="alert alert-danger col-sm-10" role="alert" *ngIf="this.delete">
                 Eliminado con éxito!
             </div>
-            <div class="alert alert-success col-sm-8" role="alert" *ngIf="this.edit">
+            <div class="alert alert-success col-sm-10" role="alert" *ngIf="this.edit">
                 Actualizado con éxito!
             </div>
-            <div class="alert alert-success col-sm-8" role="alert" *ngIf="this.add">
+            <div class="alert alert-success col-sm-10" role="alert" *ngIf="this.add">
                 Agregado con éxito!
             </div>
         </div>

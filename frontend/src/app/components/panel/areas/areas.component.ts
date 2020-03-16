@@ -9,20 +9,12 @@ import { Router } from '@angular/router';
 })
 export class AreasComponent implements OnInit {
 
-
-  @HostBinding('class') classes = 'row';
-
   areas: any = [];
 
   constructor(private userServ: AreasService, private ruta: Router) {}
 
   ngOnInit() {
-    this.userServ.getAreas().subscribe(
-      res => {
-        this.areas = res;
-      },
-      err => console.log(err)
-    );
+    this.cargarListaDeAreas();
   }
 
   addArea() {
@@ -47,6 +39,7 @@ export class AreasComponent implements OnInit {
     this.userServ.getAreas().subscribe(
       res => {
         this.areas = res;
+        // console.log(this.areas);
       },
       err => console.log(err)
     );
@@ -56,10 +49,10 @@ export class AreasComponent implements OnInit {
     // console.log(id);
     this.userServ.deleteArea(id).subscribe(
       res => {
-        console.log(res);
+        // console.log(res);
         this.cargarListaDeAreas();
       },
       err => console.log(err)
-    )
+    );
   }
 }

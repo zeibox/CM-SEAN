@@ -13,6 +13,7 @@ class AreasRoutes {
     config() {
         this.router.get('/', areasController_1.areasController.list);
         this.router.get('/:id', areasController_1.areasController.getOne);
+        this.router.get('/byname/:name', areasController_1.areasController.getbyName);
         this.router.post('/', areasController_1.areasController.create);
         this.router.delete('/:id', areasController_1.areasController.delete);
         this.router.put('/:id', areasController_1.areasController.update);

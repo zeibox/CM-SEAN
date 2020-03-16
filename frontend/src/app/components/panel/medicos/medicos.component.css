@@ -1,24 +1,3 @@
-#accord {
-    cursor: pointer;
-}
-
-.enviarBtn {
-    background-color: #FC4742;
-}
-
-.enviarBtn:hover {
-    background-color: rgb(194, 51, 46);
-}
-
-.container-fluid {
-    height: 100%;
-}
-
-.fas.fa-trash-alt {
-    color: #FC4742;
-    cursor: pointer;
-}
-
 .pointer {
     cursor: pointer;
 }
@@ -27,6 +6,20 @@
     background-color: rgb(182, 215, 216) !important;
 }
 
-img {
-    max-height: 50px;
+thead tr td {
+    background-color: rgb(115, 150, 151) !important;
+    color: white;
+}
+
+.fondoAzul {
+    background-color: rgb(182, 215, 216) !important;
+}
+
+.fondoAzul:hover {
+    background-color: rgb(115, 150, 151) !important;
+    color: white;
+}
+
+.row img {
+    height: 30px;
 }

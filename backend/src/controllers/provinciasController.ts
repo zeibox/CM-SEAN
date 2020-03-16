@@ -24,6 +24,7 @@ class ProvinciasController {
 
     public async update(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
+        console.log(req.body);
         const oldProd = req.body;
         await bd.query('UPDATE provincias set ? WHERE id_provincia = ?', [req.body, id]);
         res.json({ message: "Provincia actualizada" });
@@ -31,7 +32,7 @@ class ProvinciasController {
 
     public async delete(req: Request, res: Response): Promise<void> {
         const { id } = req.params;
-        await bd.query('DELETE FROM v_provincias WHERE id_provincia = ?', [id]);
+        await bd.query('DELETE FROM provincias WHERE id_provincia = ?', [id]);
         res.json({ message: "Provincia eliminada" });
     }
 

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 // import { environment } from '../../environments/environment.prod';
 import { environment } from '../../environments/environment';
-import { Medicos } from '../interfaces/medicos';
+import { Medico } from '../interfaces/medicos';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +49,6 @@ export class MedicosService {
   }
 
   getMedics() {
-    return this.http.get <Medicos[]> ('/assets/jsonFiles/medics.json');
+    return this.http.get <Medico[]> ('/assets/jsonFiles/medics.json');
   }
 }

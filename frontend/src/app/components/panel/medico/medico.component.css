@@ -1,0 +1,41 @@
+.fondoAzul {
+    color: rgb(115, 150, 151) !important;
+}
+
+.fondoAzul:hover {
+    color: rgb(92, 117, 117) !important;
+}
+
+.btnAzul {
+    background-color: rgb(115, 150, 151) !important;
+    color: white;
+}
+
+.btnAzul:hover {
+    background-color: rgb(92, 117, 117) !important;
+    color: white;
+}
+
+.subTitle {
+    background-color: rgb(115, 150, 151);
+    color: white;
+}
+
+hr {
+    border: 0.5px solid;
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.btn {
+    width: 150px;
+}
+
+.iconTitle {
+    float: right;
+    margin-right: 10px;
+}
+
+.pointer {
+    cursor: pointer;
+}

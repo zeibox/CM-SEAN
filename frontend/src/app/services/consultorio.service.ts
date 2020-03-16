@@ -1,50 +1,37 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 // import { environment } from '../../environments/environment.prod';
 import { environment } from '../../environments/environment';
+import { Consultorio } from '../interfaces/consultorios';
+import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConsultorioService {
 
-  private httpOptionsGeneral = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
-
-  private extractData(res: Response) {
-    const body = res;
-    return body || {};
-  }
-
   constructor(private http: HttpClient) { }
 
   getConsultorios() {
-    return this.http.get(`${ environment.url }/consultorios`)
-      .pipe(map(this.extractData));
+    return this.http.get(`${ environment.url }/consultorios`);
   }
 
   getOneConsultorio(id) {
-    return this.http.get(`${ environment.url }/consultorios/${ id }`)
-      .pipe(map(this.extractData));
+    return this.http.get(`${ environment.url }/consultorios/${ id }`);
   }
 
-  putConsultorio(id, body) {
-    return this.http.put(`${ environment.url }/consultorios/${ id }`, body)
-      .pipe(map(this.extractData));
+  postConsultorio(body: Consultorio) {
+    return this.http.post(`${ environment.url }/consultorios`, body);
   }
 
-  postConsultorio(body) {
-    return this.http.post(`${ environment.url }/consultorios`, body)
-      .pipe(map(this.extractData));
+  deleteConsultorio(id: string) {
+    return this.http.delete(`${environment.url}/consultorios/${id}`);
   }
 
-  delConsultorio(id) {
-    return this.http.delete(`${ environment.url }/consultorios/${ id }`)
-      .pipe(map(this.extractData));
+  putConsultorio(id: string, body: Consultorio): Observable<Consultorio> {
+    return this.http.put(`${ environment.url }/consultorios/${ id }`, body);
   }
+
 
 }

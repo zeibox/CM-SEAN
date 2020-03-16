@@ -6,8 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../routes/database"));
 class EspecialidadesController {
     async list(req, res) {
-        const dato = await database_1.default.query('SELECT * FROM v_especialidades');
-        res.json(dato);
+        try {
+            const dato = await database_1.default.query('SELECT * FROM v_especialidades');
+            res.json(dato);
+        }
+        catch (error) {
+            res.json({ error: error.sqlMessage });
+        }
     }
     async getOne(req, res) {
         const { id } = req.params;

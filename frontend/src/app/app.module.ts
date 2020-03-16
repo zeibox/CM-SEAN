@@ -16,9 +16,32 @@ import { MedicoComponent } from './components/panel/medico/medico.component';
 import { MedicosComponent } from './components/panel/medicos/medicos.component';
 import { AreasComponent } from './components/panel/areas/areas.component';
 import { AreaComponent } from './components/panel/area/area.component';
-
 import { registerLocaleData } from '@angular/common';
 import localeEsAr from '@angular/common/locales/es-AR';
+import { JerarquiasComponent } from './components/panel/jerarquias/jerarquias.component';
+import { JerarquiaComponent } from './components/panel/jerarquia/jerarquia.component';
+import { EspecialidadesComponent } from './components/panel/especialidades/especialidades.component';
+import { EspecialidadComponent } from './components/panel/especialidad/especialidad.component';
+import { PaisesComponent } from './components/panel/paises/paises.component';
+import { PaisComponent } from './components/panel/pais/pais.component';
+import { ObrasSocialesComponent } from './components/panel/obras-sociales/obras-sociales.component';
+import { ObraSocialComponent } from './components/panel/obra-social/obra-social.component';
+import { GenerosComponent } from './components/panel/generos/generos.component';
+import { GeneroComponent } from './components/panel/genero/genero.component';
+import { SpacesPipe } from './pipes/spaces.pipe';
+import { PacientesComponent } from './components/panel/pacientes/pacientes.component';
+import { PacienteComponent } from './components/panel/paciente/paciente.component';
+import { TurnoComponent } from './components/panel/turno/turno.component';
+import { TurnosComponent } from './components/panel/turnos/turnos.component';
+import { UsuariosComponent } from './components/panel/usuarios/usuarios.component';
+import { UsuarioComponent } from './components/panel/usuario/usuario.component';
+import { LocalidadesComponent } from './components/panel/localidades/localidades.component';
+import { LocalidadComponent } from './components/panel/localidad/localidad.component';
+import { NavbarComponent } from './components/shared/navbar/navbar.component';
+import { ProvinciaComponent } from './components/panel/provincia/provincia.component';
+import { ProvinciasComponent } from './components/panel/provincias/provincias.component';
+
+
 
 registerLocaleData(localeEsAr, 'es-Ar');
 
@@ -34,7 +57,29 @@ registerLocaleData(localeEsAr, 'es-Ar');
     MedicoComponent,
     MedicosComponent,
     AreasComponent,
-    AreaComponent
+    AreaComponent,
+    JerarquiasComponent,
+    JerarquiaComponent,
+    EspecialidadesComponent,
+    EspecialidadComponent,
+    PaisesComponent,
+    PaisComponent,
+    ObrasSocialesComponent,
+    ObraSocialComponent,
+    GenerosComponent,
+    GeneroComponent,
+    SpacesPipe,
+    PacienteComponent,
+    PacientesComponent,
+    TurnoComponent,
+    TurnosComponent,
+    UsuariosComponent,
+    UsuarioComponent,
+    LocalidadesComponent,
+    LocalidadComponent,
+    NavbarComponent,
+    ProvinciaComponent,
+    ProvinciasComponent
   ],
   imports: [
     BrowserModule,
