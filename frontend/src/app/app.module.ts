@@ -40,7 +40,7 @@ import { LocalidadComponent } from './components/panel/localidad/localidad.compo
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { ProvinciaComponent } from './components/panel/provincia/provincia.component';
 import { ProvinciasComponent } from './components/panel/provincias/provincias.component';
-
+import { MedicoEspecialidadComponent } from './components/panel/medico-especialidad/medico-especialidad.component';
 
 
 registerLocaleData(localeEsAr, 'es-Ar');
@@ -79,7 +79,8 @@ registerLocaleData(localeEsAr, 'es-Ar');
     LocalidadComponent,
     NavbarComponent,
     ProvinciaComponent,
-    ProvinciasComponent
+    ProvinciasComponent,
+    MedicoEspecialidadComponent
   ],
   imports: [
     BrowserModule,

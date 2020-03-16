@@ -16,3 +16,9 @@ export interface Medico {
     id_medico?: number;
     id_user?: number;
 }
+
+export interface MedicoEspecialidad {
+    id_medico?: number;
+    id_especialidad?: number;
+    horarios?: string;
+}

@@ -30,8 +30,7 @@ export class MedicoComponent implements OnInit {
   generos: any;
   selectedGenero: any;
   datosBasicos = true;
-  especialidades = true;
-
+  especialidades = false;
 
   medico: Medico = {
     imagen: 'https://clipartart.com/images/doctor-icon-clipart-3.png',

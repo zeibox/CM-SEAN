@@ -9,6 +9,10 @@ class MedicosController {
         const dato = await database_1.default.query('SELECT * FROM v_medicos');
         res.json(dato);
     }
+    async listHorarios(req, res) {
+        const dato = await database_1.default.query('SELECT * FROM horarios');
+        res.json(dato);
+    }
     async getOne(req, res) {
         const { id } = req.params;
         const dato = await database_1.default.query('SELECT * FROM v_medicos_c WHERE id_medico = ?', [id]);

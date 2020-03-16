@@ -8,6 +8,11 @@ class MedicosController {
         res.json(dato);
     }
 
+    public async listHorarios(req: Request, res: Response): Promise<void> {
+        const dato = await bd.query('SELECT * FROM horarios');
+        res.json(dato);
+    }
+
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
         const dato = await bd.query('SELECT * FROM v_medicos_c WHERE id_medico = ?', [id]);

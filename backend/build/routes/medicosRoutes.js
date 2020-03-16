@@ -11,6 +11,7 @@ class MedicosRoutes {
     }
     // Config utiliza la propiedad router y a partir de ella definiremos las rutas
     config() {
+        this.router.get('/horarios', medicosController_1.medicosController.listHorarios);
         this.router.get('/', medicosController_1.medicosController.list);
         this.router.get('/:id', medicosController_1.medicosController.getOne);
         this.router.post('/', medicosController_1.medicosController.create);

@@ -1,0 +1,99 @@
+<form [formGroup]="formGroup" (ngSubmit)="this.idRute?onSubmitId():onSubmit()">
+    <!-- corregir idRute -->
+    <div class="form-row" formGroupName="medEspecialidad">
+        <div class="form-group col-md-3">
+            <label>Especialidad</label>
+            <select formControlName="especialidad" title='especialidad' class="form-control rounded border border-secondary" (change)="getSelected($event)">
+                <option *ngFor="let item of especialidades">{{ item.nombre }}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label>Día</label>
+            <select formControlName="dia" title='dia' class="form-control rounded border border-secondary" (change)="getSelected($event)">
+                <option *ngFor="let item of dias">{{ item.nombre }}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label>T. Mañana</label>
+            <select formControlName="mañana" title='mañana' class="form-control rounded border border-secondary" (change)="getSelected($event)">
+                <ng-container *ngFor="let item of horarios">
+                    <option *ngIf="item.turno === 'm'">{{ item.inicio }} / {{ item.fin }}</option>
+                </ng-container>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label>T. Tarde</label>
+            <select formControlName="tarde" title='tarde' class="form-control rounded border border-secondary" (change)="getSelected($event)">
+                <ng-container *ngFor="let item of horarios">
+                    <option *ngIf="item.turno === 't'">{{ item.inicio }} / {{ item.fin }}</option>
+                </ng-container>
+            </select>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <form>
+    <div class="multiselect col-md-3">
+        <div class="selectBox" (click)="showCheckboxes()">
+            <select class="form-control rounded border border-secondary">
+              <option>Select an option</option>
+            </select>
+            <div class="overSelect"></div>
+        </div>
+        <div id="checkboxes">
+            <label *ngFor="let item of jerarquia; let i = index" for="{{i}}">
+              <input type="checkbox" id="{{i}}" />{{item.nombre}}</label>
+        </div>
+    </div>
+</form>
+
+<div class="col-md-3 pb-5">
+    <label>Jerarquía</label>
+    <select title='jerarquia' class="form-control rounded border border-secondary">
+        <option type="checkbox" *ngFor="let item of jerarquia">{{ item.nombre }}</option>
+    </select>
+</div>
+
+<div class="form-group col-md-3">
+    <label>Jerarquía</label>
+    <select formControlName="jerarquia" title='jerarquia' class="form-control rounded border border-secondary" (change)="getSelected($event)">
+          <option *ngFor="let item of jerarquias">{{ item.nombre }}</option>
+        </select>
+</div> -->
+
+
+<!-- </div> -->
+
+<!-- <div class="row justify-content-center">
+    <div class="col-sm-8 pt-2 pb-5">
+        <button (click)="deleteArea()" class="btn btn-danger rounded enviarBtn" *ngIf="this.idRute">Eliminar</button>
+    </div>
+    <div class="alert alert-danger col-sm-8" role="alert" *ngIf="this.errors">
+        {{this.errors}}
+    </div>
+    <div class="alert alert-danger col-sm-8" role="alert" *ngIf="this.delete">
+        Eliminada con éxito!
+    </div>
+    <div class="alert alert-success col-sm-8" role="alert" *ngIf="this.edit">
+        Actualizada con éxito!
+    </div>
+    <div class="alert alert-success col-sm-8" role="alert" *ngIf="this.add">
+        Agregada con éxito!
+    </div>
+</div> -->
+<!-- </div>
+</div> -->

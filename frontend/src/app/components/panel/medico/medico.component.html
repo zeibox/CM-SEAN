@@ -1,4 +1,4 @@
-<div class="container-fluid" style="padding: 30px 0 0 0">
+<div class="container-fluid pt-3">
     <div class="container">
         <a [routerLink]="['/panel/medicos']"><i class="fas fa-arrow-alt-circle-left fa-3x fondoAzul" ></i></a>
         <span class="text-center" *ngIf="this.idRute"><h2>Actualizar Medico</h2></span>
@@ -6,8 +6,8 @@
         <div class="row justify-content-center">
             <form [formGroup]="formGroup" (ngSubmit)="this.idRute?onSubmitId():onSubmit()" class="col-12">
                 <h4 class="text-center subTitle py-1 mt-5 mb-3">Datos Basicos
-                    <span class="iconTitle pointer" *ngIf="datosBasicos" (click)="hideForm($event)"><i class="fas fa-caret-down fa-lg" title="datosBasicos" ></i></span>
-                    <span class="iconTitle pointer" *ngIf="!datosBasicos" (click)="hideForm($event)"><i class="fas fa-caret-up fa-lg" title="datosBasicos" ></i></span>
+                    <span class="iconTitle pointer" *ngIf="datosBasicos" (click)="hideForm($event)"><i class="fas fa-caret-up fa-lg" title="datosBasicos" ></i></span>
+                    <span class="iconTitle pointer" *ngIf="!datosBasicos" (click)="hideForm($event)"><i class="fas fa-caret-down fa-lg" title="datosBasicos" ></i></span>
                 </h4>
                 <div class="form-row" formGroupName="medicos" *ngIf="datosBasicos">
                     <div class="form-group col-sm-12 col-md-3">
@@ -50,6 +50,10 @@
                           <option *ngFor="let item of generos">{{ item.nombre }}</option>
                         </select>
                     </div>
+                    <!-- <div *ngFor="let item of generos; let i=index" class="col-md-6">
+                        <label>{{item.nombre}}</label>
+                        <input type="checkbox" [value]="item.nombre">
+                    </div> -->
                     <div class="form-group col-md-3">
                         <label>Jerarquía</label>
                         <select formControlName="jerarquia" title='jerarquia' class="form-control rounded border border-secondary" (change)="getSelected($event)">
@@ -63,9 +67,10 @@
                 </div>
                 <hr>
                 <h4 class="text-center subTitle py-1 my-3">Especialidades
-                    <span class="iconTitle pointer" *ngIf="especialidades" (click)="hideForm($event)"><i class="fas fa-caret-down fa-lg" title="especialidades" ></i></span>
-                    <span class="iconTitle pointer" *ngIf="!especialidades" (click)="hideForm($event)"><i class="fas fa-caret-up fa-lg" title="especialidades" ></i></span>
+                    <span class="iconTitle pointer" *ngIf="especialidades" (click)="hideForm($event)"><i class="fas fa-caret-up fa-lg" title="especialidades" ></i></span>
+                    <span class="iconTitle pointer" *ngIf="!especialidades" (click)="hideForm($event)"><i class="fas fa-caret-down fa-lg" title="especialidades" ></i></span>
                 </h4>
+                <app-medico-especialidad *ngIf="especialidades"></app-medico-especialidad>
 
                 <div class="row justify-content-between px-3">
                     <button type="submit" class="btn btn-success rounded btnAzul mt-3" *ngIf="this.idRute">Actualizar</button>
