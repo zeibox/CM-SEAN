@@ -4,12 +4,14 @@
         <div class="form-group col-md-3">
             <label>Especialidad</label>
             <select formControlName="especialidad" title='especialidad' class="form-control rounded border border-secondary" (change)="getSelected($event)">
+                <option hidden [value]="" selected>Seleccionar especialidad</option>
                 <option *ngFor="let item of especialidades">{{ item.nombre }}</option>
             </select>
         </div>
         <div class="form-group col-md-3">
             <label>Día</label>
             <select formControlName="dia" title='dia' class="form-control rounded border border-secondary" (change)="getSelected($event)">
+                <option hidden [value]="" selected>Seleccionar día</option>
                 <option *ngFor="let item of dias">{{ item.nombre }}</option>
             </select>
         </div>
@@ -17,7 +19,8 @@
             <label>T. Mañana</label>
             <select formControlName="mañana" title='mañana' class="form-control rounded border border-secondary" (change)="getSelected($event)">
                 <ng-container *ngFor="let item of horarios">
-                    <option *ngIf="item.turno === 'm'">{{ item.inicio }} / {{ item.fin }}</option>
+                    <option hidden [value]=""  selected>Seleccionar horario</option>
+                    <option *ngIf="item.turno === 'm'" >{{ item.inicio }} / {{ item.fin }}</option>
                 </ng-container>
             </select>
         </div>
@@ -25,7 +28,8 @@
             <label>T. Tarde</label>
             <select formControlName="tarde" title='tarde' class="form-control rounded border border-secondary" (change)="getSelected($event)">
                 <ng-container *ngFor="let item of horarios">
-                    <option *ngIf="item.turno === 't'">{{ item.inicio }} / {{ item.fin }}</option>
+                    <option hidden [value]="" selected>Seleccionar horario</option>
+                    <option *ngIf="item.turno === 't'" >{{ item.inicio }} / {{ item.fin }}</option>
                 </ng-container>
             </select>
         </div>

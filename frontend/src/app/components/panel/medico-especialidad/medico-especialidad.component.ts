@@ -149,5 +149,6 @@ export class MedicoEspecialidadComponent implements OnInit {
 
   getSelected(item){
     console.log(item);
+    console.log(this.formGroup.value.medEspecialidad);
   }
 }
