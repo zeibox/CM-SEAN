@@ -1,38 +1,72 @@
-.multiselect {
-    width: 200px;
-    position: relative;
+/* .mat-form-field-infix {
+    border-top: .84375em solid red !important;
+} */
+
+.mat-form-field-infix {
+    padding: 0 0;
+    border-top: 0 !important;
 }
 
-.selectBox {
-    position: relative;
+.mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0 0 !important;
 }
 
-.selectBox select {
-    width: 100%;
-    font-weight: bold;
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: rgb(82, 82, 82);
+    background-color: #fff;
+    /* border: 0; */
 }
 
-.overSelect {
-    position: absolute;
-    /* overflow: auto; */
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+
+/* .mat-form-field-appearance-outline .mat-form-field-outline:hover {
+    color: rgb(82, 82, 82);
+    border: 0.5px solid;
+    background-color: #fff;
+} */
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    color: rgb(160, 160, 160);
 }
 
-#checkboxes {
-    position: fixed;
-    z-index: 10000;
-    display: none;
-    border: 1px #dadada solid;
-    background: white;
+.mat-form-field-wrapper {
+    padding-bottom: 0;
 }
 
-#checkboxes label {
-    display: block;
+.mat-form-field-flex:hover {
+    border: none !important;
 }
 
-#checkboxes label:hover {
-    background-color: rgb(182, 215, 216) !important;
+.mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 14px 0 10px 0;
+    /* height: 38px; */
 }
+
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+    color: rgb(144, 144, 161)!important;
+    border-radius: 5px!important;
+}
+
+.mat-form-field .mat-select.mat-select-invalid .mat-select-arrow {
+    color: rgb(82, 82, 82)!important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-start {
+    border: 0;
+    min-width: 5px;
+}
+
+
+/* .mat-form-field-outline-start,
+.mat-form-field-outline-end {
+    border-radius: 0 !important;
+} */
+
+
+/* .mat-form-field-appearance-outline .mat-form-field-outline-start {
+    border: 1px solid violet;
+} */
+
+
+/* .mat-form-field-appearance-outline .mat-form-field-outline {
+    border: 1px solid violet;
+} */

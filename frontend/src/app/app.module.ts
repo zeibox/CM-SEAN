@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatSelectModule} from '@angular/material/select';
 import { PanelComponent } from './components/panel/panel.component';
 import { ConsultoriosComponent } from './components/panel/consultorios/consultorios.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -87,6 +88,7 @@ registerLocaleData(localeEsAr, 'es-Ar');
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSidenavModule,
+    MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule

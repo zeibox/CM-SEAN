@@ -1,16 +1,18 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe, Time } from '@angular/common';
 import { EspecialidadesService } from '../../../services/especialidades.service';
 import { MedicoEspecialidad } from '../../../interfaces/medicos';
 import { MedicosEspecialidadesService } from '../../../services/medicos-especialidades.service';
+import {MatSelectModule} from '@angular/material/select';
 
 
 @Component({
   selector: 'app-medico-especialidad',
   templateUrl: './medico-especialidad.component.html',
-  styleUrls: ['./medico-especialidad.component.css']
+  styleUrls: ['./medico-especialidad.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MedicoEspecialidadComponent implements OnInit {
 
@@ -29,14 +31,20 @@ export class MedicoEspecialidadComponent implements OnInit {
   data: any;
   horarios: any;
 
+  // this.horariosArr[dias.mañana] = turnoMselec
+  // this.turnoMselec = obs.id_horario
+
   // prueba = ['uno', 'dos', 'tres'];
   horariosArr = ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'];
+
   dias = [
     {nombre: 'lunes', mañana: 0, tarde: 1},
     {nombre: 'martes', mañana: 2, tarde: 3},
     {nombre: 'miercoles', mañana: 4, tarde: 5},
     {nombre: 'jueves', mañana: 6, tarde: 7},
     {nombre: 'viernes', mañana: 8, tarde: 9},
+    {nombre: 'sabado', mañana: 10, tarde: 11},
+    {nombre: 'domingo', mañana: 12, tarde: 13},
   ];
 
   constructor(
@@ -150,5 +158,9 @@ export class MedicoEspecialidadComponent implements OnInit {
   getSelected(item){
     console.log(item);
     console.log(this.formGroup.value.medEspecialidad);
+  }
+
+  getdias(event){
+    console.log(event);
   }
 }
