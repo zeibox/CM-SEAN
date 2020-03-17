@@ -17,12 +17,12 @@
                         <td scope="col">Departamento</td>
                         <td scope="col">Codigo Postal</td>
                         <td scope="col">Telefono</td>
-                        <td scope="col">Latidud</td>
-                        <td scope="col">Longitud</td>
+                        <!-- <td scope="col">Latidud</td>
+                        <td scope="col">Longitud</td> -->
                         <td scope="col">Provincia</td>
                         <td scope="col">Pais</td>
-                        <td scope="col">Usuario</td>
-                        <td scope="col">Ultima modificación</td>
+                        <!-- <td scope="col">Usuario</td>
+                        <td scope="col">Ultima modificación</td> -->
                     </tr>
                 </thead>
                 <tbody *ngFor="let item of data; let i = index">
@@ -34,12 +34,12 @@
                         <td scope="row">{{ item.dpto }}</td>
                         <td scope="row">{{ item.cod_postal?item.cod_postal:'-' }}</td>
                         <td scope="row">{{ item.telefono }}</td>
-                        <td scope="row">{{ item.latitud }}</td>
-                        <td scope="row">{{ item.longitud }}</td>
+                        <!-- <td scope="row">{{ item.latitud }}</td>
+                        <td scope="row">{{ item.longitud }}</td> -->
                         <td scope="row">{{ item.provincia }}</td>
                         <td scope="row">{{ item.pais }}</td>
-                        <td scope="row">{{ item.id_user }}</td>
-                        <td scope="row">{{ item.creado_en | date : 'dd MMMM yyyy, HH:mm' : '-600' : 'es-AR' }}</td>
+                        <!-- <td scope="row">{{ item.id_user }}</td>
+                        <td scope="row">{{ item.creado_en | date : 'dd MMMM yyyy, HH:mm' : '-600' : 'es-AR' }}</td> -->
                     </tr>
                 </tbody>
             </table>
