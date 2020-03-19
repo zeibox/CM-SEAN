@@ -41,6 +41,8 @@ import { LocalidadComponent } from './components/panel/localidad/localidad.compo
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { ProvinciaComponent } from './components/panel/provincia/provincia.component';
 import { ProvinciasComponent } from './components/panel/provincias/provincias.component';
+import { DomiciliosComponent } from './components/panel/domicilios/domicilios.component';
+import { DomicilioComponent } from './components/panel/domicilio/domicilio.component';
 import { MedicoEspecialidadComponent } from './components/panel/medico-especialidad/medico-especialidad.component';
 
 
@@ -81,7 +83,9 @@ registerLocaleData(localeEsAr, 'es-Ar');
     NavbarComponent,
     ProvinciaComponent,
     ProvinciasComponent,
-    MedicoEspecialidadComponent
+    MedicoEspecialidadComponent,
+    DomicilioComponent,
+    DomiciliosComponent
   ],
   imports: [
     BrowserModule,

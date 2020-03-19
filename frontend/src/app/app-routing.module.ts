@@ -28,6 +28,8 @@ import { LocalidadComponent } from './components/panel/localidad/localidad.compo
 import { LocalidadesComponent } from './components/panel/localidades/localidades.component';
 import { ProvinciasComponent } from './components/panel/provincias/provincias.component';
 import { ProvinciaComponent } from './components/panel/provincia/provincia.component';
+import { DomicilioComponent } from './components/panel/domicilio/domicilio.component';
+import { DomiciliosComponent } from './components/panel/domicilios/domicilios.component';
 
 
 const routes: Routes = [
@@ -72,7 +74,10 @@ const routes: Routes = [
   { path: 'panel/localidad/:id', component: LocalidadComponent },
   { path: 'panel/provincias', component: ProvinciasComponent },
   { path: 'panel/provincias/:id', component: ProvinciaComponent },
-  { path: 'panel/provincia', component: ProvinciaComponent }
+  { path: 'panel/provincia', component: ProvinciaComponent },
+  { path: 'panel/domicilios', component: DomiciliosComponent },
+  { path: 'panel/domicilio', component: DomicilioComponent },
+  { path: 'panel/domicilio/:id', component: DomicilioComponent }
 ];
 
 
