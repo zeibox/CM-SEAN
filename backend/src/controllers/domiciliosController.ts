@@ -4,13 +4,13 @@ import bd from '../routes/database';
 class DomiciliosController {
 
     public async list(req: Request, res: Response): Promise<void> {
-        const dato = await bd.query('SELECT * FROM v_domicilios');
+        const dato = await bd.query('SELECT * FROM v_domicilios_c');
         res.json(dato);
     }
 
     public async getOne(req: Request, res: Response): Promise<any> {
         const { id } = req.params;
-        const dato = await bd.query('SELECT * FROM v_domicilios WHERE id_dom = ?', [id]);
+        const dato = await bd.query('SELECT * FROM v_domicilios_c WHERE id_dom = ?', [id]);
         if (dato.length > 0) {
             return res.json(dato[0]);
         }
@@ -18,8 +18,12 @@ class DomiciliosController {
     }
 
     public async create(req: Request, res: Response): Promise<void> {
-        const result = await bd.query('INSERT INTO domicilios set ?', [req.body]);
+        try {
+         const result = await bd.query('INSERT INTO v_domicilios set ?', [req.body]);
         res.json({ message: 'Domicilio Registrado' });
+        } catch (err) {
+            res.json({ error: err.sqlMessage });
+        }
     }
 
     public async update(req: Request, res: Response): Promise<void> {

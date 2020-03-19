@@ -75,6 +75,7 @@ export class LocalidadComponent implements OnInit {
     this.localidadesServ.getProvincias().subscribe(
       res => {
         this.provincias = res;
+        //console.log(res);
         this.filterObsProv();  // ejecuta obs al devolver res de provincias
       },
       err => this.errors = err.error.text
@@ -85,7 +86,7 @@ export class LocalidadComponent implements OnInit {
     this.paisesService.getPaises().subscribe(
       res => {
         this.paises = res;
-        // console.log(res);
+        //console.log(res);
       }
     );
   }
@@ -119,7 +120,7 @@ export class LocalidadComponent implements OnInit {
     this.localidad.nombre = body.nombre;
     this.localidad.cod_postal = body.cod_postal;
     this.localidad.creado_en = new Date();
-    // console.log('antes de mandarlo', this.localidad);
+    console.log('antes de mandarlo', this.localidad);
 
     this.localidadesServ.updateLocalidad(this.idRute, this.localidad).subscribe(
       res => {
@@ -134,15 +135,15 @@ export class LocalidadComponent implements OnInit {
   }
 
   postData(body) {
-    // console.log('como viene del form: ', body);
-    this.localidad.nombre = body.nombre;
-    this.localidad.cod_postal = body.cod_postal;
+     console.log('como viene del form: ', body);
+     this.localidad.nombre = body.nombre;
+     this.localidad.cod_postal = body.cod_postal;
     // console.log('selected prov', this.selectedProv);
-    this.localidad.id_provincia = this.selectedProv?this.selectedProv.id_provincia:this.localidad.id_provincia;
+     this.localidad.id_provincia = this.selectedProv?this.selectedProv.id_provincia:this.localidad.id_provincia;
     // si hay una provincia seleccionada id_prov = selectedProv.id_prov, sino 
     // console.log('antes de mandarlo: ', this.localidad);
 
-    this.localidadesServ.saveLocalidad(this.localidad).subscribe(
+     this.localidadesServ.saveLocalidad(this.localidad).subscribe(
         res => {
           // this.errors = null;
           this.add = true;

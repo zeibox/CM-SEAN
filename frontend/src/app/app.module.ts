@@ -40,7 +40,8 @@ import { LocalidadComponent } from './components/panel/localidad/localidad.compo
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { ProvinciaComponent } from './components/panel/provincia/provincia.component';
 import { ProvinciasComponent } from './components/panel/provincias/provincias.component';
-
+import { DomiciliosComponent } from './components/panel/domicilios/domicilios.component';
+import { DomicilioComponent } from './components/panel/domicilio/domicilio.component';
 
 
 registerLocaleData(localeEsAr, 'es-Ar');
@@ -79,7 +80,9 @@ registerLocaleData(localeEsAr, 'es-Ar');
     LocalidadComponent,
     NavbarComponent,
     ProvinciaComponent,
-    ProvinciasComponent
+    ProvinciasComponent,
+    DomicilioComponent,
+    DomiciliosComponent
   ],
   imports: [
     BrowserModule,
