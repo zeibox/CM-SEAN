@@ -71,6 +71,12 @@
                     <span class="iconTitle pointer" *ngIf="!especialidades" (click)="hideForm($event)"><i class="fas fa-caret-down fa-lg" title="especialidades" ></i></span>
                 </h4>
                 <app-medico-especialidad *ngIf="especialidades"></app-medico-especialidad>
+                <hr>
+                <h4 class="text-center subTitle py-1 my-3">Domicilios
+                    <span class="iconTitle pointer" *ngIf="domicilios" (click)="hideForm($event)"><i class="fas fa-caret-up fa-lg" title="domicilios" ></i></span>
+                    <span class="iconTitle pointer" *ngIf="!domicilios" (click)="hideForm($event)"><i class="fas fa-caret-down fa-lg" title="domicilios" ></i></span>
+                </h4>
+                <app-domicilio *ngIf="domicilios"></app-domicilio>
 
                 <div class="row justify-content-between px-3">
                     <button type="submit" class="btn btn-success rounded btnAzul mt-3" *ngIf="this.idRute">Actualizar</button>

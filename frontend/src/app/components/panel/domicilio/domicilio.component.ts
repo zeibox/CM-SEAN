@@ -26,29 +26,26 @@ export class DomicilioComponent implements OnInit {
   add: boolean;
   errors: string;
 
+  medicosDomicilios: any;
   selectedPais: any;
-  selectedPais2: any;
   selectedProvincia: any;
   selectedLocalidad: any;
-
-  areaSelected: any;
+  selectedDomicilio: any;
+  paises: any;
+  provincias: any;
+  localidades: any;
+  provinciasFiltradas = [];
+  localidadesFiltradas = [];
+  filter: any;
   cont = 0;
+  rute: any;
+  ruteMedico = false;
 
   domicilio: Domicilio = {
     id_dom: 0,
     id_user: 1,
     creado_en: new Date()
   };
-
-  provincias: any;
-  provinciasFiltradas = [];
-  localidadesFiltradas = [];
-  paises: any;
-  localidades: any;
-
-  test: any;
-  filter: any;
-  toFilterPais: any;
 
   constructor(
     private fb: FormBuilder,
@@ -60,8 +57,15 @@ export class DomicilioComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.rute = this.route.snapshot.component;
     this.idRute = this.route.snapshot.params.id;
-    if (this.idRute) {
+    if (this.rute.name === 'MedicoComponent') {
+      this.ruteMedico = true;
+      if (this.idRute) {
+        this.getMedicosDomicilios();
+      } else { this.getPaisProvDom(); }
+      // get medicos_domicilios (obtener id_dom)
+    } else if (this.idRute) {
       this.getOne(this.idRute); // Almacena los datos del domicilio en variable 'data'
     } else { this.getPaisProvDom(); }
     this.formGroupFormat(); // Formateo del formGroup necesario al hacer OnInit
@@ -78,62 +82,38 @@ export class DomicilioComponent implements OnInit {
 
 // CRUD METHODS------------------------------------------------------------
 
-getPaisProvDom() {
-  forkJoin(this.paisesService.getPaises(), this.domiciliosServ.getProvincias(), this.localidadesService.getLocalidades()).subscribe(
-    res => {
-      this.paises = res[0];
-      this.provincias = res[1];
-      this.localidades = res[2];
-    },
-    err => { this.errors = err.error.text; },
-    () => {
-      this.filterObsProvincia();  // Una vez completado el forkJoin llama al obs que filtra las provincias
-    });
-}
-
-  // getProvincias() {
-  //   this.domiciliosServ.getProvincias().subscribe(
-  //     res => {
-  //       this.provincias = res;
-  //     },
-  //     err => { this.errors = err; },
-  //     () => {
-  //       this.getLocalidades();
-  //     });
-  // }
-
-  // getPaises() {
-  //   this.paisesService.getPaises().subscribe(
-  //     res => {
-  //       this.paises = res;
-  //     },
-  //     err => { this.errors = err; },
-  //     () => {
-  //       this.getProvincias();
-  //     });
-  // }
-
-  // getLocalidades() {
-  //   this.localidadesService.getLocalidades().subscribe(
-  //     res => {
-  //       this.localidades = res;
-  //       console.log(this.paises);
-  //       this.filterObsProvincia();
-  //     },
-  //     err => { this.errors = err; },
-  //     () => { });
-  // }
-
+  getPaisProvDom() {
+    forkJoin(this.paisesService.getPaises(), this.domiciliosServ.getProvincias(), this.localidadesService.getLocalidades()).subscribe(
+      res => {
+        this.paises = res[0];
+        this.provincias = res[1];
+        this.localidades = res[2];
+      },
+      err => { this.errors = err.error.text; },
+      () => {
+        this.filterObsProvincia();  // Una vez completado el forkJoin llama al obs que filtra las provincias
+      });
+  }
 
   getOne(id) {
     this.domiciliosServ.getDomicilio(id).pipe(finalize(() => this.getPaisProvDom() )).subscribe(
-      res => { this.data = res; console.log(this.data); });
+      res => { this.data = res; });
+  }
+
+  getMedicosDomicilios() {
+    this.domiciliosServ.getMedicosDomicilios().subscribe(
+      res => {
+        this.medicosDomicilios = res;
+        console.log(this.medicosDomicilios);
+      },
+      err => { this.errors = err.error.text; },
+      () => {
+        this.filterObsMedicosDom(this.idRute);
+      });
   }
 
   putData(body) {
-    console.log('como viene del form: ', body);
-    // console.log('data', this.data);
-    // console.log(this.selectedLocalidad);
+    // console.log('como viene del form: ', body);
     this.domicilio.id_localidad = this.selectedLocalidad?this.selectedLocalidad.id_localidad:this.data.id_localidad;
     this.domicilio.id_user = this.data.id_user;
     this.domicilio.id_dom = this.data.id_dom;
@@ -144,7 +124,7 @@ getPaisProvDom() {
     this.domicilio.cod_postal = body.cod_postal;
     this.domicilio.telefono = body.telefono;
     this.domicilio.creado_en = new Date();
-    console.log('antes de mandarlo', this.domicilio);
+    // console.log('antes de mandarlo', this.domicilio);
     this.domiciliosServ.updateDomicilio(this.idRute, this.domicilio).subscribe(
       res => {
         this.edit = true;
@@ -158,7 +138,7 @@ getPaisProvDom() {
   }
 
   postData(body) {
-    console.log('como viene del form: ', body);
+    // console.log('como viene del form: ', body);
     this.domicilio.calle = body.calle;
     this.domicilio.numero = body.numero;
     this.domicilio.piso = body.piso;
@@ -166,18 +146,18 @@ getPaisProvDom() {
     this.domicilio.cod_postal = body.cod_postal;
     this.domicilio.telefono = body.telefono;
     this.domicilio.id_localidad = this.selectedLocalidad?this.selectedLocalidad.id_localidad:this.localidadesFiltradas[0].id_localidad;
-    console.log('antes de mandarlo: ', this.domicilio);
-    // this.domiciliosServ.saveDomicilio(this.domicilio).subscribe(
-    //     res => {
-    //       // this.errors = null;
-    //       this.add = true;
-    //       setTimeout(() => {
-    //         this.add = false;
-    //         this.router.navigate(['panel/domicilios']);
-    //       }, 1500);
-    //     },
-    //     err => console.log(err)
-    // );
+    // console.log('antes de mandarlo: ', this.domicilio);
+    this.domiciliosServ.saveDomicilio(this.domicilio).subscribe(
+        res => {
+          // this.errors = null;
+          this.add = true;
+          setTimeout(() => {
+            this.add = false;
+            this.router.navigate(['panel/domicilios']);
+          }, 1500);
+        },
+        err => console.log(err)
+    );
   }
 
   delData() {
@@ -234,7 +214,6 @@ getPaisProvDom() {
 
   filterObsProvincia(pais?) {
     this.provinciasFiltradas = [];
-    // if (this.idRute) { this.toFilterPais = this.data.pais; } else { this.toFilterPais = this.paises[0].nombre; }
     const prueba = of (...this.provincias); // of hace obvservable al parametro y spread (...) lo desestructura
     prueba.pipe(
     filter(res => res.pais === (pais?pais:this.paises[0].nombre))) // Si hay parametro, usarlo, sino usar valor de la 1er posicion
@@ -282,6 +261,17 @@ getPaisProvDom() {
     });
   }
 
+  filterObsMedicosDom(item?) {
+    const prueba = of (...this.medicosDomicilios); // of hace obvservable al parametro y spread (...) lo desestructura
+    prueba.pipe(
+    filter(res => res.id_medico.toString() === item )) // filtra buscando equivalencias
+    .subscribe(res => {
+      this.selectedDomicilio = res;
+    },
+    err => { console.error(err); },
+    () => { this.getOne(this.selectedDomicilio.id_dom); });
+}
+
   getPaisSelected(item) { // captura la opcion seleccionada
     this.selectedPais = item.target.value;
     this.filterObsProvincia(this.selectedPais);
@@ -295,7 +285,7 @@ getPaisProvDom() {
   }
 
   getLocalidadSelected(item) { // captura la opcion seleccionada
-    console.log('localidad', item.target.value);
+    // console.log('localidad', item.target.value);
     this.filterObsLocalidadSelected(item.target.value);
   }
 }

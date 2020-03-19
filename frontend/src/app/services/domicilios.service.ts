@@ -14,6 +14,10 @@ export class DomiciliosService {
     return this.http.get(`${environment.url}/domicilios/search/${cadena}`);
   }
 
+  getMedicosDomicilios() {
+    return this.http.get(`${environment.url}/medicosDomicilios`);
+  }
+
   getDomicilios() {
     return this.http.get(`${environment.url}/domicilios`);
   }

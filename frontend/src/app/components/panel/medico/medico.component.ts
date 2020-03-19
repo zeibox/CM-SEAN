@@ -31,6 +31,7 @@ export class MedicoComponent implements OnInit {
   selectedGenero: any;
   datosBasicos = true;
   especialidades = false;
+  domicilios = false;
 
   medico: Medico = {
     imagen: 'https://clipartart.com/images/doctor-icon-clipart-3.png',
@@ -67,6 +68,7 @@ export class MedicoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log(this.route.snapshot.routeConfig.path);
     this.idRute = this.route.snapshot.params.id;
     this.formGroupFormat();
     // this.getDocumentos();
@@ -235,6 +237,7 @@ export class MedicoComponent implements OnInit {
   hideForm(item) {
     if (item.target.title === 'datosBasicos') { this.datosBasicos = !this.datosBasicos; }
     if (item.target.title === 'especialidades') { this.especialidades = !this.especialidades; }
+    if (item.target.title === 'domicilios') { this.domicilios = !this.domicilios; }
   }
 
 }
