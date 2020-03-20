@@ -5,22 +5,22 @@
         <span class="text-center" *ngIf="!this.idRute"><h2>Agregar Medico</h2></span>
         <div class="row justify-content-center">
             <form [formGroup]="formGroup" (ngSubmit)="this.idRute?onSubmitId():onSubmit()" class="col-12">
-                <h4 class="text-center subTitle py-1 mt-5 mb-3">Datos Basicos
-                    <span class="iconTitle pointer" *ngIf="datosBasicos" (click)="hideForm($event)"><i class="fas fa-caret-up fa-lg" title="datosBasicos" ></i></span>
-                    <span class="iconTitle pointer" *ngIf="!datosBasicos" (click)="hideForm($event)"><i class="fas fa-caret-down fa-lg" title="datosBasicos" ></i></span>
+                <h4 class="text-center subTitle pointer py-1 mt-5 mb-3" (click)="hideForm($event)">Datos Basicos
+                    <span class="iconTitle pointer" *ngIf="datosBasicos"><i class="fas fa-caret-up fa-lg" title="datosBasicos" ></i></span>
+                    <span class="iconTitle pointer" *ngIf="!datosBasicos"><i class="fas fa-caret-down fa-lg" title="datosBasicos" ></i></span>
                 </h4>
                 <div class="form-row" formGroupName="medicos" *ngIf="datosBasicos">
                     <div class="form-group col-sm-12 col-md-3">
                         <label>Nombres</label>
-                        <input type="text " class="form-control rounded border border-secondary " formControlName="nombres" placeholder="Nombres">
+                        <input type="text" class="form-control rounded border border-secondary " formControlName="nombres" placeholder="Nombres">
                     </div>
                     <div class="form-group col-md-3">
                         <label>Apellidos</label>
-                        <input type="text " class="form-control rounded border border-secondary " formControlName="apellido" placeholder="Apellido">
+                        <input type="text" class="form-control rounded border border-secondary " formControlName="apellido" placeholder="Apellido">
                     </div>
                     <div class="form-group col-md-6">
                         <label>Email</label>
-                        <input type="text " class="form-control rounded border border-secondary " formControlName="email" placeholder="Email">
+                        <input type="text" class="form-control rounded border border-secondary " formControlName="email" placeholder="Email">
                     </div>
                     <div class="form-group col-md-2">
                         <label>Tipo Doc</label>
@@ -30,19 +30,19 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label>Nº Documento</label>
-                        <input type="text " class="form-control rounded border border-secondary " formControlName="numero_doc" placeholder="Nº Documento">
+                        <input type="text" class="form-control rounded border border-secondary " formControlName="numero_doc" placeholder="Nº Documento">
                     </div>
                     <div class="form-group col-md-3">
                         <label>Celular</label>
-                        <input type="text " class="form-control rounded border border-secondary " formControlName="celular" placeholder="Celular">
+                        <input type="text" class="form-control rounded border border-secondary " formControlName="celular" placeholder="Celular">
                     </div>
                     <div class="form-group col-md-4">
                         <label>Nº Cuit</label>
-                        <input type="text " class="form-control rounded border border-secondary " formControlName="cuit" placeholder="Nº Cuit">
+                        <input type="text" class="form-control rounded border border-secondary " formControlName="cuit" placeholder="Nº Cuit">
                     </div>
                     <div class="form-group col-md-2">
                         <label>Matricula</label>
-                        <input type="text " class="form-control rounded border border-secondary " formControlName="matricula" placeholder="Matricula">
+                        <input type="number" class="form-control rounded border border-secondary " formControlName="matricula" placeholder="Matricula">
                     </div>
                     <div class="form-group col-md-3">
                         <label>Género</label>
@@ -50,10 +50,6 @@
                           <option *ngFor="let item of generos">{{ item.nombre }}</option>
                         </select>
                     </div>
-                    <!-- <div *ngFor="let item of generos; let i=index" class="col-md-6">
-                        <label>{{item.nombre}}</label>
-                        <input type="checkbox" [value]="item.nombre">
-                    </div> -->
                     <div class="form-group col-md-3">
                         <label>Jerarquía</label>
                         <select formControlName="jerarquia" title='jerarquia' class="form-control rounded border border-secondary" (change)="getSelected($event)">
@@ -64,25 +60,35 @@
                         <label>Vcto de Acuerdo</label>
                         <input type="date" class="form-control rounded border border-secondary " formControlName="vto_acuerdo" placeholder="Fecha vencimiento">
                     </div>
+
+                    <div class="form-group col-md-12">
+                        <div class="row justify-content-between px-3">
+                            <button type="submit" class="btn rounded btnAzul my-1" *ngIf="this.idRute">Actualizar Datos Basicos</button>
+                            <button type="submit" class="btn rounded btnAzul my-2" *ngIf="!this.idRute">Agregar Datos Basicos</button>
+                            <button (click)="delData()" class="btn btn-danger rounded mt-2" *ngIf="this.idRute">Eliminar Datos Basicos</button>
+                        </div>
+                    </div>
+
                 </div>
                 <hr>
-                <h4 class="text-center subTitle py-1 my-3">Especialidades
-                    <span class="iconTitle pointer" *ngIf="especialidades" (click)="hideForm($event)"><i class="fas fa-caret-up fa-lg" title="especialidades" ></i></span>
-                    <span class="iconTitle pointer" *ngIf="!especialidades" (click)="hideForm($event)"><i class="fas fa-caret-down fa-lg" title="especialidades" ></i></span>
+                <h4 class="text-center subTitle pointer py-1 my-3" (click)="hideForm($event)">Especialidades
+                    <span class="iconTitle pointer" *ngIf="especialidades"><i class="fas fa-caret-up fa-lg" title="especialidades" ></i></span>
+                    <span class="iconTitle pointer" *ngIf="!especialidades"><i class="fas fa-caret-down fa-lg" title="especialidades" ></i></span>
                 </h4>
                 <app-medico-especialidad *ngIf="especialidades"></app-medico-especialidad>
-                <hr>
-                <h4 class="text-center subTitle py-1 my-3">Domicilios
-                    <span class="iconTitle pointer" *ngIf="domicilios" (click)="hideForm($event)"><i class="fas fa-caret-up fa-lg" title="domicilios" ></i></span>
-                    <span class="iconTitle pointer" *ngIf="!domicilios" (click)="hideForm($event)"><i class="fas fa-caret-down fa-lg" title="domicilios" ></i></span>
-                </h4>
-                <app-domicilio *ngIf="domicilios"></app-domicilio>
-
-                <div class="row justify-content-between px-3">
-                    <button type="submit" class="btn btn-success rounded btnAzul mt-3" *ngIf="this.idRute">Actualizar</button>
-                    <button type="submit" class="btn btn-success rounded btnAzul mt-3" *ngIf="!this.idRute">Agregar</button>
-                    <button (click)="delData()" class="btn btn-danger rounded mt-3" *ngIf="this.idRute">Eliminar</button>
+                <div class="alert alert-danger col-sm-12" role="alert" *ngIf="this.compErrors.Especialidades">
+                    {{ this.compErrors.Especialidades }}
                 </div>
+                <hr>
+                <h4 class="text-center subTitle pointer py-1 my-3" (click)="hideForm($event)">Domicilios
+                    <span class="iconTitle pointer" *ngIf="domicilios"><i class="fas fa-caret-up fa-lg" title="domicilios" ></i></span>
+                    <span class="iconTitle pointer" *ngIf="!domicilios"><i class="fas fa-caret-down fa-lg" title="domicilios" ></i></span>
+                </h4>
+                <app-domicilio *ngIf="domicilios" [newMedico]='this.newMedico'></app-domicilio>
+                <div class="alert alert-danger col-sm-12" role="alert" *ngIf="this.compErrors.Domicilios">
+                    {{ this.compErrors.Domicilios }}
+                </div>
+                <hr>
             </form>
         </div>
 

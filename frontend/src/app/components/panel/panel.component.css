@@ -19,6 +19,10 @@ mat-sidenav {
     top: 64px;
 }
 
+.btnOpen {
+    position: fixed;
+}
+
 .pointer {
     cursor: pointer;
 }

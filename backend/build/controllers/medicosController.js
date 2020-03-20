@@ -24,7 +24,10 @@ class MedicosController {
     async create(req, res) {
         try {
             const result = await database_1.default.query('INSERT INTO v_medicos set ?', [req.body]);
-            res.json({ message: 'Médico Registrado' });
+            const ultimo = await database_1.default.query('SELECT LAST_INSERT_ID()');
+            if (ultimo.length > 0) {
+                return res.json(ultimo[0]);
+            }
         }
         catch (err) {
             res.json({ error: err.sqlMessage });

@@ -22,3 +22,8 @@ export interface MedicoEspecialidad {
     id_especialidad?: number;
     horarios?: string;
 }
+
+export interface MedicoDomicilio {
+    id_medico?: number;
+    id_dom?: number;
+}

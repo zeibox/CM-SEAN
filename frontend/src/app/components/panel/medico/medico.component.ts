@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MedicosService } from 'src/app/services/medicos.service';
 import { DocumentosService } from '../../../services/documentos.service';
@@ -32,6 +32,7 @@ export class MedicoComponent implements OnInit {
   datosBasicos = true;
   especialidades = false;
   domicilios = false;
+  compValid: false;
 
   medico: Medico = {
     imagen: 'https://clipartart.com/images/doctor-icon-clipart-3.png',
@@ -51,11 +52,15 @@ export class MedicoComponent implements OnInit {
     id_medico: 0,
     id_user: 1
   };
+  newMedico: any;
 
   edit: boolean;
   delete: boolean;
   add: boolean;
   errors: string;
+
+  compValidator = { Domicilios: false, Especialidades: false };
+  compErrors = { Domicilios: '', Especialidades: '' };
 
   constructor(
     private fb: FormBuilder,
@@ -68,14 +73,10 @@ export class MedicoComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.route.snapshot.routeConfig.path);
+    // console.log(this.route.snapshot.routeConfig.path);
     this.idRute = this.route.snapshot.params.id;
     this.formGroupFormat();
-    // this.getDocumentos();
-    // this.getGeneros();
-    // this.getJerarquias();
     this.forkJoin();
-    // this.getOne(this.idRute);
   }
 
 // SUBMIT METHODS----------------------------------------------------------
@@ -99,6 +100,8 @@ export class MedicoComponent implements OnInit {
   }
 
   getOne(id) {
+    this.compErrors = { Domicilios: '', Especialidades: '' };
+    this.compValidator = { Domicilios: true, Especialidades: true };
     this.medicoServ.getOneMedico(id).subscribe(
       res => {
         this.data = res;
@@ -126,20 +129,20 @@ export class MedicoComponent implements OnInit {
   }
 
   putData(body) {
-    console.log('Datos del form: ', body);
+    // console.log('Datos del form: ', body);
     this.medico.id_medico = this.data.id_medico; // data es el objeto obtenido del get on init
     this.medicoData(body);
     // ID: si hay campos seleccionados en combo-box utiliza esos valores, si no utliza el valor de DATA
     this.medico.id_documento_tipo = this.selectedDocumento?this.selectedDocumento.id_documento_tipo:this.data.id_documento_tipo;
     this.medico.id_genero = this.selectedGenero?this.selectedGenero.id_genero:this.data.id_genero;
     this.medico.id_jerarquia = this.selectedJerarquia?this.selectedJerarquia.id_jerarquia:this.data.id_jerarquia;
-    console.log('Datos a enviar: ', this.medico);
+    // console.log('Datos a enviar: ', this.medico);
     this.medicoServ.putMedico(this.idRute, this.medico).subscribe(
       res => {
         this.edit = true;
         setTimeout(() => {
           this.edit = false;
-          this.router.navigate(['panel/medicos']);
+          // this.router.navigate(['panel/medicos']);
         }, 1500);
       },
       err => this.errors = err.error.text
@@ -147,7 +150,7 @@ export class MedicoComponent implements OnInit {
   }
 
   postData(body) {
-    console.log('Datos del form: ', body);
+    // console.log('Datos del form: ', body);
     this.medicoData(body);
     // ID: si hay campos seleccionados en combo-box utiliza esos valores, si no utliza el valor del primer objeto.
     this.medico.id_documento_tipo = this.selectedDocumento?this.selectedDocumento.id_documento_tipo:this.documentos[0].id_documento_tipo;
@@ -156,15 +159,18 @@ export class MedicoComponent implements OnInit {
     console.log('Datos a enviar: ', this.medico);
     this.medicoServ.postMedico(this.medico).subscribe(
       res => {
+        // console.log(res);
+        this.newMedico = (Object.values({...res}));
+        this.compErrors = { Domicilios: '', Especialidades: '' };
+        this.compValidator = { Domicilios: true, Especialidades: true };
         this.add = true;
         setTimeout(() => {
           this.add = false;
-          this.router.navigate(['panel/medicos']);
+          // this.router.navigate(['panel/medicos']);
         }, 1500);
       },
       err => this.errors = err.error.text
     );
-    console.log(this.errors);
   }
 
   delData() {
@@ -172,7 +178,7 @@ export class MedicoComponent implements OnInit {
         this.delete = true;
         setTimeout(() => {
           this.delete = false;
-          this.router.navigate(['panel/medicos']);
+          // this.router.navigate(['panel/medicos']);
         }, 1500);
       },
       err => this.errors = err.error.text
@@ -214,7 +220,11 @@ export class MedicoComponent implements OnInit {
   formGroupFormat() {
     this.formGroup = this.fb.group({
       medicos: this.fb.group({
-        nombres: ['', Validators.required],
+        // nombres: ['angular', Validators.maxLength(5)],
+        nombres: new FormControl('', [
+          Validators.required,
+          Validators.maxLength(4) // <-- Here's how you pass in the custom validator.
+        ]),
         apellido: ['', Validators.required],
         email: ['', Validators.required],
         celular: ['', Validators.required],
@@ -235,10 +245,26 @@ export class MedicoComponent implements OnInit {
   }
 
   hideForm(item) {
-    if (item.target.title === 'datosBasicos') { this.datosBasicos = !this.datosBasicos; }
-    if (item.target.title === 'especialidades') { this.especialidades = !this.especialidades; }
-    if (item.target.title === 'domicilios') { this.domicilios = !this.domicilios; }
+    const value = item.target.innerText;
+    if (value === 'Datos Basicos') { this.datosBasicos = !this.datosBasicos; }
+
+    if (value === 'Especialidades') {
+      if ( this.compValidator[value] ) {  // Si el validador correspondiente es true, abre el componente
+        this.especialidades = !this.especialidades;
+      } else if ( !this.compErrors[value] ) { // Si error es '' alert = err
+        this.compErrors[value] = 'Completar datos basicos!';
+        setTimeout(() => { this.compErrors[value] = ''; }, 3000);
+      }
+    }
+
+    if (value === 'Domicilios') {
+      if ( this.compValidator[value] ) {
+      this.domicilios = !this.domicilios;
+      } else if ( !this.compErrors[value] ) {
+        this.compErrors[value] = 'Completar datos basicos!';
+        setTimeout(() => { this.compErrors[value] = ''; }, 3000);
+      }
+    }
   }
 
 }
-

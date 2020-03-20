@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomiciliosService } from '../../../services/domicilios.service';
@@ -8,6 +8,8 @@ import { of, forkJoin } from 'rxjs';
 import { filter, tap, finalize } from 'rxjs/operators';
 import { PaisesService } from '../../../services/paises.service';
 import { LocalidadesService } from '../../../services/localidades.service';
+import { MedicosDomiciliosService } from '../../../services/medicos-domicilios.service';
+import { Medico, MedicoDomicilio } from '../../../interfaces/medicos';
 
 
 @Component({
@@ -16,6 +18,9 @@ import { LocalidadesService } from '../../../services/localidades.service';
   styleUrls: ['./domicilio.component.css']
 })
 export class DomicilioComponent implements OnInit {
+
+  @Input() newMedico: Medico;
+  newDom: any;
 
   formGroup: FormGroup;
   datePipe = new DatePipe('es-AR');
@@ -53,17 +58,19 @@ export class DomicilioComponent implements OnInit {
     private domiciliosServ: DomiciliosService,
     private paisesService: PaisesService,
     private localidadesService: LocalidadesService,
-    private router: Router
+    private router: Router,
+    private medicoDomServ: MedicosDomiciliosService
   ) {}
 
   ngOnInit() {
+    console.log('medico creado', this.newMedico);
     this.rute = this.route.snapshot.component;
     this.idRute = this.route.snapshot.params.id;
     if (this.rute.name === 'MedicoComponent') {
-      this.ruteMedico = true;
-      if (this.idRute) {
+      this.ruteMedico = true;  // ngIf en template dependiendo de que componente se ejecute
+      if (!this.newMedico) {  // si es undefined trae medicosDomicilios (modo actualizar)
         this.getMedicosDomicilios();
-      } else { this.getPaisProvDom(); }
+      } else { this.getPaisProvDom(); } //
       // get medicos_domicilios (obtener id_dom)
     } else if (this.idRute) {
       this.getOne(this.idRute); // Almacena los datos del domicilio en variable 'data'
@@ -74,6 +81,7 @@ export class DomicilioComponent implements OnInit {
 // SUBMIT METHODS----------------------------------------------------------
   onSubmit() {
     this.postData(this.formGroup.value.domicilios);
+    // if (this.rute.name === 'MedicoComponent') { this.postMedicoDomicilio(); }
   }
   onSubmitId() {
     this.putData(this.formGroup.value.domicilios);
@@ -100,18 +108,6 @@ export class DomicilioComponent implements OnInit {
       res => { this.data = res; });
   }
 
-  getMedicosDomicilios() {
-    this.domiciliosServ.getMedicosDomicilios().subscribe(
-      res => {
-        this.medicosDomicilios = res;
-        console.log(this.medicosDomicilios);
-      },
-      err => { this.errors = err.error.text; },
-      () => {
-        this.filterObsMedicosDom(this.idRute);
-      });
-  }
-
   putData(body) {
     // console.log('como viene del form: ', body);
     this.domicilio.id_localidad = this.selectedLocalidad?this.selectedLocalidad.id_localidad:this.data.id_localidad;
@@ -124,13 +120,17 @@ export class DomicilioComponent implements OnInit {
     this.domicilio.cod_postal = body.cod_postal;
     this.domicilio.telefono = body.telefono;
     this.domicilio.creado_en = new Date();
+    // Si estamos en el componente medicos y entramos para actualizar (validacion linea 69)
+    let paramID;
+    if (this.selectedDomicilio) { paramID = this.selectedDomicilio.id_dom; } else { paramID = this.idRute; }
     // console.log('antes de mandarlo', this.domicilio);
-    this.domiciliosServ.updateDomicilio(this.idRute, this.domicilio).subscribe(
+    this.domiciliosServ.updateDomicilio(paramID, this.domicilio).subscribe(
       res => {
         this.edit = true;
+        console.log(res);
         setTimeout(() => {
           this.edit = false;
-          this.router.navigate(['panel/domicilios']);
+          // this.router.navigate(['panel/domicilios']);
         }, 1500);
       },
       err => this.errors = err
@@ -149,15 +149,20 @@ export class DomicilioComponent implements OnInit {
     // console.log('antes de mandarlo: ', this.domicilio);
     this.domiciliosServ.saveDomicilio(this.domicilio).subscribe(
         res => {
-          // this.errors = null;
+          const idDom = (Object.values({...res}));  // Res devuelve el id del obj recien creado, object.values devuelve el valor numerico
+          if (this.newMedico) { this.newDom = { id_medico: this.newMedico[0], id_dom: idDom[0] }; }
+          // this.newMedico = id del medico creado en datos basicos
           this.add = true;
           setTimeout(() => {
             this.add = false;
-            this.router.navigate(['panel/domicilios']);
+            // this.router.navigate(['panel/domicilios']);
           }, 1500);
         },
-        err => console.log(err)
-    );
+        err => { this.errors = err.error.text; },
+        () => {
+          console.log(this.newDom);
+          if (this.newMedico) { this.postMedicoDomicilio(this.newDom); }  // Manda como parametro newDom para crear medicosDomicilios
+        });
   }
 
   delData() {
@@ -171,6 +176,30 @@ export class DomicilioComponent implements OnInit {
         }, 1500);
       },
       err => this.errors = err
+    );
+  }
+
+  getMedicosDomicilios() {
+    this.medicoDomServ.getMedicosDomicilios().subscribe(
+      res => {
+        this.medicosDomicilios = res;
+        console.log(this.medicosDomicilios);
+      },
+      err => { this.errors = err.error.text; },
+      () => {
+        this.filterObsMedicosDom(this.idRute);
+      });
+  }
+
+  postMedicoDomicilio(dom) {
+    // capturar el id del medico creado en datos basicos y el id creado en el post de domicilios
+    this.medicoDomServ.postMedicoDomicilio(dom).subscribe(
+      res => {
+        this.add = true;
+        setTimeout(() => {
+          this.add = false;
+        }, 1500);
+      }
     );
   }
 
@@ -225,7 +254,7 @@ export class DomicilioComponent implements OnInit {
       if (this.provinciasFiltradas[0] == null) {  // == null (pregunta si es null or undefined)
         this.localidadesFiltradas = []; // si no hay provincias, localidades = []
       } else {
-        if (this.idRute && this.cont === 0) { // contador por defecto = 0, 1ra vez que ingresa al metodo
+        if (this.idRute && this.cont === 0 && this.data) { // contador por defecto = 0, 1ra vez que ingresa al metodo
           this.filter = this.data.provincia; // Si es la 1ra vez, toma el valor de data - getOne()
         } else { this.filter = this.provinciasFiltradas[0].nombre; } // Si no es la 1ra, toma el valor de la 1er pos
         this.filterObsLocalidad();
@@ -244,7 +273,7 @@ export class DomicilioComponent implements OnInit {
     },
     err => { console.log(err); },
     () => {
-      if (this.idRute && this.cont === 1) { // Al completarse el obs, si hay ID y es la 1ra vez que ingresa, llena el formGroup
+      if (this.idRute && this.cont === 1 && this.data) { // Al completarse el obs, si hay ID y es la 1ra vez que ingresa, llena el formGroup
         setTimeout(() => {
           this.fillFormWithData();
         }, 10);
@@ -267,9 +296,16 @@ export class DomicilioComponent implements OnInit {
     filter(res => res.id_medico.toString() === item )) // filtra buscando equivalencias
     .subscribe(res => {
       this.selectedDomicilio = res;
+      console.log('selected domicilio', this.selectedDomicilio);
     },
     err => { console.error(err); },
-    () => { this.getOne(this.selectedDomicilio.id_dom); });
+    () => {
+      if (this.selectedDomicilio) {
+        this.getOne(this.selectedDomicilio.id_dom);
+      } else {
+        this.getPaisProvDom();
+      }
+    });
 }
 
   getPaisSelected(item) { // captura la opcion seleccionada

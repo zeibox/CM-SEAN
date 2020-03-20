@@ -22,14 +22,16 @@ class MedicosController {
         res.status(404).json({ text: "El Médico no existe" });
     }
 
-    public async create(req: Request, res: Response): Promise<void> {
+    public async create(req: Request, res: Response): Promise<any> {
         try{
             const result = await bd.query('INSERT INTO v_medicos set ?', [req.body]);
-            res.json({ message: 'Médico Registrado' });
+            const ultimo = await bd.query('SELECT LAST_INSERT_ID()');
+            if (ultimo.length > 0) {
+                return res.json(ultimo[0]);
+            }
         }catch(err){
             res.json({ error: err.sqlMessage });
         }
-        
     }
 
     public async update(req: Request, res: Response): Promise<void> {

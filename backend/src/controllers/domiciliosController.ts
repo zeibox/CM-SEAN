@@ -17,10 +17,13 @@ class DomiciliosController {
         res.status(404).json({ text: "El Domicilio no existe" });
     }
 
-    public async create(req: Request, res: Response): Promise<void> {
+    public async create(req: Request, res: Response): Promise<any> {
         try {
-         const result = await bd.query('INSERT INTO v_domicilios set ?', [req.body]);
-        res.json({ message: 'Domicilio Registrado' });
+        const result = await bd.query('INSERT INTO v_domicilios set ?', [req.body]);
+        const ultimo = await bd.query('SELECT LAST_INSERT_ID()');
+        if (ultimo.length > 0) {
+            return res.json(ultimo[0]);
+        }
         } catch (err) {
             res.json({ error: err.sqlMessage });
         }
