@@ -77,7 +77,7 @@ export class MedicoEspecialidadComponent implements OnInit {
     this.especialidadServ.getEspecialidades().subscribe(
       res => {
         this.especialidades = res;
-        console.log(this.especialidades);
+        console.log('especialidades', this.especialidades);
       },
       err => console.error(err)
     );
