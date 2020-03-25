@@ -24,7 +24,7 @@ class MedicosController {
 
     public async create(req: Request, res: Response): Promise<any> {
         try{
-            const result = await bd.query('INSERT INTO v_medicos set ?', [req.body]);
+            const result = await bd.query('INSERT INTO medicos set ?', [req.body]);
             const ultimo = await bd.query('SELECT LAST_INSERT_ID()');
             if (ultimo.length > 0) {
                 return res.json(ultimo[0]);

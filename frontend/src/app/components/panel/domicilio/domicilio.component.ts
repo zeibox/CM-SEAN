@@ -19,7 +19,7 @@ import { Medico, MedicoDomicilio } from '../../../interfaces/medicos';
 })
 export class DomicilioComponent implements OnInit {
 
-  @Input() newMedico: Medico;
+  @Input() newMedico: any;
   newDom: any;
 
   formGroup: FormGroup;

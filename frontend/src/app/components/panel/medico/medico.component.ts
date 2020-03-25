@@ -156,11 +156,12 @@ export class MedicoComponent implements OnInit {
     this.medico.id_documento_tipo = this.selectedDocumento?this.selectedDocumento.id_documento_tipo:this.documentos[0].id_documento_tipo;
     this.medico.id_genero = this.selectedGenero?this.selectedGenero.id_genero:this.generos[0].id_genero;
     this.medico.id_jerarquia = this.selectedJerarquia?this.selectedJerarquia.id_jerarquia:this.jerarquias[0].id_jerarquia;
+    this.medico.creado_en = new Date();
     console.log('Datos a enviar: ', this.medico);
     this.medicoServ.postMedico(this.medico).subscribe(
       res => {
-        // console.log(res);
-        this.newMedico = (Object.values({...res}));
+        console.log(res);
+        // this.newMedico = (Object.values({...res}));
         this.compErrors = { Domicilios: '', Especialidades: '' };
         this.compValidator = { Domicilios: true, Especialidades: true };
         this.add = true;

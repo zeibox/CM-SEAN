@@ -3,106 +3,57 @@
     <div class="form-row" formGroupName="medEspecialidad">
         <div class="form-group col-md-3">
             <label>Especialidad</label>
-            <select formControlName="especialidad" title='especialidad' class="form-control rounded border border-secondary" (change)="getSelected($event)">
+            <select formControlName="especialidad" title='especialidad' class="form-control rounded border border-secondary" (change)="getSelectedEspecialidad($event)">
                 <option hidden [value]="" selected>Seleccionar especialidad</option>
                 <option *ngFor="let item of especialidades">{{ item.nombre }}</option>
             </select>
         </div>
-        <!-- <div class="form-group col-md-3">
-            
-            <select formControlName="dia" title='dia' class="form-control rounded border border-secondary" (change)="getSelected($event)">
-                <option hidden [value]="" selected>Seleccionar día</option>
-                <option *ngFor="let item of dias">{{ item.nombre }}</option>
-            </select>
-        </div> -->
         <div class="form-group col-md-5">
             <label>Día</label>
             <mat-form-field class="col-12 px-0" appearance="outline">
-                <mat-select formControlName="dia" multiple placeholder="Dia" (selectionChange)="getdias($event)">
-                    <mat-option *ngFor="let topping of dias" [value]="topping.nombre">{{topping.nombre}}</mat-option>
+                <mat-select formControlName="dia" multiple placeholder="Dia" (openedChange)="comboChange($event)">
+                    <mat-option *ngFor="let dia of dias" [value]="dia.nombre">{{dia.nombre}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="form-group col-md-2">
             <label>T. Mañana</label>
-            <select formControlName="mañana" title='mañana' class="form-control rounded border border-secondary" (change)="getSelected($event)">
+            <select formControlName="mañana" title='mañana' class="form-control rounded border border-secondary" (change)="getSelectedHorario($event)">
                 <ng-container *ngFor="let item of horarios">
                     <option hidden [value]="" selected>Seleccionar horario</option>
-                    <option *ngIf="item.turno === 'm'" >{{ item.inicio }} / {{ item.fin }}</option>
+                    <option *ngIf="item.turno === 'm'" [attr.value]="item.horario">{{ item.inicio }} / {{ item.fin }}</option>
                 </ng-container>
             </select>
         </div>
         <div class="form-group col-md-2">
             <label>T. Tarde</label>
-            <select formControlName="tarde" title='tarde' class="form-control rounded border border-secondary" (change)="getSelected($event)">
+            <select formControlName="tarde" title='tarde' class="form-control rounded border border-secondary" (change)="getSelectedHorario($event)">
                 <ng-container *ngFor="let item of horarios">
                     <option hidden [value]="" selected>Seleccionar horario</option>
-                    <option *ngIf="item.turno === 't'" >{{ item.inicio }} / {{ item.fin }}</option>
+                    <option *ngIf="item.turno === 't'" [attr.value]="item.horario">{{ item.inicio }} / {{ item.fin }}</option>
                 </ng-container>
             </select>
         </div>
-    </div>
-</form>
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <form>
-    <div class="multiselect col-md-3">
-        <div class="selectBox" (click)="showCheckboxes()">
-            <select class="form-control rounded border border-secondary">
-              <option>Select an option</option>
-            </select>
-            <div class="overSelect"></div>
+        <div class="form-group col-md-12">
+            <div class="row justify-content-between px-3">
+                <button type="submit" class="btn rounded btnAzul my-1" *ngIf="this.idRute">Actualizar Especialidad</button>
+                <button type="submit" class="btn rounded btnAzul my-2" *ngIf="!this.idRute">Agregar Especialidad</button>
+                <button (click)="deleteMedEspecialidad()" class="btn btn-danger rounded mt-2" *ngIf="this.idRute">Eliminar Especialidad</button>
+            </div>
         </div>
-        <div id="checkboxes">
-            <label *ngFor="let item of jerarquia; let i = index" for="{{i}}">
-              <input type="checkbox" id="{{i}}" />{{item.nombre}}</label>
+        <div class="row col-12 justify-content-center m-0 p-0">
+            <div class="alert alert-danger col-sm-10" role="alert" *ngIf="this.errors">
+                {{this.errors}}
+            </div>
+            <div class="alert alert-danger col-sm-10" role="alert" *ngIf="this.delete">
+                Eliminado con éxito!
+            </div>
+            <div class="alert alert-success col-sm-10" role="alert" *ngIf="this.edit">
+                Actualizado con éxito!
+            </div>
+            <div class="alert alert-success col-sm-10" role="alert" *ngIf="this.add">
+                Agregado con éxito!
+            </div>
         </div>
     </div>
 </form>
-
-<div class="col-md-3 pb-5">
-    <label>Jerarquía</label>
-    <select title='jerarquia' class="form-control rounded border border-secondary">
-        <option type="checkbox" *ngFor="let item of jerarquia">{{ item.nombre }}</option>
-    </select>
-</div>
-
-<div class="form-group col-md-3">
-    <label>Jerarquía</label>
-    <select formControlName="jerarquia" title='jerarquia' class="form-control rounded border border-secondary" (change)="getSelected($event)">
-          <option *ngFor="let item of jerarquias">{{ item.nombre }}</option>
-        </select>
-</div> -->
-
-
-<!-- </div> -->
-
-<!-- <div class="row justify-content-center">
-    <div class="col-sm-8 pt-2 pb-5">
-        <button (click)="deleteArea()" class="btn btn-danger rounded enviarBtn" *ngIf="this.idRute">Eliminar</button>
-    </div>
-    <div class="alert alert-danger col-sm-8" role="alert" *ngIf="this.errors">
-        {{this.errors}}
-    </div>
-    <div class="alert alert-danger col-sm-8" role="alert" *ngIf="this.delete">
-        Eliminada con éxito!
-    </div>
-    <div class="alert alert-success col-sm-8" role="alert" *ngIf="this.edit">
-        Actualizada con éxito!
-    </div>
-    <div class="alert alert-success col-sm-8" role="alert" *ngIf="this.add">
-        Agregada con éxito!
-    </div>
-</div> -->
-<!-- </div>
-</div> -->
