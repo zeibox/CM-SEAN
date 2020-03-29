@@ -14,15 +14,7 @@
 .mat-form-field-appearance-outline .mat-form-field-outline {
     color: rgb(82, 82, 82);
     background-color: #fff;
-    /* border: 0; */
 }
-
-
-/* .mat-form-field-appearance-outline .mat-form-field-outline:hover {
-    color: rgb(82, 82, 82);
-    border: 0.5px solid;
-    background-color: #fff;
-} */
 
 .mat-form-field-appearance-outline .mat-form-field-outline-thick {
     color: rgb(160, 160, 160);
@@ -38,7 +30,6 @@
 
 .mat-form-field-appearance-outline .mat-form-field-infix {
     padding: 14px 0 10px 0;
-    /* height: 38px; */
 }
 
 .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
@@ -55,20 +46,12 @@
     min-width: 5px;
 }
 
-.fondoAzul {
-    color: rgb(115, 150, 151) !important;
-}
-
-.fondoAzul:hover {
-    color: rgb(92, 117, 107) !important;
-}
-
-.btnAzul {
+.btnAzule {
     background-color: rgb(124, 171, 173) !important;
     color: white;
 }
 
-.btnAzul:hover {
+.btnAzule:hover {
     background-color: rgb(92, 117, 117) !important;
     color: white;
 }

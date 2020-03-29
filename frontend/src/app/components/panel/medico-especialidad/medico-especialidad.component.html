@@ -1,3 +1,20 @@
+<table class="table col-12" *ngIf="this.final">
+    <thead>
+        <tr>
+            <td scope="col">Especialidad</td>
+            <td scope="col">Dias</td>
+            <td scope="col">Horarios</td>
+        </tr>
+    </thead>
+    <tbody *ngFor="let item of final; let i = index">
+        <tr class="pointer">
+            <th scope="row">{{ item.Especialidad }}</th>
+            <td scope="row">{{ item.Dias }}</td>
+            <td scope="row">{{ item.Horarios }}</td>
+        </tr>
+    </tbody>
+</table>
+
 <form [formGroup]="formGroup" (ngSubmit)="this.idRute?onSubmitId():onSubmit()">
     <!-- corregir idRute -->
     <div class="form-row" formGroupName="medEspecialidad">
@@ -5,7 +22,7 @@
             <label>Especialidad</label>
             <select formControlName="especialidad" title='especialidad' class="form-control rounded border border-secondary" (change)="getSelectedEspecialidad($event)">
                 <option hidden [value]="" selected>Seleccionar especialidad</option>
-                <option *ngFor="let item of especialidades">{{ item.nombre }}</option>
+                <option [attr.value]="item.id_especialidad" *ngFor="let item of especialidades">{{ item.nombre }}</option>
             </select>
         </div>
         <div class="form-group col-md-5">
@@ -16,6 +33,7 @@
                 </mat-select>
             </mat-form-field>
         </div>
+
         <div class="form-group col-md-2">
             <label>T. Mañana</label>
             <select formControlName="mañana" title='mañana' class="form-control rounded border border-secondary" (change)="getSelectedHorario($event)">
@@ -25,6 +43,7 @@
                 </ng-container>
             </select>
         </div>
+
         <div class="form-group col-md-2">
             <label>T. Tarde</label>
             <select formControlName="tarde" title='tarde' class="form-control rounded border border-secondary" (change)="getSelectedHorario($event)">
@@ -36,8 +55,8 @@
         </div>
         <div class="form-group col-md-12">
             <div class="row justify-content-between px-3">
-                <button type="submit" class="btn rounded btnAzul my-1" *ngIf="this.idRute">Actualizar Especialidad</button>
-                <button type="submit" class="btn rounded btnAzul my-2" *ngIf="!this.idRute">Agregar Especialidad</button>
+                <button type="submit" class="btn rounded btnAzule my-1" *ngIf="this.idRute">Actualizar Especialidad</button>
+                <button type="submit" class="btn rounded btnAzule my-2" *ngIf="!this.idRute">Agregar Especialidad</button>
                 <button (click)="deleteMedEspecialidad()" class="btn btn-danger rounded mt-2" *ngIf="this.idRute">Eliminar Especialidad</button>
             </div>
         </div>

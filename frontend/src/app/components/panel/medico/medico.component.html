@@ -64,21 +64,21 @@
                     <div class="form-group col-md-12">
                         <div class="row justify-content-between px-3">
                             <button type="submit" class="btn rounded btnAzul my-1" *ngIf="this.idRute">Actualizar Datos Basicos</button>
-                            <button type="submit" class="btn rounded btnAzul my-2" *ngIf="!this.idRute">Agregar Datos Basicos</button>
+                            <button type="submit" class="btn rounded btnAzul my-2" *ngIf="!this.idRute && !this.medAdded">Agregar Datos Basicos</button>
                             <button (click)="delData()" class="btn btn-danger rounded mt-2" *ngIf="this.idRute">Eliminar Datos Basicos</button>
                         </div>
                     </div>
                     <div class="row col-12 justify-content-center m-0 p-0">
-                        <div class="alert alert-danger col-sm-10" role="alert" *ngIf="this.errors">
+                        <div class="alert alert-danger col-sm-12" role="alert" *ngIf="this.errors">
                             {{this.errors}}
                         </div>
-                        <div class="alert alert-danger col-sm-10" role="alert" *ngIf="this.delete">
+                        <div class="alert alert-danger col-sm-12" role="alert" *ngIf="this.delete">
                             Eliminado con éxito!
                         </div>
-                        <div class="alert alert-success col-sm-10" role="alert" *ngIf="this.edit">
+                        <div class="alert alert-success col-sm-12" role="alert" *ngIf="this.edit">
                             Actualizado con éxito!
                         </div>
-                        <div class="alert alert-success col-sm-10" role="alert" *ngIf="this.add">
+                        <div class="alert alert-success col-sm-12" role="alert" *ngIf="this.add">
                             Agregado con éxito!
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                     <span class="iconTitle pointer" *ngIf="especialidades"><i class="fas fa-caret-up fa-lg" title="especialidades" ></i></span>
                     <span class="iconTitle pointer" *ngIf="!especialidades"><i class="fas fa-caret-down fa-lg" title="especialidades" ></i></span>
                 </h4>
-                <app-medico-especialidad *ngIf="especialidades"></app-medico-especialidad>
+                <app-medico-especialidad *ngIf="especialidades" [newMed]='this.newMedico'></app-medico-especialidad>
                 <div class="alert alert-danger col-sm-12" role="alert" *ngIf="this.compErrors.Especialidades">
                     {{ this.compErrors.Especialidades }}
                 </div>

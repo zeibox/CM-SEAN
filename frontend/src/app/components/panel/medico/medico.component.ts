@@ -33,6 +33,7 @@ export class MedicoComponent implements OnInit {
   especialidades = false;
   domicilios = false;
   compValid: false;
+  medAdded: boolean;
 
   medico: Medico = {
     imagen: 'https://clipartart.com/images/doctor-icon-clipart-3.png',
@@ -43,9 +44,6 @@ export class MedicoComponent implements OnInit {
     cuit: '',
     matricula: '',
     numero: '',
-    fe_ingreso: new Date(),
-    vto_acuerdo: new Date(),
-    creado_en: new Date(),
     id_jerarquia: 2,
     id_documento_tipo: 1,
     id_genero: 4,
@@ -59,7 +57,7 @@ export class MedicoComponent implements OnInit {
   add: boolean;
   errors: string;
 
-  compValidator = { Domicilios: false, Especialidades: false };
+  compValidator = { Domicilios: false, Especialidades: true };
   compErrors = { Domicilios: '', Especialidades: '' };
 
   constructor(
@@ -156,15 +154,16 @@ export class MedicoComponent implements OnInit {
     this.medico.id_documento_tipo = this.selectedDocumento?this.selectedDocumento.id_documento_tipo:this.documentos[0].id_documento_tipo;
     this.medico.id_genero = this.selectedGenero?this.selectedGenero.id_genero:this.generos[0].id_genero;
     this.medico.id_jerarquia = this.selectedJerarquia?this.selectedJerarquia.id_jerarquia:this.jerarquias[0].id_jerarquia;
-    this.medico.creado_en = new Date();
+    // this.medico.creado_en = new Date();
     console.log('Datos a enviar: ', this.medico);
     this.medicoServ.postMedico(this.medico).subscribe(
       res => {
         console.log(res);
-        // this.newMedico = (Object.values({...res}));
+        this.newMedico = (Object.values({...res}));
         this.compErrors = { Domicilios: '', Especialidades: '' };
         this.compValidator = { Domicilios: true, Especialidades: true };
         this.add = true;
+        this.medAdded = true;
         setTimeout(() => {
           this.add = false;
           // this.router.navigate(['panel/medicos']);
@@ -215,7 +214,7 @@ export class MedicoComponent implements OnInit {
     this.medico.email = body.email;
     this.medico.matricula = body.matricula;
     this.medico.numero = body.numero_doc;
-    this.medico.vto_acuerdo = body.vto_acuerdo;
+    // this.medico.vto_acuerdo = body.vto_acuerdo;
   }
 
   formGroupFormat() {
