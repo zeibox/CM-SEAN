@@ -1,4 +1,4 @@
-<table class="table col-12" *ngIf="this.final">
+<table class="table col-12" *ngIf="this.final[0] != null">
     <thead>
         <tr>
             <td scope="col">Especialidad</td>
@@ -38,8 +38,8 @@
             <label>T. Mañana</label>
             <select formControlName="mañana" title='mañana' class="form-control rounded border border-secondary" (change)="getSelectedHorario($event)">
                 <ng-container *ngFor="let item of horarios">
-                    <option hidden [value]="" selected>Seleccionar horario</option>
-                    <option *ngIf="item.turno === 'm'" [attr.value]="item.horario">{{ item.inicio }} / {{ item.fin }}</option>
+                    <option hidden [value]="" selected>Seleccionar</option>
+                    <option *ngIf="item.turno === 'm'" [attr.value]="item.horario">{{ item.inicio }}  {{ item.fin }}</option>
                 </ng-container>
             </select>
         </div>
@@ -48,8 +48,8 @@
             <label>T. Tarde</label>
             <select formControlName="tarde" title='tarde' class="form-control rounded border border-secondary" (change)="getSelectedHorario($event)">
                 <ng-container *ngFor="let item of horarios">
-                    <option hidden [value]="" selected>Seleccionar horario</option>
-                    <option *ngIf="item.turno === 't'" [attr.value]="item.horario">{{ item.inicio }} / {{ item.fin }}</option>
+                    <!-- <option hidden [value]="" selected>Seleccionar horario</option> -->
+                    <option *ngIf="item.turno === 't'" [attr.value]="item.horario">{{ item.inicio }}  {{ item.fin }}</option>
                 </ng-container>
             </select>
         </div>

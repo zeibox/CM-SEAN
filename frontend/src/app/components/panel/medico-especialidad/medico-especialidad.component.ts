@@ -48,7 +48,7 @@ export class MedicoEspecialidadComponent implements OnInit {
   horariosArr = ['0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0'];
   horariosPrueba: any;
 
-  final: any;
+  final = [];
 
   horariosTable = [null, null, null, null, null, null, null];
 
@@ -110,6 +110,8 @@ export class MedicoEspecialidadComponent implements OnInit {
     this.medEspServ.getHorarios().subscribe(
       res => {
         this.horarios = res;
+        this.horarios.unshift({inicio: 'Seleccionar', turno: 'm'}, {inicio: 'Seleccionar', turno: 't'});
+        console.log('horarios', this.horarios);
         // console.log('horarios', this.horarios);
       },
       err => console.error(err)
@@ -133,16 +135,16 @@ export class MedicoEspecialidadComponent implements OnInit {
     // Elimina del arreglo las posiciones nulas
     this.horariosTable = this.horariosTable.filter(element => element != null);
     this.horariosPrueba = horarios.filter(element => element !== '0');
-    // console.log(this.horariosTable);
-    // console.log('dias', this.horariosPrueba);
-    this.final = [{
+    // console.log(this.horariosPrueba);
+    const test = {
       Especialidad: especialidad,
       Dias:  this.horariosTable,
       Horarios: [this.horariosPrueba[0], this.horariosPrueba[1]]
-    }];
-
+    };
+    this.final.push(test);
+    this.horariosTable = [null, null, null, null, null, null, null];
     //                 falta reemplazar el ID de especialidad por el Nombre y el ID de Horario por el horario.
-    console.log(this.final);
+    // console.log(this.final);
   }
 
 
@@ -154,15 +156,20 @@ export class MedicoEspecialidadComponent implements OnInit {
     console.log('antes de mandar: ', this.medEspecialidad);
     this.medEspServ.saveMedEspecialidad(this.medEspecialidad).subscribe(
         res => {
-          this.pushEsp(this.horariosArr, body.especialidad);
+          this.pushEsp(this.horariosArr, body.especialidad);  // 1
           this.add = true;
+          console.log('fg', this.formGroup);
+          this.formGroup.reset();
+          this.formGroup.value.medEspecialidad.mañana = 'Seleccionar';
           setTimeout(() => {
           this.add = false;
           // this.router.navigate(['panel/']);
         }, 1500);
       },
-      err => { this.errors = err.error.text; },
-      () => { });
+      err => { this.errors = err; },
+      () => {
+        this.getMedEspecialidades(); // 2
+      });
   }
 
   putMedEspecialidad(body: MedicoEspecialidad) {
@@ -197,8 +204,9 @@ export class MedicoEspecialidadComponent implements OnInit {
     this.medEspServ.getMedEspecialidades().subscribe(
       res => {
         this.medicosEspecialidades = res;
-        this.createdEspecialidad = res[0].horarios.split('');
-        console.log(this.createdEspecialidad);
+        // this.createdEspecialidad = res[0].horarios.split('');
+        console.log('target', res);
+        this.filterMedEspecialidad();
       },
       err => console.error(err)
     );
@@ -238,8 +246,19 @@ export class MedicoEspecialidadComponent implements OnInit {
         err => { this.errors = err; },
         () => { });
     }
-    console.log('Dias filtrados: ', this.diasFiltrados);
+    // console.log('Dias filtrados: ', this.diasFiltrados);
     if (this.selectedTurno) { this.setHorariosEsp(); }
+  }
+
+  filterMedEspecialidad(id?) {
+    const prueba = of (...this.medicosEspecialidades);
+    prueba.pipe(
+        filter(res => res.id_medico === this.newMed[0]))
+        .subscribe(res => {
+          console.log('filtradas', res);
+        },
+        err => { this.errors = err; },
+        () => {console.log('caca', this.newMed); });
   }
 
   setHorariosEsp() {
@@ -256,13 +275,13 @@ export class MedicoEspecialidadComponent implements OnInit {
         this.horariosArr[this.diasFiltrados[i].tarde] = this.formGroup.value.medEspecialidad.tarde;
       }
     }
-    console.log('horarios usando join(): ', this.horariosArr.join(''));
-    console.log('horarios: ', this.horariosArr);
+    // console.log('horarios usando join(): ', this.horariosArr.join(''));
+    // console.log('horarios: ', this.horariosArr);
   }
 
   getSelectedEspecialidad(item) {
-    console.log('id: ', item.target.value);
-    console.log('especialidad: ', item.target.selectedOptions[0].text);
+    console.log('Selected id: ', item.target.value);
+    console.log('Selected especialidad: ', item.target.selectedOptions[0].text);
   }
 
   getSelectedHorario(item) {
@@ -277,8 +296,8 @@ export class MedicoEspecialidadComponent implements OnInit {
   comboChange(event) {
     this.isDiasClosed = false;
     if (!event) {
-      console.log('previo', this.selectedDias)
-      console.log('actual', this.formGroup.value.medEspecialidad.dia);
+      // console.log('previo', this.selectedDias)
+      // console.log('actual', this.formGroup.value.medEspecialidad.dia);
       this.isDiasClosed = true;
       if (JSON.stringify(this.selectedDias) !== JSON.stringify(this.formGroup.value.medEspecialidad.dia)) {
         this.selectedDias = this.formGroup.value.medEspecialidad.dia;

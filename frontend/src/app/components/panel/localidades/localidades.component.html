@@ -11,15 +11,15 @@
             <table class="table col-12 col-md-8">
                 <thead>
                     <tr>
-                        <td scope="col">Localidad</td>
+                        <td scope="col">Localidad<i id='localSort' (click)="getIcon($event)" class="fas fa-sort-up pl-2"></i></td>
                         <td scope="col">C.P.</td>
-                        <td scope="col">Provincia</td>
-                        <td scope="col">Pais</td>
+                        <td scope="col">Provincia<i id='provSort' (click)="getIcon($event)" class="fas fa-sort-up pl-2"></i></td>
+                        <td scope="col">Pais<i id='paisSort' (click)="getIcon($event)" class="fas fa-sort-up pl-2"></i></td>
                         <td scope="col">Usuario</td>
                         <td scope="col">U.Modificación</td>
                     </tr>
                 </thead>
-                <tbody *ngFor="let item of data | filter: search: 'nombre'">
+                <tbody *ngFor="let item of data">
                     <tr class="pointer" [routerLink]="['/panel/localidad', item.id_localidad]">
                         <!-- <tr (click)="getInputValue()"> -->
                         <td scope="row">{{ item.nombre }}</td>

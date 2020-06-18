@@ -13,6 +13,8 @@ export class LocalidadesComponent implements OnInit {
   data: any;
   value: any;
   search = '';
+  orderBy = false;
+  caca = 'nombre';
 
   constructor(
     private localidadesServ: LocalidadesService,
@@ -47,5 +49,48 @@ export class LocalidadesComponent implements OnInit {
     } else {}
   }
 
+  sortBy(prop: string, bool: boolean) {
+    console.log(bool);
+    if (!bool) {
+      return this.data.sort((a, b) => a[prop] > b[prop] ? -1 : a[prop] === b[prop] ? 0 : 1);
+    } else {
+      return this.data.sort((a, b) => a[prop] > b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1);
+    }
+  }
 
+  getClicked(event) {
+    console.log('id', event.srcElement.firstElementChild.id);
+    // console.log(this.orderBy);
+    const elementId = event.srcElement.firstElementChild.id;
+    this.orderBy = !this.orderBy;
+    let propiedad = event.target.textContent.toLowerCase(); // ...........................
+    const elem = document.getElementById(elementId);
+    // console.log('dadas', elem.className);
+    if (elem.className === 'fas fa-sort-up' ) {
+      elem.className = 'fas fa-sort-down';
+    } else {
+      elem.className = 'fas fa-sort-up';
+    }
+    if (this.data) {
+    this.sortBy(propiedad==='localidad'?propiedad='nombre':propiedad, this.orderBy)
+    }
+  }
+
+  getIcon(event) {
+    // console.log('icon...', event.target.parentElement.textContent.toLowerCase());
+    // console.log('icon...', event.target.id);
+    this.orderBy = !this.orderBy;
+    const elementId = event.target.id;
+    let propiedad = event.target.parentElement.textContent.toLowerCase();
+    const elem = document.getElementById(elementId);
+
+    if (elem.className === 'fas fa-sort-up pl-2' ) {
+      elem.className = 'fas fa-sort-down pl-2';
+    } else {
+      elem.className = 'fas fa-sort-up pl-2';
+    }
+    if (this.data) {
+    this.sortBy(propiedad==='localidad'?propiedad='nombre':propiedad, this.orderBy)
+    }
+  }
 }
